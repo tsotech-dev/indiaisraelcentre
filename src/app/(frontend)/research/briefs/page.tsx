@@ -4,7 +4,7 @@ import FormatHero from '@/components/FormatHero'
 import Reveal from '@/components/Reveal'
 import { Suspense } from 'react'
 import FilterBar from '@/components/FilterBar'
-import { getPublications } from '@/lib/payload'
+import { getPublications, getGlobal } from '@/lib/payload'
 import { pillarLabel } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -14,7 +14,10 @@ export const metadata: Metadata = {
 }
 
 export default async function BriefsPage() {
-  const briefs = await getPublications({ type: 'brief', limit: 60 })
+  const [briefs, c] = await Promise.all([
+    getPublications({ type: 'brief', limit: 60 }),
+    getGlobal('research-briefs'),
+  ])
 
   return (
     <>
@@ -23,11 +26,11 @@ export default async function BriefsPage() {
         eyebrow="Briefs"
         title="Decisive synthesis."
         italic="For working professionals."
-        description="Briefs are the Centre's policy-oriented publications — typically 2,000 to 4,000 words. They synthesise evidence and offer clear analytical conclusions."
+        description={(c?.description as string | undefined) ?? "Briefs are the Centre's policy-oriented publications — typically 2,000 to 4,000 words. They synthesise evidence and offer clear analytical conclusions."}
         crumbs={[{ label: 'Research', href: '/research/' }, { label: 'Briefs' }]}
         meta={[
-          { label: 'Typical length', value: '2–4k' },
-          { label: 'Per year', value: '12+' },
+          { label: 'Typical length', value: (c?.typicalLength as string | undefined) ?? '2–4k' },
+          { label: 'Per year', value: (c?.perYear as string | undefined) ?? '12+' },
         ]}
       />
       <section className="bg-iic-paper">

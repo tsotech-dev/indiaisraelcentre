@@ -4,7 +4,7 @@ import FormatHero from '@/components/FormatHero'
 import Reveal from '@/components/Reveal'
 import { Suspense } from 'react'
 import FilterBar from '@/components/FilterBar'
-import { getPublications } from '@/lib/payload'
+import { getPublications, getGlobal } from '@/lib/payload'
 import { pillarLabel } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -14,7 +14,10 @@ export const metadata: Metadata = {
 }
 
 export default async function CommentaryPage() {
-  const items = await getPublications({ type: 'commentary', limit: 60 })
+  const [items, c] = await Promise.all([
+    getPublications({ type: 'commentary', limit: 60 }),
+    getGlobal('research-commentary'),
+  ])
 
   return (
     <>
@@ -23,11 +26,11 @@ export default async function CommentaryPage() {
         eyebrow="Commentary"
         title="Timely essays."
         italic="On a current question."
-        description="Commentary is the Centre's analytical essay format — typically 800 to 2,500 words, written on a current question or event."
+        description={(c?.description as string | undefined) ?? "Commentary is the Centre's analytical essay format — typically 800 to 2,500 words, written on a current question or event."}
         crumbs={[{ label: 'Research', href: '/research/' }, { label: 'Commentary' }]}
         meta={[
-          { label: 'Typical length', value: '0.8–2.5k' },
-          { label: 'Per year', value: '24+' },
+          { label: 'Typical length', value: (c?.typicalLength as string | undefined) ?? '0.8–2.5k' },
+          { label: 'Per year', value: (c?.perYear as string | undefined) ?? '24+' },
         ]}
       />
       <section className="bg-iic-paper">

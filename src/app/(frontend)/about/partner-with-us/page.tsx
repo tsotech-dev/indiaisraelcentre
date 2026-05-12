@@ -1,13 +1,22 @@
 import type { Metadata } from 'next'
 import StaticPageHero from '@/components/StaticPageHero'
 import ContactForm from '@/components/ContactForm'
+import { getGlobal } from '@/lib/payload'
 
 export const metadata: Metadata = {
   title: 'Partner with Us',
   description: 'Institutional partnership inquiries for the India Israel Centre.',
 }
 
-export default function PartnerPage() {
+const DEFAULTS = {
+  paragraph1: 'The Centre considers institutional partnerships with bodies that work on overlapping questions or complementary geographies.',
+  paragraph2: 'We do not run a formal partnership programme. Each partnership is considered individually on the basis of intellectual fit, institutional independence, and the specific collaboration proposed. Arrangements may include joint convenings, co-authored research, visiting fellowships, or shared editorial projects.',
+  paragraph3: 'Please use the form below to introduce your institution. We respond within ten working days.',
+}
+
+export default async function PartnerPage() {
+  const c = await getGlobal('about-partner-with-us')
+
   return (
     <>
       <StaticPageHero
@@ -19,20 +28,9 @@ export default function PartnerPage() {
       />
       <section className="bg-iic-paper border-b border-stone-200">
         <div className="max-w-3xl mx-auto px-6 py-14 space-y-5 text-stone-700 leading-relaxed text-lg">
-          <p>
-            The Centre considers institutional partnerships with bodies that work on overlapping
-            questions or complementary geographies.
-          </p>
-          <p>
-            We do not run a formal partnership programme. Each partnership is considered
-            individually on the basis of intellectual fit, institutional independence, and the
-            specific collaboration proposed. Arrangements may include joint convenings, co-authored
-            research, visiting fellowships, or shared editorial projects.
-          </p>
-          <p>
-            Please use the form below to introduce your institution. We respond within ten working
-            days.
-          </p>
+          <p>{(c?.paragraph1 as string | undefined) ?? DEFAULTS.paragraph1}</p>
+          <p>{(c?.paragraph2 as string | undefined) ?? DEFAULTS.paragraph2}</p>
+          <p>{(c?.paragraph3 as string | undefined) ?? DEFAULTS.paragraph3}</p>
         </div>
       </section>
       <section className="bg-white border-b border-stone-200">

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import StaticPageHero from '@/components/StaticPageHero'
+import { getGlobal } from '@/lib/payload'
 import { formatDate } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -100,27 +101,43 @@ const SECTIONS = [
   },
 ]
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const c = await getGlobal('privacy')
+  const cmsSections = (c?.sections as { heading: string; body: string }[] | null)?.length
+    ? (c?.sections as { heading: string; body: string }[])
+    : null
+  const lastReviewed = (c?.lastReviewed as string | undefined) ?? LAST_REVIEWED
+
   return (
     <>
       <StaticPageHero
         accent="navy"
         eyebrow="Legal"
         title="Privacy policy."
-        description={`Last reviewed ${formatDate(LAST_REVIEWED)}.`}
+        description={`Last reviewed ${formatDate(lastReviewed)}.`}
         crumbs={[{ label: 'Privacy' }]}
       />
       <section className="bg-iic-paper border-b border-stone-200">
         <div className="max-w-3xl mx-auto px-6 py-14 space-y-10 text-stone-700 leading-relaxed">
-          {SECTIONS.map((s, i) => (
-            <div key={i} className="border-l-2 border-iic-saffron/40 pl-5">
-              <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron-deep mb-2">
-                {String(i + 1).padStart(2, '0')}
-              </div>
-              <h2 className="font-display text-xl font-bold text-stone-900 mb-3">{s.h}</h2>
-              <div className="space-y-3">{s.body}</div>
-            </div>
-          ))}
+          {cmsSections
+            ? cmsSections.map((s, i) => (
+                <div key={i} className="border-l-2 border-iic-saffron/40 pl-5">
+                  <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron-deep mb-2">
+                    {String(i + 1).padStart(2, '0')}
+                  </div>
+                  <h2 className="font-display text-xl font-bold text-stone-900 mb-3">{s.heading}</h2>
+                  <p>{s.body}</p>
+                </div>
+              ))
+            : SECTIONS.map((s, i) => (
+                <div key={i} className="border-l-2 border-iic-saffron/40 pl-5">
+                  <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron-deep mb-2">
+                    {String(i + 1).padStart(2, '0')}
+                  </div>
+                  <h2 className="font-display text-xl font-bold text-stone-900 mb-3">{s.h}</h2>
+                  <div className="space-y-3">{s.body}</div>
+                </div>
+              ))}
         </div>
       </section>
     </>

@@ -4,7 +4,7 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import Reveal from '@/components/Reveal'
 import { Suspense } from 'react'
 import FilterBar from '@/components/FilterBar'
-import { getConvenings } from '@/lib/payload'
+import { getConvenings, getGlobal } from '@/lib/payload'
 import { pillarLabel } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -13,7 +13,10 @@ export const metadata: Metadata = {
 }
 
 export default async function ForumArchivePage() {
-  const items = await getConvenings({ limit: 100 })
+  const [items, c] = await Promise.all([
+    getConvenings({ limit: 100 }),
+    getGlobal('forum-archive'),
+  ])
 
   return (
     <>
@@ -32,8 +35,7 @@ export default async function ForumArchivePage() {
             All convenings.
           </h1>
           <p className="text-lg md:text-xl text-stone-500 font-display italic font-light max-w-2xl animate-fade-up delay-2">
-            A record of every gathering the Forum has held — closed dialogues, roundtables, and
-            public lectures.
+            {(c?.description as string | undefined) ?? 'A record of every gathering the Forum has held — closed dialogues, roundtables, and public lectures.'}
           </p>
         </div>
       </section>

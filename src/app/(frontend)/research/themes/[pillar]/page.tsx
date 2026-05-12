@@ -6,7 +6,7 @@ import PublicationCard from '@/components/PublicationCard'
 import Reveal from '@/components/Reveal'
 import { PILLARS } from '@/lib/pillars'
 import JsonLd from '@/components/JsonLd'
-import { getPublications } from '@/lib/payload'
+import { getPublications, getPillarContent } from '@/lib/payload'
 
 export function generateStaticParams() {
   return PILLARS.map((p) => ({ pillar: p.code }))
@@ -45,7 +45,10 @@ export default async function PillarPage({
   const pillar = PILLARS.find((p) => p.code === code)
   if (!pillar) notFound()
 
-  const pubs = await getPublications({ pillar: code, limit: 30 })
+  const [pubs, pillarCms] = await Promise.all([
+    getPublications({ pillar: code, limit: 30 }),
+    getPillarContent(code),
+  ])
   const idx = PILLARS.findIndex((p) => p.code === code)
   const prev = PILLARS[(idx - 1 + PILLARS.length) % PILLARS.length]
   const next = PILLARS[(idx + 1) % PILLARS.length]
@@ -98,7 +101,7 @@ export default async function PillarPage({
                 {pillar.oneLineFraming}
               </p>
               <div className="prose text-stone-700 max-w-3xl animate-fade-up delay-3">
-                <p>{pillar.framing}</p>
+                <p>{(pillarCms?.framing as string | undefined) ?? pillar.framing}</p>
               </div>
             </div>
           </div>

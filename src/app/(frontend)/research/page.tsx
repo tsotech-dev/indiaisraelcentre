@@ -5,8 +5,8 @@ import Reveal from '@/components/Reveal'
 import { Suspense } from 'react'
 import FilterBar from '@/components/FilterBar'
 import Link from 'next/link'
-import { getPublications } from '@/lib/payload'
-import { pillarLabel, formatLabel } from '@/lib/utils'
+import { getPublications, getGlobal } from '@/lib/payload'
+import { pillarLabel } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: 'Research',
@@ -39,7 +39,13 @@ const FORMATS = [
 ]
 
 export default async function ResearchPage() {
-  const pubs = await getPublications({ limit: 60 })
+  const [pubs, c] = await Promise.all([
+    getPublications({ limit: 60 }),
+    getGlobal('research'),
+  ])
+  const cmsCards = (c?.formatCards as { label: string; body: string }[] | null)?.length
+    ? (c?.formatCards as { label: string; body: string }[])
+    : null
 
   return (
     <>
@@ -91,7 +97,7 @@ export default async function ResearchPage() {
                   <h2 className="font-display text-2xl font-semibold text-stone-900 mb-3 group-hover:text-iic-navy transition-colors">
                     {f.label}
                   </h2>
-                  <p className="text-sm text-stone-600 leading-relaxed mb-6">{f.body}</p>
+                  <p className="text-sm text-stone-600 leading-relaxed mb-6">{cmsCards?.[i]?.body ?? f.body}</p>
                   <span className="inline-flex items-center gap-1 text-xs font-sans font-semibold text-iic-saffron underline-anim">
                     Browse {f.label.toLowerCase()}
                     <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>

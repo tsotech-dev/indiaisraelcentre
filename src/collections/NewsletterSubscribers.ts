@@ -5,6 +5,7 @@ export const NewsletterSubscribers: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
     defaultColumns: ['email', 'createdAt'],
+    hidden: (args: any) => args?.user?.role !== 'admin',
   },
   access: {
     create: () => true,

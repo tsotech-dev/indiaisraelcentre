@@ -106,3 +106,28 @@ export async function getPerson(slug: string) {
     return null
   }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getGlobal(slug: string): Promise<Record<string, any> | null> {
+  try {
+    const payload = await getPayloadClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await payload.findGlobal({ slug } as any)
+  } catch {
+    return null
+  }
+}
+
+export async function getPillarContent(code: string) {
+  try {
+    const payload = await getPayloadClient()
+    const res = await payload.find({
+      collection: 'pillars',
+      where: { code: { equals: code } },
+      limit: 1,
+    })
+    return res.docs[0] ?? null
+  } catch {
+    return null
+  }
+}

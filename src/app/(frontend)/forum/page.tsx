@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import ConveningCard from '@/components/ConveningCard'
 import Reveal from '@/components/Reveal'
-import { getConvenings } from '@/lib/payload'
+import { getConvenings, getGlobal } from '@/lib/payload'
 import { pillarLabel } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -12,9 +12,10 @@ export const metadata: Metadata = {
 }
 
 export default async function ForumPage() {
-  const [upcoming, recent] = await Promise.all([
+  const [upcoming, recent, c] = await Promise.all([
     getConvenings({ upcoming: true, limit: 6 }),
     getConvenings({ upcoming: false, limit: 4 }),
+    getGlobal('forum'),
   ])
 
   return (
@@ -75,30 +76,23 @@ export default async function ForumPage() {
                 / From the Chair
               </div>
               <h2 className="font-display text-3xl md:text-5xl font-bold text-stone-900 leading-tight mb-8">
-                The India-Israel relationship is consequential enough to deserve sustained, serious
-                intellectual attention.
+                {(c?.chairBlockquote as string | undefined) ?? 'The India-Israel relationship is consequential enough to deserve sustained, serious intellectual attention.'}
               </h2>
             </Reveal>
             <Reveal delay={120}>
               <div className="space-y-5 text-stone-700 leading-relaxed text-lg max-w-2xl">
                 <p>
-                  We convene people who have worked on the relationship — diplomats, defence
-                  professionals, scientists, scholars, business leaders — from India, from Israel,
-                  and from third countries where the relationship plays out. We bring them together
-                  around questions, not agendas.
+                  {(c?.chairParagraph1 as string | undefined) ?? 'We convene people who have worked on the relationship — diplomats, defence professionals, scientists, scholars, business leaders — from India, from Israel, and from third countries where the relationship plays out. We bring them together around questions, not agendas.'}
                 </p>
                 <p>
-                  The output is not a communiqué. It is the quality of understanding participants
-                  carry away, and occasionally a written record — a summary or a brief — of the
-                  ground that was covered.
+                  {(c?.chairParagraph2 as string | undefined) ?? 'The output is not a communiqué. It is the quality of understanding participants carry away, and occasionally a written record — a summary or a brief — of the ground that was covered.'}
                 </p>
                 <p>
-                  The strongest proposals for the Forum come from people with a specific analytical
-                  puzzle, not a general interest in the subject.
+                  {(c?.chairParagraph3 as string | undefined) ?? 'The strongest proposals for the Forum come from people with a specific analytical puzzle, not a general interest in the subject.'}
                 </p>
               </div>
               <div className="mt-8 text-sm font-sans text-stone-500 italic">
-                — Professor Khinvraj Jangid, Chair of the Forum
+                {(c?.chairSignature as string | undefined) ?? '— Professor Khinvraj Jangid, Chair of the Forum'}
               </div>
             </Reveal>
           </div>
@@ -117,9 +111,7 @@ export default async function ForumPage() {
                   Chair of the Forum
                 </div>
                 <p className="text-sm text-stone-600 leading-relaxed mb-5">
-                  Professor and Director, Jindal Centre for Israel Studies, O.P. Jindal Global
-                  University. Specialist in India-Israel relations, Jewish studies, and South Asian
-                  intellectual history.
+                  {(c?.chairBio as string | undefined) ?? 'Professor and Director, Jindal Centre for Israel Studies, O.P. Jindal Global University. Specialist in India-Israel relations, Jewish studies, and South Asian intellectual history.'}
                 </p>
                 <Link
                   href="/about/people/khinvraj-jangid/"

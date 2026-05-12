@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { getGlobal } from '@/lib/payload'
 
 const LINKS = [
   { label: 'Research', href: '/research/' },
@@ -9,7 +10,8 @@ const LINKS = [
   { label: 'Homepage', href: '/' },
 ]
 
-export default function NotFound() {
+export default async function NotFound() {
+  const c = await getGlobal('not-found')
   return (
     <>
       <Header />
@@ -32,11 +34,10 @@ export default function NotFound() {
             / Page not found
           </div>
           <h1 className="font-display text-2xl md:text-3xl font-bold text-stone-900 mb-5 animate-fade-up delay-2">
-            This page does not exist or has moved.
+            {(c?.heading as string | undefined) ?? 'This page does not exist or has moved.'}
           </h1>
           <p className="text-stone-600 mb-10 leading-relaxed animate-fade-up delay-3">
-            If you followed a link from an external source, the URL may have changed. All published
-            content remains accessible — please browse from the sections below.
+            {(c?.description as string | undefined) ?? 'If you followed a link from an external source, the URL may have changed. All published content remains accessible — please browse from the sections below.'}
           </p>
           <div className="flex flex-wrap justify-center gap-3 animate-fade-up delay-4">
             {LINKS.map((l) => (
