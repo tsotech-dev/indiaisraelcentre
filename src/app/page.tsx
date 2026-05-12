@@ -1,51 +1,54 @@
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import PublicationCard from '@/components/PublicationCard'
-import PillarNavigatorGrid from '@/components/PillarNavigatorGrid'
-import NewsletterSignup from '@/components/NewsletterSignup'
-import Reveal from '@/components/Reveal'
-import Link from 'next/link'
-import JsonLd from '@/components/JsonLd'
-import { getPublications, getConvenings } from '@/lib/payload'
-import { pillarLabel, formatDate, formatLabel } from '@/lib/utils'
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import PublicationCard from "@/components/PublicationCard";
+import PillarNavigatorGrid from "@/components/PillarNavigatorGrid";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import Reveal from "@/components/Reveal";
+import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { getPublications, getConvenings } from "@/lib/payload";
+import { pillarLabel, formatDate, formatLabel } from "@/lib/utils";
 
 const ORG_JSONLD = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'India Israel Centre',
-  url: 'https://indiaisraelcentre.org',
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "India Israel Centre",
+  url: "https://indiaisraelcentre.org",
   description:
-    'An independent research and convening institution advancing serious scholarship on the India-Israel bilateral relationship.',
-  sameAs: ['https://x.com/indiaisraelctr', 'https://linkedin.com/company/india-israel-centre'],
-}
+    "An independent research and convening institution advancing serious scholarship on the India-Israel bilateral relationship.",
+  sameAs: [
+    "https://x.com/indiaisraelctr",
+    "https://linkedin.com/company/india-israel-centre",
+  ],
+};
 
 const STATS = [
-  { value: '6', label: 'Research pillars' },
-  { value: '24+', label: 'Publications planned in 2026' },
-  { value: '12', label: 'Convenings a year' },
-  { value: '2', label: 'Countries, one conversation' },
-]
+  { value: "6", label: "Research pillars" },
+  { value: "24+", label: "Publications planned in 2026" },
+  { value: "12", label: "Convenings a year" },
+  { value: "2", label: "Countries, one conversation" },
+];
 
 const PARTNERS = [
-  'O.P. Jindal Global University',
-  'Hebrew University of Jerusalem',
-  'Tel Aviv University',
-  'Observer Research Foundation',
-  'Institute for National Security Studies',
-  'Carnegie India',
-  'Brookings India',
-  'IDSA',
-]
+  "O.P. Jindal Global University",
+  "Hebrew University of Jerusalem",
+  "Tel Aviv University",
+  "Observer Research Foundation",
+  "Institute for National Security Studies",
+  "Carnegie India",
+  "Brookings India",
+  "IDSA",
+];
 
 export default async function HomePage() {
   const [latestPubs, upcomingConvenings, commentary] = await Promise.all([
     getPublications({ limit: 4 }),
     getConvenings({ upcoming: true, limit: 2 }),
-    getPublications({ type: 'commentary', limit: 3 }),
-  ])
+    getPublications({ type: "commentary", limit: 3 }),
+  ]);
 
-  const featured = latestPubs[0]
-  const rest = latestPubs.slice(1, 4)
+  const featured = latestPubs[0];
+  const rest = latestPubs.slice(1, 4);
 
   return (
     <>
@@ -57,20 +60,27 @@ export default async function HomePage() {
           <div
             aria-hidden
             className="absolute -top-40 -right-40 w-[680px] h-[680px] rounded-full opacity-25 animate-float"
-            style={{ background: 'radial-gradient(circle, #FF671F 0%, transparent 65%)' }}
+            style={{
+              background:
+                "radial-gradient(circle, #FF671F 0%, transparent 65%)",
+            }}
           />
           <div
             aria-hidden
             className="absolute -bottom-60 -left-40 w-[720px] h-[720px] rounded-full opacity-20 animate-float"
             style={{
-              background: 'radial-gradient(circle, #005EB8 0%, transparent 65%)',
-              animationDelay: '2s',
+              background:
+                "radial-gradient(circle, #005EB8 0%, transparent 65%)",
+              animationDelay: "2s",
             }}
           />
           <div
             aria-hidden
             className="absolute top-1/4 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full opacity-30"
-            style={{ background: 'radial-gradient(circle, #FFD700 0%, transparent 70%)' }}
+            style={{
+              background:
+                "radial-gradient(circle, #FFD700 0%, transparent 70%)",
+            }}
           />
 
           <div className="relative max-w-7xl mx-auto px-6 pt-24 md:pt-32 pb-16 md:pb-24">
@@ -89,8 +99,10 @@ export default async function HomePage() {
                 <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-bold leading-[0.95] tracking-tight text-stone-900 mb-8">
                   <span className="block animate-fade-up">Where</span>
                   <span className="block animate-fade-up delay-1">
-                    <span className="text-iic-saffron">India</span>{' '}
-                    <span className="italic font-light text-stone-400">meets</span>{' '}
+                    <span className="text-iic-saffron">India</span>{" "}
+                    <span className="italic font-light text-stone-400">
+                      meets
+                    </span>{" "}
                     <span className="text-iic-navy">Israel</span>
                   </span>
                   <span className="block animate-fade-up delay-2 italic font-light text-stone-600">
@@ -99,9 +111,9 @@ export default async function HomePage() {
                 </h1>
 
                 <p className="text-lg md:text-xl text-stone-600 leading-relaxed mb-10 max-w-2xl animate-fade-up delay-3">
-                  An independent research and convening institution producing papers, briefs, and
-                  commentary — and bringing scholars, diplomats, and practitioners into the same
-                  room.
+                  An independent research and convening institution producing
+                  papers, briefs, and commentary — and bringing scholars,
+                  diplomats, and practitioners into the same room.
                 </p>
 
                 <div className="flex flex-wrap gap-3 animate-fade-up delay-4">
@@ -130,15 +142,18 @@ export default async function HomePage() {
                     From the Editors
                   </div>
                   <p className="font-display text-lg leading-snug text-stone-800 italic mb-5 mt-2">
-                    "The relationship is consequential enough to deserve sustained intellectual
-                    attention — and we are building the room where that attention happens."
+                    "The relationship is consequential enough to deserve
+                    sustained intellectual attention — and we are building the
+                    room where that attention happens."
                   </p>
                   <div className="flex items-center gap-3 pt-4 border-t border-stone-100">
                     <div className="w-9 h-9 rounded-full bg-gradient-to-br from-iic-saffron to-iic-navy flex items-center justify-center text-white text-xs font-sans font-bold">
                       KJ
                     </div>
                     <div className="text-xs font-sans">
-                      <div className="font-semibold text-stone-900">Prof. Khinvraj Jangid</div>
+                      <div className="font-semibold text-stone-900">
+                        Prof. Khinvraj Jangid
+                      </div>
                       <div className="text-stone-500">Chair, IIC Forum</div>
                     </div>
                   </div>
@@ -165,7 +180,9 @@ export default async function HomePage() {
 
           {/* Scroll cue */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-stone-400 animate-fade-in delay-5">
-            <span className="text-[10px] font-sans uppercase tracking-[0.2em]">Scroll</span>
+            <span className="text-[10px] font-sans uppercase tracking-[0.2em]">
+              Scroll
+            </span>
             <span className="w-px h-10 bg-gradient-to-b from-stone-400 to-transparent" />
           </div>
         </section>
@@ -178,19 +195,20 @@ export default async function HomePage() {
             {[0, 1].map((dup) => (
               <div key={dup} className="flex items-center gap-12 px-6 shrink-0">
                 {[
-                  'Six research pillars',
-                  'Twelve convenings a year',
-                  'Independent. Editorially.',
-                  'Papers · Briefs · Commentary',
-                  'New Delhi · Jerusalem · Tel Aviv',
-                  'Est. 2026',
+                  "Six research pillars",
+                  "Twelve convenings a year",
+                  "Independent. Editorially.",
+                  "Papers · Briefs · Commentary",
+                  "New Delhi · Jerusalem · Tel Aviv",
                 ].map((t) => (
                   <span
                     key={t}
                     className="flex items-center gap-12 text-sm font-sans font-medium uppercase tracking-[0.2em] text-white/80"
                   >
                     <span>{t}</span>
-                    <span className="text-iic-saffron text-xl leading-none">✦</span>
+                    <span className="text-iic-saffron text-xl leading-none">
+                      ✦
+                    </span>
                   </span>
                 ))}
               </div>
@@ -207,15 +225,18 @@ export default async function HomePage() {
                   / What we do
                 </div>
                 <h2 className="font-display text-4xl md:text-5xl font-bold leading-tight text-stone-900 mb-6">
-                  A think tank built for{' '}
-                  <span className="italic font-light text-stone-500">the long argument.</span>
+                  A think tank built for{" "}
+                  <span className="italic font-light text-stone-500">
+                    the long argument.
+                  </span>
                 </h2>
               </div>
               <div className="lg:col-span-7 lg:pt-4">
                 <p className="text-lg text-stone-600 leading-relaxed">
-                  We exist because the India–Israel relationship is consequential enough to
-                  deserve serious intellectual attention. The Centre produces research that
-                  meets academic standards while remaining usable to policy professionals, and
+                  We exist because the India–Israel relationship is
+                  consequential enough to deserve serious intellectual
+                  attention. The Centre produces research that meets academic
+                  standards while remaining usable to policy professionals, and
                   convenes the people who actually move the relationship.
                 </p>
               </div>
@@ -224,25 +245,25 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
-                  num: '01',
-                  title: 'Research',
-                  body: 'Papers, briefs, and commentary across six thematic pillars that map the full scope of the relationship.',
-                  link: { label: 'See publications', href: '/research/' },
-                  accent: 'saffron',
+                  num: "01",
+                  title: "Research",
+                  body: "Papers, briefs, and commentary across six thematic pillars that map the full scope of the relationship.",
+                  link: { label: "See publications", href: "/research/" },
+                  accent: "saffron",
                 },
                 {
-                  num: '02',
-                  title: 'Convenings',
-                  body: 'Closed dialogues, roundtables, and public lectures — formats chosen to fit the question, not the calendar.',
-                  link: { label: 'The Forum', href: '/forum/' },
-                  accent: 'navy',
+                  num: "02",
+                  title: "Convenings",
+                  body: "Closed dialogues, roundtables, and public lectures — formats chosen to fit the question, not the calendar.",
+                  link: { label: "The Forum", href: "/forum/" },
+                  accent: "navy",
                 },
                 {
-                  num: '03',
-                  title: 'Network',
-                  body: 'In-house staff, fellows, and affiliated researchers across Indian and Israeli universities and think tanks.',
-                  link: { label: 'About the Centre', href: '/about/' },
-                  accent: 'gold',
+                  num: "03",
+                  title: "Network",
+                  body: "In-house staff, fellows, and affiliated researchers across Indian and Israeli universities and think tanks.",
+                  link: { label: "About the Centre", href: "/about/" },
+                  accent: "gold",
                 },
               ].map((c, i) => (
                 <Reveal key={c.num} delay={i * 120}>
@@ -252,11 +273,11 @@ export default async function HomePage() {
                   >
                     <span
                       className={`absolute inset-x-0 top-0 h-1 ${
-                        c.accent === 'saffron'
-                          ? 'bg-iic-saffron'
-                          : c.accent === 'navy'
-                            ? 'bg-iic-navy'
-                            : 'bg-iic-gold'
+                        c.accent === "saffron"
+                          ? "bg-iic-saffron"
+                          : c.accent === "navy"
+                            ? "bg-iic-navy"
+                            : "bg-iic-gold"
                       }`}
                     />
                     <div className="font-display text-5xl font-bold text-stone-200 mb-6 group-hover:text-iic-saffron transition-colors duration-500">
@@ -265,10 +286,14 @@ export default async function HomePage() {
                     <h3 className="font-display text-2xl font-semibold text-stone-900 mb-3">
                       {c.title}
                     </h3>
-                    <p className="text-stone-600 leading-relaxed mb-6">{c.body}</p>
+                    <p className="text-stone-600 leading-relaxed mb-6">
+                      {c.body}
+                    </p>
                     <div className="text-sm font-sans font-semibold text-iic-navy inline-flex items-center gap-1 underline-anim">
                       {c.link.label}
-                      <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                      <span className="transition-transform duration-300 group-hover:translate-x-1">
+                        →
+                      </span>
                     </div>
                   </Link>
                 </Reveal>
@@ -310,7 +335,10 @@ export default async function HomePage() {
                       <div
                         aria-hidden
                         className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full opacity-30"
-                        style={{ background: 'radial-gradient(circle, #FFD700 0%, transparent 70%)' }}
+                        style={{
+                          background:
+                            "radial-gradient(circle, #FFD700 0%, transparent 70%)",
+                        }}
                       />
                       <div className="relative">
                         <span className="inline-flex items-center gap-2 text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-gold mb-4">
@@ -335,7 +363,9 @@ export default async function HomePage() {
                         </p>
                       )}
                       <div className="text-sm font-sans text-stone-500 pt-4 border-t border-stone-100">
-                        {featured.authors.map((a: { name: string }) => a.name).join(', ')}
+                        {featured.authors
+                          .map((a: { name: string }) => a.name)
+                          .join(", ")}
                       </div>
                     </div>
                   </div>
@@ -390,15 +420,17 @@ export default async function HomePage() {
                     / Six pillars
                   </div>
                   <h2 className="font-display text-4xl md:text-5xl font-bold leading-tight text-stone-900">
-                    The full breadth of the relationship,{' '}
-                    <span className="italic font-light text-stone-500">organised.</span>
+                    The full breadth of the relationship,{" "}
+                    <span className="italic font-light text-stone-500">
+                      organised.
+                    </span>
                   </h2>
                 </div>
                 <div className="lg:col-span-5">
                   <p className="text-stone-600 leading-relaxed">
-                    Each pillar is a coherent research programme — not a tag. Together they map
-                    the relationship across identity, governance, security, technology, development,
-                    and culture.
+                    Each pillar is a coherent research programme — not a tag.
+                    Together they map the relationship across identity,
+                    governance, security, technology, development, and culture.
                   </p>
                 </div>
               </div>
@@ -414,7 +446,10 @@ export default async function HomePage() {
           <div
             aria-hidden
             className="absolute -top-40 -left-40 w-[420px] h-[420px] rounded-full opacity-30"
-            style={{ background: 'radial-gradient(circle, #FFD700 0%, transparent 70%)' }}
+            style={{
+              background:
+                "radial-gradient(circle, #FFD700 0%, transparent 70%)",
+            }}
           />
           <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32 text-center">
             <Reveal>
@@ -422,10 +457,13 @@ export default async function HomePage() {
                 "
               </div>
               <blockquote className="font-display text-3xl md:text-5xl font-light leading-tight text-stone-900 max-w-4xl mx-auto">
-                We bring people together around{' '}
-                <span className="text-iic-saffron font-normal italic">questions</span>, not agendas.
-                The output is the quality of understanding participants carry away — and occasionally,
-                a written record of the ground that was covered.
+                We bring people together around{" "}
+                <span className="text-iic-saffron font-normal italic">
+                  questions
+                </span>
+                , not agendas. The output is the quality of understanding
+                participants carry away — and occasionally, a written record of
+                the ground that was covered.
               </blockquote>
               <div className="mt-10 inline-flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-iic-saffron to-iic-navy flex items-center justify-center text-white text-sm font-sans font-bold">
@@ -506,7 +544,9 @@ export default async function HomePage() {
               </div>
             ) : (
               <div className="border border-dashed border-white/15 rounded-sm p-12 text-center">
-                <p className="text-white/60">Upcoming convenings will be announced here.</p>
+                <p className="text-white/60">
+                  Upcoming convenings will be announced here.
+                </p>
               </div>
             )}
           </div>
@@ -551,7 +591,9 @@ export default async function HomePage() {
               </div>
             ) : (
               <div className="border border-dashed border-stone-200 rounded-sm p-12 text-center">
-                <p className="text-stone-400">Commentary will appear here as it is published.</p>
+                <p className="text-stone-400">
+                  Commentary will appear here as it is published.
+                </p>
               </div>
             )}
           </div>
@@ -569,7 +611,10 @@ export default async function HomePage() {
             <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-iic-paper to-transparent z-10" />
             <div className="flex whitespace-nowrap animate-marquee">
               {[0, 1].map((dup) => (
-                <div key={dup} className="flex items-center gap-16 px-8 shrink-0">
+                <div
+                  key={dup}
+                  className="flex items-center gap-16 px-8 shrink-0"
+                >
                   {PARTNERS.map((p) => (
                     <span
                       key={`${dup}-${p}`}
@@ -585,13 +630,21 @@ export default async function HomePage() {
         </section>
 
         {/* ═══════════ NEWSLETTER ═══════════ */}
-        <section id="newsletter" className="relative bg-white border-b border-stone-200 scroll-mt-20">
+        <section
+          id="newsletter"
+          className="relative bg-white border-b border-stone-200 scroll-mt-20"
+        >
           <div className="tricolor-bar h-1 absolute top-0 inset-x-0" />
           <div className="bg-mesh">
             <div className="max-w-4xl mx-auto px-6 py-24 md:py-32 text-center relative">
               <Reveal>
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-iic-saffron text-white mb-8 animate-pulse-ring">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -604,18 +657,22 @@ export default async function HomePage() {
                   The Brief — Monthly
                 </div>
                 <h2 className="font-display text-4xl md:text-6xl font-bold leading-[1.05] text-stone-900 mb-5">
-                  Get the Centre's work,{' '}
-                  <span className="italic font-light text-stone-500">in your inbox.</span>
+                  Get the Centre's work,{" "}
+                  <span className="italic font-light text-stone-500">
+                    in your inbox.
+                  </span>
                 </h2>
                 <p className="text-lg text-stone-600 leading-relaxed mb-10 max-w-xl mx-auto">
-                  One monthly note from the editors: new publications, upcoming convenings, and a
-                  brief read from the chair. No filler. Unsubscribe any time.
+                  One monthly note from the editors: new publications, upcoming
+                  convenings, and a brief read from the chair. No filler.
+                  Unsubscribe any time.
                 </p>
                 <div className="max-w-md mx-auto">
                   <NewsletterSignup source="homepage" variant="light" />
                 </div>
                 <p className="text-xs font-sans text-stone-400 mt-5">
-                  We confirm subscriptions by email. Your address is never shared.
+                  We confirm subscriptions by email. Your address is never
+                  shared.
                 </p>
               </Reveal>
             </div>
@@ -624,5 +681,5 @@ export default async function HomePage() {
       </main>
       <Footer />
     </>
-  )
+  );
 }
