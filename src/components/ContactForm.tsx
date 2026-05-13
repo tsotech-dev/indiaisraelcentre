@@ -92,7 +92,7 @@ export default function ContactForm({ type, recipientHint }: ContactFormProps) {
       {state === 'error' && (
         <p className="text-xs font-sans text-red-600">
           Something went wrong. Please write directly to{' '}
-          {recipientHint ?? 'editorial@indiaisraelcentre.org'}.
+          {recipientHint ?? 'research@indiaisraelcentre.org'}.
         </p>
       )}
 

@@ -24,14 +24,9 @@ export default async function PapersPage() {
       <FormatHero
         accent="navy"
         eyebrow="Papers"
-        title="Extended scholarship."
-        italic="The long argument."
-        description={(c?.description as string | undefined) ?? "Papers are the Centre's extended analytical publications — typically 5,000 to 12,000 words. They make an original scholarly contribution and are citable as research publications."}
+        title="Papers"
+        description={(c?.description as string | undefined) ?? "Long-form research from the Centre. Each Paper carries an abstract, downloadable PDF, citation blocks in major academic formats, and structured metadata supporting indexing by Google Scholar and major citation managers."}
         crumbs={[{ label: 'Research', href: '/research/' }, { label: 'Papers' }]}
-        meta={[
-          { label: 'Typical length', value: (c?.typicalLength as string | undefined) ?? '5–12k' },
-          { label: 'Per year', value: (c?.perYear as string | undefined) ?? '8+' },
-        ]}
       />
       <section className="bg-iic-paper">
         <div className="max-w-7xl mx-auto px-6 py-14">

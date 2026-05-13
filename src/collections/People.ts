@@ -41,5 +41,47 @@ export const People: CollectionConfig = {
       name: 'email',
       type: 'email',
     },
+    {
+      name: 'areasOfFocus',
+      type: 'array',
+      label: 'Areas of Focus',
+      fields: [{ name: 'item', type: 'text', required: true }],
+    },
+    {
+      name: 'pillarAffiliations',
+      type: 'array',
+      label: 'Pillar Affiliations',
+      fields: [
+        {
+          name: 'pillarCode',
+          type: 'select',
+          required: true,
+          options: [
+            { label: 'I. Civilizational Resilience & National Renewal', value: 'identity' },
+            { label: 'II. Democratic Transformation & Sovereign Governance', value: 'governance' },
+            { label: 'III. Security, Stability & Counter-Terror Cooperation', value: 'security' },
+            { label: 'IV. Innovation, Technology & Strategic Competitiveness', value: 'technology' },
+            { label: 'V. Sustainable & Inclusive Development', value: 'development' },
+            { label: 'VI. Shared Cultural & Spiritual Heritage', value: 'culture' },
+          ],
+        },
+        {
+          name: 'role',
+          type: 'select',
+          required: true,
+          defaultValue: 'primary',
+          options: [
+            { label: 'Primary', value: 'primary' },
+            { label: 'Secondary', value: 'secondary' },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'externalAffiliations',
+      type: 'array',
+      label: 'External Affiliations / Publications',
+      fields: [{ name: 'item', type: 'text', required: true }],
+    },
   ],
 }

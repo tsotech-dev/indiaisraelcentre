@@ -1,0 +1,42 @@
+# India Israel Centre
+
+> The India Israel Centre is an independent forum dedicated to rigorous academic inquiry, substantive policy engagement, and the informed public dissemination of knowledge concerning the bilateral relationship between India and Israel. The Centre operates in academic partnership with the Centre for Israel Studies at O.P. Jindal Global University, and is chaired by Professor Khinvraj Jangid.
+
+The Centre publishes long-form research, policy and issue briefs, and analytical commentary across six thematic pillars: Civilizational Resilience & National Renewal, Democratic Transformation & Sovereign Governance, Security Stability & Counter-Terror Cooperation, Innovation Technology & Strategic Competitiveness, Sustainable & Inclusive Development, and Shared Cultural & Spiritual Heritage. It convenes scholars, practitioners and senior figures from India, Israel and beyond through the Forum.
+
+The Centre's website is structured for retrieval by humans and by AI assistants. Publications are available in HTML, PDF and markdown formats. Citation data is available in BibTeX and CSL JSON. A public read-only JSON API exposes the Centre's content at /api/.
+
+## Primary surfaces
+
+- [Research](/research/)
+- [Forum](/forum/)
+- [About](/about/)
+- [Chair's profile](/about/people/khinvraj-jangid/)
+
+## Research pillars
+
+- [I. Civilizational Resilience & National Renewal](/research/themes/identity/)
+- [II. Democratic Transformation & Sovereign Governance](/research/themes/governance/)
+- [III. Security, Stability & Counter-Terror Cooperation](/research/themes/security/)
+- [IV. Innovation, Technology & Strategic Competitiveness](/research/themes/technology/)
+- [V. Sustainable & Inclusive Development](/research/themes/development/)
+- [VI. Shared Cultural & Spiritual Heritage](/research/themes/culture/)
+
+## Publication formats
+
+- [Papers](/research/papers/)
+- [Briefs](/research/briefs/)
+- [Commentary](/research/commentary/)
+
+## Machine-readable interfaces
+
+- JSON API root: /api/
+- Publications endpoint: /api/publications/
+- Convenings endpoint: /api/convenings/
+- People endpoint: /api/people/
+- OpenAPI specification: /api/openapi.json
+- XML sitemap index: /sitemap.xml
+
+## Contact
+
+research@indiaisraelcentre.org

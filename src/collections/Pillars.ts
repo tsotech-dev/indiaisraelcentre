@@ -21,10 +21,28 @@ export const Pillars: CollectionConfig = {
       },
     },
     {
+      name: 'numeral',
+      type: 'text',
+      label: 'Roman Numeral',
+      admin: { description: 'e.g. I, II, III, IV, V, VI' },
+    },
+    {
       name: 'label',
       type: 'text',
       required: true,
       label: 'Pillar Label',
+    },
+    {
+      name: 'subtitle',
+      type: 'textarea',
+      label: 'Pillar Subtitle',
+      admin: { description: 'Short italic line beneath the label.' },
+    },
+    {
+      name: 'shortFraming',
+      type: 'textarea',
+      label: 'Short Framing (one line)',
+      admin: { description: 'Used on homepage pillar navigator.' },
     },
     {
       name: 'framing',

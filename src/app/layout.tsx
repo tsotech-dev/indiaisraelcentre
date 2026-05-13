@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: '%s | India Israel Centre',
   },
   description:
-    'The India Israel Centre is an independent research and convening institution advancing serious scholarship on the bilateral relationship.',
+    'The India Israel Centre is an independent forum dedicated to rigorous academic inquiry, substantive policy engagement, and the informed public dissemination of knowledge concerning the bilateral relationship between India and Israel.',
   openGraph: {
     type: 'website',
     siteName: 'India Israel Centre',

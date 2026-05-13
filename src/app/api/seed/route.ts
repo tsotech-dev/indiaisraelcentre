@@ -47,24 +47,41 @@ export async function GET() {
     limit: 1,
   })
 
+  const personData = {
+    name: 'Professor Khinvraj Jangid',
+    slug: 'khinvraj-jangid',
+    role: 'Chair of the Forum, India Israel Centre. Professor and Director, Centre for Israel Studies, O.P. Jindal Global University.',
+    bio: richTextMulti([
+      'Professor Khinvraj Jangid is Professor and Director of the Centre for Israel Studies at O.P. Jindal Global University, and Chair of the Forum at the India Israel Centre. His research compares India and Israel as post-colonial democracies, addressing nation-building, nationalism and universalism, religion and secularism, and majority-minority identities. He has argued that the founding generations of the two states, including Jawaharlal Nehru and David Ben-Gurion, share more in common than the existing comparative scholarship has acknowledged.',
+      'Professor Jangid holds a PhD in West Asian Studies from the School of International Studies at Jawaharlal Nehru University, New Delhi. He is a Visiting Fellow at the Azrieli Centre for Israel Studies (MALI) at the Ben-Gurion Research Institute for the Study of Israel and Zionism, Ben-Gurion University of the Negev, and a Comper Fellow at the Centre for the Study of Antisemitism, University of Haifa.',
+      'His doctoral work received the international Sylff Award (2009 to 2012) of the Tokyo Foundation, and he holds life-long membership of the Foundation as a Sylff Fellow. He is a Summer Institute for Israel Studies Fellow with the Schusterman Centre for Israel Studies at Brandeis University.',
+      'Before joining O.P. Jindal Global University, Professor Jangid taught at the Nelson Mandela Centre for Peace and Conflict Resolution at Jamia Millia Islamia, New Delhi, in 2014. He has been visiting faculty at the Indian Society of International Law, New Delhi, since 2010.',
+    ]),
+    areasOfFocus: [
+      { item: 'Comparative nation-building in post-colonial Asia' },
+      { item: 'Nationalism and universalism in India and Israel' },
+      { item: 'Religion, secularism and constitutional democracy' },
+      { item: 'Majority and minority identities' },
+      { item: 'Antisemitism studies' },
+      { item: 'Israel-India bilateral relations' },
+    ],
+    pillarAffiliations: [
+      { pillarCode: 'identity' as const, role: 'primary' as const },
+      { pillarCode: 'governance' as const, role: 'primary' as const },
+      { pillarCode: 'culture' as const, role: 'secondary' as const },
+    ],
+  }
+
   if (existingPerson.totalDocs === 0) {
-    await payload.create({
-      collection: 'people',
-      data: {
-        name: 'Prof. Khinvraj Jangid',
-        slug: 'khinvraj-jangid',
-        role: 'Chair of the Forum',
-        email: 'kjangid@jgu.edu.in',
-        bio: richTextMulti([
-          "Professor Khinvraj Jangid is Professor and Director of the Jindal Centre for Israel Studies at O.P. Jindal Global University. He is one of India's foremost scholars of the India-Israel bilateral relationship.",
-          "He has published extensively on the political and diplomatic history of the relationship, the Jewish communities of India, and the intersection of South Asian and Israeli political thought. His work appears in leading peer-reviewed journals in history, political science, and Jewish studies.",
-          "Professor Jangid chairs the Forum of the India Israel Centre, setting its intellectual programme and presiding over its convenings. He has held visiting positions at the Hebrew University of Jerusalem and Tel Aviv University.",
-        ]),
-      },
-    })
-    results.push('Created person: Prof. Khinvraj Jangid')
+    await payload.create({ collection: 'people', data: personData as any })
+    results.push('Created person: Professor Khinvraj Jangid')
   } else {
-    results.push('Skipped person (already exists)')
+    await payload.update({
+      collection: 'people',
+      id: existingPerson.docs[0].id,
+      data: personData as any,
+    })
+    results.push('Updated person: Professor Khinvraj Jangid')
   }
 
   // ─── PAPER ─────────────────────────────────────────────────────────────────

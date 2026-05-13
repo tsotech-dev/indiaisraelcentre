@@ -8,72 +8,53 @@ export const metadata: Metadata = {
   description: 'Terms of use for the India Israel Centre website.',
 }
 
-const LAST_REVIEWED = '2026-05-01'
+const LAST_REVIEWED = '2026-05-11'
 
 const SECTIONS = [
   {
-    h: 'Acceptance',
-    body: (
-      <p>
-        By accessing this website you agree to these terms. If you do not agree, please do not use
-        the site.
-      </p>
-    ),
-  },
-  {
-    h: 'Intellectual property',
+    h: 'Use of content',
     body: (
       <>
         <p>
-          All content published on this site — Papers, Briefs, Commentary, and descriptive text —
-          is the property of the India Israel Centre or the individual authors as specified.
-          Content may be cited, quoted (with attribution), and linked to freely. Reproduction in
-          full requires written permission from the Centre.
+          Content on this site is published by the Centre and its affiliated authors. Centre publications are made available for academic, professional and personal use. Citation is welcomed and encouraged.
         </p>
         <p>
-          PDF downloads of Papers and Briefs are provided for personal, non-commercial research and
-          reference use. They may not be redistributed or made available on other platforms
-          without permission.
+          Substantial reproduction, redistribution or commercial use of Centre content without prior written permission is not permitted. Reproduction of Centre content for non-commercial educational and journalistic purposes is permitted where the Centre and the relevant author are clearly attributed and the original URL is provided.
         </p>
       </>
     ),
   },
   {
-    h: 'No advice',
-    body: (
-      <p>
-        Nothing published on this site constitutes legal, financial, or policy advice. The
-        Centre&rsquo;s publications represent the views of their authors and do not constitute the
-        official position of the Indian or Israeli governments, or of any other institution.
-      </p>
-    ),
+    h: 'Linking',
+    body: <p>Links to this site and to specific pieces of Centre content are welcomed. No specific permission is required.</p>,
   },
   {
-    h: 'External links',
-    body: (
-      <p>
-        This site links to external publications and resources. The Centre is not responsible for
-        the content of external sites. Links represent editorial recognition of the linked work;
-        they do not constitute endorsement of the linked site as a whole.
-      </p>
-    ),
+    h: 'Accuracy',
+    body: <p>Authors are responsible for the accuracy of their own pieces. Errors discovered after publication are addressed through dated corrections appended to the relevant piece.</p>,
   },
   {
-    h: 'Availability',
+    h: 'External content',
+    body: <p>The Centre&rsquo;s site links to and embeds content hosted elsewhere. The Centre does not guarantee the availability or accuracy of external content.</p>,
+  },
+  {
+    h: 'Liability',
     body: (
       <p>
-        We aim to keep this site available at all times but make no warranty of continuous
-        availability. Scheduled maintenance and unforeseen circumstances may cause temporary
-        downtime.
+        Content on this site is provided for research, policy analysis and informed public discussion. It does not constitute legal, financial, medical, security or other professional advice. The Centre does not accept liability for actions taken on the basis of its publications.
       </p>
     ),
   },
   {
     h: 'Governing law',
+    body: <p>These Terms of Use are governed by the laws of India.</p>,
+  },
+  {
+    h: 'Contact',
     body: (
       <p>
-        These terms are governed by the laws of India. Disputes arising from the use of this site
-        are subject to the exclusive jurisdiction of the courts of New Delhi.
+        <a href="mailto:research@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim">
+          research@indiaisraelcentre.org
+        </a>
       </p>
     ),
   },
@@ -91,8 +72,8 @@ export default async function TermsPage() {
       <StaticPageHero
         accent="navy"
         eyebrow="Legal"
-        title="Terms of use."
-        description={`Last reviewed ${formatDate(lastReviewed)}.`}
+        title="Terms of Use"
+        description={`This site is operated by the India Israel Centre. By using the site, you accept these Terms of Use. Last reviewed ${formatDate(lastReviewed)}.`}
         crumbs={[{ label: 'Terms' }]}
       />
       <section className="bg-iic-paper border-b border-stone-200">

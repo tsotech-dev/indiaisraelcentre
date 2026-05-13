@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 }
 
 const ROUTE_META = [
-  { href: '/about/contact/editorial/', email: 'editorial@indiaisraelcentre.org', accent: 'bg-iic-navy' },
-  { href: '/about/contact/media/', email: 'media@indiaisraelcentre.org', accent: 'bg-iic-saffron' },
+  { href: '/about/contact/editorial/', email: 'research@indiaisraelcentre.org', accent: 'bg-iic-navy' },
+  { href: '/about/contact/media/', email: 'research@indiaisraelcentre.org', accent: 'bg-iic-saffron' },
   { href: '/about/partner-with-us/', email: null, accent: 'bg-iic-gold-deep' },
 ]
 

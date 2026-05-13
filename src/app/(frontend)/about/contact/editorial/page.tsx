@@ -24,14 +24,14 @@ export default async function EditorialContactPage() {
         <div className="max-w-3xl mx-auto px-6 py-14">
           <p className="text-base text-stone-700 leading-relaxed mb-3">
             {(c?.intro as string | undefined) ?? 'You may also write directly to'}{' '}
-            <a href="mailto:editorial@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim font-mono text-sm">
-              editorial@indiaisraelcentre.org
+            <a href="mailto:research@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim font-mono text-sm">
+              research@indiaisraelcentre.org
             </a>.
           </p>
           <p className="text-sm font-sans text-stone-500 mb-10">
             {(c?.responseNote as string | undefined) ?? 'We aim to respond within five working days.'}
           </p>
-          <ContactForm type="editorial" recipientHint="editorial@indiaisraelcentre.org" />
+          <ContactForm type="editorial" recipientHint="research@indiaisraelcentre.org" />
         </div>
       </section>
     </>

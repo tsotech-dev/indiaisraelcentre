@@ -15,6 +15,9 @@ import { Pillars } from './src/collections/Pillars'
 
 import { Home } from './src/globals/Home'
 import { About } from './src/globals/About'
+import { AboutStrategicObjective } from './src/globals/AboutStrategicObjective'
+import { AboutAreasOfEngagement } from './src/globals/AboutAreasOfEngagement'
+import { AboutAcademicPartners } from './src/globals/AboutAcademicPartners'
 import { AboutGovernance } from './src/globals/AboutGovernance'
 import { AboutContact } from './src/globals/AboutContact'
 import { AboutContactEditorial } from './src/globals/AboutContactEditorial'
@@ -53,6 +56,9 @@ export default buildConfig({
   globals: [
     Home,
     About,
+    AboutStrategicObjective,
+    AboutAreasOfEngagement,
+    AboutAcademicPartners,
     AboutGovernance,
     AboutContact,
     AboutContactEditorial,

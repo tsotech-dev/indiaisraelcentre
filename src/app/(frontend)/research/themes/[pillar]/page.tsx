@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import PublicationCard from '@/components/PublicationCard'
+import ImagePlaceholder from '@/components/ImagePlaceholder'
 import Reveal from '@/components/Reveal'
 import { PILLARS } from '@/lib/pillars'
 import JsonLd from '@/components/JsonLd'
@@ -22,8 +23,8 @@ export async function generateMetadata({
   if (!pillar) return {}
   return {
     title: pillar.label,
-    description: pillar.oneLineFraming,
-    openGraph: { title: pillar.label, description: pillar.oneLineFraming },
+    description: pillar.shortFraming,
+    openGraph: { title: pillar.label, description: pillar.shortFraming },
   }
 }
 
@@ -57,7 +58,7 @@ export default async function PillarPage({
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: pillar.label,
-    description: pillar.oneLineFraming,
+    description: pillar.shortFraming,
     url: `https://indiaisraelcentre.org${pillar.path}`,
   }
 
@@ -69,10 +70,10 @@ export default async function PillarPage({
       <section className="relative bg-mesh border-b border-stone-200 overflow-hidden">
         <div
           aria-hidden
-          className="absolute -top-40 -right-40 w-[680px] h-[680px] rounded-full opacity-20"
+          className="absolute -top-40 -right-40 w-[680px] h-[680px] rounded-full opacity-20 pointer-events-none"
           style={{ background: PILLAR_BLOBS[code] }}
         />
-        <div className="relative max-w-7xl mx-auto px-6 pt-12 pb-20">
+        <div className="relative max-w-7xl mx-auto px-6 pt-12 pb-0 overflow-hidden">
           <Breadcrumbs
             crumbs={[
               { label: 'Research', href: '/research/' },
@@ -81,28 +82,42 @@ export default async function PillarPage({
             ]}
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-2">
-              <div className="font-display text-7xl md:text-9xl font-bold tracking-tight text-iic-saffron leading-none">
-                {String(idx + 1).padStart(2, '0')}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mt-4">
+            {/* Text */}
+            <div className="lg:col-span-7 pb-20">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="font-display text-6xl md:text-8xl font-bold tracking-tight text-iic-saffron leading-none">
+                  {(pillarCms?.numeral as string | undefined) ?? pillar.numeral}.
+                </span>
+                <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-stone-400">
+                  Research Pillar
+                </div>
               </div>
-              <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-stone-400 mt-2">
-                Pillar
-              </div>
-            </div>
-            <div className="lg:col-span-10">
               <div className="text-[11px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron mb-4 animate-fade-up">
                 / Research pillar
               </div>
               <h1 className="font-display text-4xl md:text-6xl font-bold leading-[1.05] tracking-tight text-stone-900 mb-6 animate-fade-up delay-1">
                 {pillar.label}
               </h1>
-              <p className="text-xl md:text-2xl font-display italic font-light text-stone-500 leading-snug mb-8 max-w-3xl animate-fade-up delay-2">
-                {pillar.oneLineFraming}
+              <p className="text-xl md:text-2xl font-display italic font-light text-stone-500 leading-snug mb-8 max-w-2xl animate-fade-up delay-2">
+                {(pillarCms?.subtitle as string | undefined) ?? pillar.subtitle}
               </p>
-              <div className="prose text-stone-700 max-w-3xl animate-fade-up delay-3">
-                <p>{(pillarCms?.framing as string | undefined) ?? pillar.framing}</p>
+              <div className="text-stone-700 max-w-2xl animate-fade-up delay-3 space-y-5 leading-relaxed">
+                {(((pillarCms?.framing as string | undefined) ?? pillar.framing).split(/\n\n+/)).map(
+                  (para, i) => (
+                    <p key={i}>{para}</p>
+                  ),
+                )}
               </div>
+            </div>
+
+            {/* Pillar image */}
+            <div className="hidden lg:block lg:col-span-5 self-end">
+              <ImagePlaceholder
+                alt={`Pillar ${pillar.numeral} thematic photograph — ${pillar.label}. ${pillar.shortFraming} Mood: archival, scholarly, 4:5 portrait orientation.`}
+                aspectRatio="4/5"
+                className="rounded-tl-2xl rounded-tr-2xl border-b-0 w-full"
+              />
             </div>
           </div>
         </div>
@@ -153,27 +168,27 @@ export default async function PillarPage({
 
       {/* PREV / NEXT PILLAR NAVIGATION */}
       <section className="bg-white border-b border-stone-200">
-        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-px bg-stone-200 border border-stone-200 rounded-sm overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link
             href={prev.path}
-            className="group bg-white p-8 hover:bg-iic-paper transition-colors"
+            className="group flex flex-col bg-iic-paper border border-stone-200 rounded-lg p-8 hover-lift hover:border-iic-saffron/40"
           >
-            <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">
+            <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-stone-400 mb-3">
               ← Previous pillar
             </div>
-            <div className="font-display text-2xl font-semibold text-stone-900 group-hover:text-iic-saffron transition-colors">
-              {prev.label}
+            <div className="font-display text-2xl font-semibold text-stone-900 group-hover:text-iic-saffron transition-colors leading-snug">
+              {prev.numeral}. {prev.label}
             </div>
           </Link>
           <Link
             href={next.path}
-            className="group bg-white p-8 hover:bg-iic-paper transition-colors md:text-right"
+            className="group flex flex-col bg-iic-paper border border-stone-200 rounded-lg p-8 hover-lift hover:border-iic-saffron/40 md:items-end md:text-right"
           >
-            <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-stone-400 mb-2">
+            <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-stone-400 mb-3">
               Next pillar →
             </div>
-            <div className="font-display text-2xl font-semibold text-stone-900 group-hover:text-iic-saffron transition-colors">
-              {next.label}
+            <div className="font-display text-2xl font-semibold text-stone-900 group-hover:text-iic-saffron transition-colors leading-snug">
+              {next.numeral}. {next.label}
             </div>
           </Link>
         </div>

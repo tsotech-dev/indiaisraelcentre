@@ -5,6 +5,7 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import RichTextRenderer from '@/components/RichTextRenderer'
 import JsonLd from '@/components/JsonLd'
 import { getPerson } from '@/lib/payload'
+import { PILLARS } from '@/lib/pillars'
 
 export async function generateMetadata({
   params,
@@ -19,6 +20,12 @@ export async function generateMetadata({
     description: `${person.role} at the India Israel Centre.`,
     openGraph: { title: person.name },
   }
+}
+
+function pillarDisplay(code: string): string {
+  const p = PILLARS.find((x) => x.code === code)
+  if (!p) return code
+  return `${p.numeral}. ${p.label}`
 }
 
 export default async function PersonProfilePage({
@@ -41,6 +48,16 @@ export default async function PersonProfilePage({
     .filter(Boolean)
     .slice(0, 2)
     .join('')
+
+  const areas =
+    (person.areasOfFocus as { item: string }[] | null | undefined)?.map((a) => a.item) ?? []
+  const pillarAffs =
+    (person.pillarAffiliations as
+      | { pillarCode: string; role: 'primary' | 'secondary' }[]
+      | null
+      | undefined) ?? []
+  const externals =
+    (person.externalAffiliations as { item: string }[] | null | undefined)?.map((a) => a.item) ?? []
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -111,10 +128,61 @@ export default async function PersonProfilePage({
       {person.bio && (
         <section className="bg-iic-paper border-b border-stone-200">
           <div className="max-w-3xl mx-auto px-6 py-14">
+            <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">Bio</h2>
             <RichTextRenderer data={person.bio} className="prose max-w-none" />
           </div>
         </section>
       )}
+
+      {areas.length > 0 && (
+        <section className="bg-white border-b border-stone-200">
+          <div className="max-w-3xl mx-auto px-6 py-14">
+            <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">Areas of focus</h2>
+            <ul className="list-disc pl-6 space-y-2 text-stone-700 leading-relaxed">
+              {areas.map((a, i) => (
+                <li key={i}>{a}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {pillarAffs.length > 0 && (
+        <section className="bg-iic-paper border-b border-stone-200">
+          <div className="max-w-3xl mx-auto px-6 py-14">
+            <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">
+              Pillar affiliations
+            </h2>
+            <ul className="space-y-2 text-stone-700 leading-relaxed">
+              {pillarAffs.map((p, i) => (
+                <li key={i}>
+                  {pillarDisplay(p.pillarCode)}{' '}
+                  <span className="text-stone-500">({p.role})</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      <section className="bg-white border-b border-stone-200">
+        <div className="max-w-3xl mx-auto px-6 py-14">
+          <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">
+            Publications and external work
+          </h2>
+          {externals.length > 0 ? (
+            <ul className="list-disc pl-6 space-y-2 text-stone-700 leading-relaxed">
+              {externals.map((e, i) => (
+                <li key={i}>{e}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-stone-500 italic">
+              Auto-populated from the Centre&rsquo;s database. External publications list to be added.
+            </p>
+          )}
+        </div>
+      </section>
     </>
   )
 }

@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 const RECIPIENT_MAP: Record<string, string> = {
-  editorial: 'editorial@indiaisraelcentre.org',
-  media: 'media@indiaisraelcentre.org',
-  partner: 'editorial@indiaisraelcentre.org',
-  work: 'editorial@indiaisraelcentre.org',
+  editorial: 'research@indiaisraelcentre.org',
+  media: 'research@indiaisraelcentre.org',
+  partner: 'research@indiaisraelcentre.org',
+  work: 'research@indiaisraelcentre.org',
 }
 
 export async function POST(req: NextRequest) {
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     // In production: send via a transactional email provider (Resend, Postmark, etc.)
     // For now: log to console and return success so forms work during development
     console.log('Contact form submission:', {
-      to: RECIPIENT_MAP[type] ?? 'editorial@indiaisraelcentre.org',
+      to: RECIPIENT_MAP[type] ?? 'research@indiaisraelcentre.org',
       from: email,
       name,
       organisation,

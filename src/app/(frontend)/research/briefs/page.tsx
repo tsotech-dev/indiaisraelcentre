@@ -24,14 +24,9 @@ export default async function BriefsPage() {
       <FormatHero
         accent="saffron"
         eyebrow="Briefs"
-        title="Decisive synthesis."
-        italic="For working professionals."
-        description={(c?.description as string | undefined) ?? "Briefs are the Centre's policy-oriented publications — typically 2,000 to 4,000 words. They synthesise evidence and offer clear analytical conclusions."}
+        title="Briefs"
+        description={(c?.description as string | undefined) ?? 'Policy and issue briefs, written for working professionals.'}
         crumbs={[{ label: 'Research', href: '/research/' }, { label: 'Briefs' }]}
-        meta={[
-          { label: 'Typical length', value: (c?.typicalLength as string | undefined) ?? '2–4k' },
-          { label: 'Per year', value: (c?.perYear as string | undefined) ?? '12+' },
-        ]}
       />
       <section className="bg-iic-paper">
         <div className="max-w-7xl mx-auto px-6 py-14">

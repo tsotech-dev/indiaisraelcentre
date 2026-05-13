@@ -24,14 +24,9 @@ export default async function CommentaryPage() {
       <FormatHero
         accent="gold"
         eyebrow="Commentary"
-        title="Timely essays."
-        italic="On a current question."
-        description={(c?.description as string | undefined) ?? "Commentary is the Centre's analytical essay format — typically 800 to 2,500 words, written on a current question or event."}
+        title="Commentary"
+        description={(c?.description as string | undefined) ?? "Short-form analytical writing from the Centre's affiliates. Each piece carries a named byline and reflects the author's view."}
         crumbs={[{ label: 'Research', href: '/research/' }, { label: 'Commentary' }]}
-        meta={[
-          { label: 'Typical length', value: (c?.typicalLength as string | undefined) ?? '0.8–2.5k' },
-          { label: 'Per year', value: (c?.perYear as string | undefined) ?? '24+' },
-        ]}
       />
       <section className="bg-iic-paper">
         <div className="max-w-7xl mx-auto px-6 py-14">

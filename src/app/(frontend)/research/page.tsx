@@ -8,6 +8,8 @@ import Link from 'next/link'
 import { getPublications, getGlobal } from '@/lib/payload'
 import { pillarLabel } from '@/lib/utils'
 
+const FORMAT_ACCENTS = ['bg-iic-navy', 'bg-iic-saffron', 'bg-iic-gold-deep'] as const
+
 export const metadata: Metadata = {
   title: 'Research',
   description:
@@ -56,18 +58,17 @@ export default async function ResearchPage() {
           className="absolute -top-20 right-0 w-[420px] h-[420px] rounded-full opacity-20"
           style={{ background: 'radial-gradient(circle, #FF671F 0%, transparent 70%)' }}
         />
-        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-16">
-          <div className="text-[11px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron mb-4 animate-fade-up">
+        <div className="relative max-w-5xl mx-auto px-6 pt-24 md:pt-32 pb-16">
+          <div className="text-[11px] font-sans font-bold uppercase tracking-[0.22em] text-iic-saffron mb-6 animate-fade-up">
             / Research
           </div>
-          <h1 className="font-display text-5xl md:text-7xl font-bold leading-[0.95] tracking-tight text-stone-900 mb-6 max-w-4xl animate-fade-up delay-1">
-            Three formats.{' '}
-            <span className="italic font-light text-stone-500">Six pillars.</span>{' '}
-            One relationship.
+          <h1 className="font-display text-5xl md:text-7xl font-bold leading-[0.98] tracking-tight text-stone-900 mb-6 animate-fade-up delay-1">
+            Research
           </h1>
-          <p className="text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl animate-fade-up delay-2">
-            The Centre publishes Papers, Briefs, and Commentary organised around six thematic
-            pillars that map the breadth of the India-Israel relationship.
+          <p className="text-lg md:text-xl text-stone-600 leading-relaxed max-w-3xl animate-fade-up delay-2">
+            The Centre&rsquo;s research is organised around six thematic pillars and three
+            publication formats. Pillars are tagged across pieces rather than treated as silos;
+            work that materially engages more than one pillar surfaces in each relevant archive.
           </p>
         </div>
       </section>
@@ -75,33 +76,29 @@ export default async function ResearchPage() {
       {/* FORMAT TRIPTYCH */}
       <section className="bg-white border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-stone-200 border border-stone-200 rounded-sm overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {FORMATS.map((f, i) => (
               <Reveal key={f.code} delay={i * 100}>
                 <Link
                   href={f.href}
-                  className="group block bg-white p-8 h-full hover:bg-iic-paper transition-colors relative overflow-hidden"
+                  className="group flex flex-col bg-white border border-stone-200 rounded-lg p-8 h-full hover-lift hover:border-iic-saffron/40 relative overflow-hidden"
                 >
                   <span
-                    className={`absolute inset-x-0 top-0 h-1 ${
-                      f.accent === 'navy'
-                        ? 'bg-iic-navy'
-                        : f.accent === 'saffron'
-                          ? 'bg-iic-saffron'
-                          : 'bg-iic-gold'
-                    } scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500`}
+                    className={`absolute inset-x-0 top-0 h-[3px] ${FORMAT_ACCENTS[i]} rounded-t-lg scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500`}
                   />
-                  <div className="text-[10px] font-sans font-bold uppercase tracking-[0.18em] text-stone-400 mb-3">
+                  <div className="text-[10px] font-sans font-bold uppercase tracking-[0.18em] text-stone-400 mb-4">
                     0{i + 1} · Format
                   </div>
                   <h2 className="font-display text-2xl font-semibold text-stone-900 mb-3 group-hover:text-iic-navy transition-colors">
                     {f.label}
                   </h2>
-                  <p className="text-sm text-stone-600 leading-relaxed mb-6">{cmsCards?.[i]?.body ?? f.body}</p>
-                  <span className="inline-flex items-center gap-1 text-xs font-sans font-semibold text-iic-saffron underline-anim">
-                    Browse {f.label.toLowerCase()}
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                  </span>
+                  <p className="text-sm text-stone-600 leading-relaxed flex-1">{cmsCards?.[i]?.body ?? f.body}</p>
+                  <div className="mt-6 pt-5 border-t border-stone-100">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-sans font-semibold uppercase tracking-widest text-stone-400 group-hover:text-iic-saffron transition-colors">
+                      Browse {f.label.toLowerCase()}
+                      <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </span>
+                  </div>
                 </Link>
               </Reveal>
             ))}

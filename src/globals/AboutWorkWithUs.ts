@@ -13,7 +13,7 @@ export const AboutWorkWithUs: GlobalConfig = {
       name: 'fellowships',
       type: 'array',
       label: 'Fellowship Programmes',
-      maxRows: 3,
+      maxRows: 4,
       fields: [
         { name: 'title', type: 'text', required: true },
         { name: 'body', type: 'textarea', required: true },

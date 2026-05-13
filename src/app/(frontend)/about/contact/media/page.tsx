@@ -24,14 +24,14 @@ export default async function MediaContactPage() {
         <div className="max-w-3xl mx-auto px-6 py-14">
           <p className="text-base text-stone-700 leading-relaxed mb-3">
             {(c?.intro as string | undefined) ?? 'Write to'}{' '}
-            <a href="mailto:media@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim font-mono text-sm">
-              media@indiaisraelcentre.org
+            <a href="mailto:research@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim font-mono text-sm">
+              research@indiaisraelcentre.org
             </a>{' '}or use the form below.
           </p>
           <p className="text-sm font-sans text-stone-400 italic mb-10">
             {(c?.pressNote as string | undefined) ?? 'Press materials and media resources will be added in due course.'}
           </p>
-          <ContactForm type="media" recipientHint="media@indiaisraelcentre.org" />
+          <ContactForm type="media" recipientHint="research@indiaisraelcentre.org" />
         </div>
       </section>
     </>

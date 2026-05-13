@@ -4,10 +4,10 @@ import Footer from '@/components/Footer'
 import { getGlobal } from '@/lib/payload'
 
 const LINKS = [
-  { label: 'Research', href: '/research/' },
-  { label: 'Forum', href: '/forum/' },
-  { label: 'About', href: '/about/' },
-  { label: 'Homepage', href: '/' },
+  { label: "Return to the Centre's home", href: '/' },
+  { label: "Browse the Centre's research", href: '/research/' },
+  { label: 'The Forum', href: '/forum/' },
+  { label: 'About the Centre', href: '/about/' },
 ]
 
 export default async function NotFound() {
@@ -34,10 +34,18 @@ export default async function NotFound() {
             / Page not found
           </div>
           <h1 className="font-display text-2xl md:text-3xl font-bold text-stone-900 mb-5 animate-fade-up delay-2">
-            {(c?.heading as string | undefined) ?? 'This page does not exist or has moved.'}
+            {(c?.heading as string | undefined) ?? 'Page not found'}
           </h1>
           <p className="text-stone-600 mb-10 leading-relaxed animate-fade-up delay-3">
-            {(c?.description as string | undefined) ?? 'If you followed a link from an external source, the URL may have changed. All published content remains accessible — please browse from the sections below.'}
+            {(c?.description as string | undefined) ?? (
+              <>
+                The page you were looking for is not available at this address. If you arrived here by following a link, the link may be out of date. If you continue to encounter this error, please write to{' '}
+                <a href="mailto:research@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim">
+                  research@indiaisraelcentre.org
+                </a>
+                .
+              </>
+            )}
           </p>
           <div className="flex flex-wrap justify-center gap-3 animate-fade-up delay-4">
             {LINKS.map((l) => (
