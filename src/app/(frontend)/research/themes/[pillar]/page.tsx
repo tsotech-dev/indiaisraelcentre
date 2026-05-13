@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import PublicationCard from '@/components/PublicationCard'
-import ImagePlaceholder from '@/components/ImagePlaceholder'
 import Reveal from '@/components/Reveal'
 import { PILLARS } from '@/lib/pillars'
 import JsonLd from '@/components/JsonLd'
@@ -111,14 +110,6 @@ export default async function PillarPage({
               </div>
             </div>
 
-            {/* Pillar image */}
-            <div className="hidden lg:block lg:col-span-5 self-end">
-              <ImagePlaceholder
-                alt={`Pillar ${pillar.numeral} thematic photograph — ${pillar.label}. ${pillar.shortFraming} Mood: archival, scholarly, 4:5 portrait orientation.`}
-                aspectRatio="4/5"
-                className="rounded-tl-2xl rounded-tr-2xl border-b-0 w-full"
-              />
-            </div>
           </div>
         </div>
       </section>

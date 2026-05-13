@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import StaticPageHero from '@/components/StaticPageHero'
 import Reveal from '@/components/Reveal'
+import Image from 'next/image'
 import { getGlobal } from '@/lib/payload'
 
 export const metadata: Metadata = {
@@ -41,9 +42,18 @@ export default async function AcademicPartnersPage() {
       <section className="bg-iic-paper border-b border-stone-200">
         <div className="max-w-3xl mx-auto px-6 py-16">
           <Reveal>
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-stone-900 mb-8">
-              {partnerName}
-            </h2>
+            <div className="flex items-center gap-6 mb-8">
+              <Image
+                src="/images/O._P._Jindal_Global_University_Logo.png"
+                alt="O.P. Jindal Global University crest"
+                width={80}
+                height={80}
+                className="object-contain shrink-0"
+              />
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-stone-900">
+                {partnerName}
+              </h2>
+            </div>
           </Reveal>
           <div className="space-y-5 text-stone-700 leading-relaxed text-lg">
             <Reveal delay={100}>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const NAV_ITEMS = [
@@ -28,30 +29,28 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 text-white transition-all duration-300 backdrop-blur-md ${
         scrolled
-          ? 'bg-white/85 backdrop-blur-md border-b border-stone-200/80 shadow-[0_1px_0_0_rgba(0,0,0,0.02)]'
-          : 'bg-white/60 backdrop-blur-sm border-b border-transparent'
+          ? 'bg-[#001a3d]/95 border-b border-white/10 shadow-[0_2px_24px_0_rgba(0,10,40,0.6)]'
+          : 'bg-[#001a3d]/90 border-b border-white/5'
       }`}
     >
       <div className="tricolor-bar h-[3px] w-full" />
 
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative">
-            <div className="w-9 h-9 bg-iic-navy rounded-sm flex items-center justify-center group-hover:bg-iic-saffron transition-colors duration-300">
-              <span className="text-white text-[11px] font-bold font-sans tracking-tight">IIC</span>
-            </div>
-            <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-iic-gold" />
+          <div className="w-9 h-9 overflow-hidden flex items-center justify-center">
+            <Image
+              src="/logo/iic_logo_light.png"
+              alt="India Israel Centre"
+              width={52}
+              height={52}
+              className="object-cover scale-[1.22]"
+            />
           </div>
-          <div className="hidden sm:flex flex-col leading-tight">
-            <span className="text-[13px] font-semibold text-stone-900 font-sans tracking-tight">
-              India Israel Centre
-            </span>
-            <span className="text-[10px] font-sans text-stone-400 uppercase tracking-[0.15em]">
-              Research · Forum · Engagement
-            </span>
-          </div>
+          <span className="hidden sm:block text-[12px] font-bold text-white font-sans tracking-[0.12em] uppercase">
+            India Israel Centre
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
@@ -61,14 +60,10 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative px-4 py-2 text-sm font-sans font-medium tracking-wide transition-colors rounded-full ${
-                  active ? 'text-iic-navy' : 'text-stone-600 hover:text-stone-900'
-                }`}
+                className={`relative px-4 py-2 text-[11px] font-sans font-bold uppercase tracking-[0.15em] transition-colors rounded-full group/nav text-white`}
               >
                 {item.label}
-                {active && (
-                  <span className="absolute left-1/2 -translate-x-1/2 bottom-1 w-1 h-1 rounded-full bg-iic-saffron" />
-                )}
+                <span className={`absolute left-4 right-4 bottom-1 h-[2px] bg-iic-saffron rounded-full transition-transform duration-200 origin-left ${active ? 'scale-x-100' : 'scale-x-0 group-hover/nav:scale-x-100'}`} />
               </Link>
             )
           })}
@@ -77,23 +72,24 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/about/contact/"
-            className="text-sm font-sans font-medium text-stone-600 hover:text-stone-900 transition-colors"
+            className="group/contact relative text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-white"
           >
             Contact
+            <span className="absolute left-0 right-0 bottom-0 h-[2px] bg-iic-saffron rounded-full scale-x-0 group-hover/contact:scale-x-100 transition-transform duration-200 origin-left" />
           </Link>
           <Link
             href="/#newsletter"
-            className="group inline-flex items-center gap-2 text-sm font-sans font-semibold bg-iic-navy text-white pl-4 pr-1 py-1 rounded-full hover:bg-iic-saffron transition-colors duration-300"
+            className="group inline-flex items-center gap-2 text-[11px] font-sans font-bold uppercase tracking-[0.15em] border border-white/30 text-white pl-4 pr-1 py-1 rounded-full hover:border-iic-saffron hover:text-iic-saffron transition-colors duration-300"
           >
             Subscribe
-            <span className="bg-white text-iic-navy group-hover:text-iic-saffron rounded-full w-7 h-7 flex items-center justify-center transition-colors">
+            <span className="bg-white/10 group-hover:bg-iic-saffron/20 rounded-full w-7 h-7 flex items-center justify-center transition-colors">
               →
             </span>
           </Link>
         </div>
 
         <button
-          className="md:hidden p-2 text-stone-700 hover:text-stone-900"
+          className="md:hidden p-2 text-stone-400 hover:text-white transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
@@ -109,19 +105,19 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden border-t border-stone-200 bg-white px-6 py-4 flex flex-col gap-1 animate-fade-in">
+        <div className="md:hidden border-t border-white/10 bg-[#001a3d] px-6 py-4 flex flex-col gap-1 animate-fade-in">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-base font-sans font-medium text-stone-800 hover:text-iic-saffron py-2 transition-colors"
+              className="text-base font-sans font-medium text-stone-300 hover:text-white py-2 transition-colors"
             >
               {item.label}
             </Link>
           ))}
           <Link
             href="/about/contact/"
-            className="text-base font-sans font-medium text-stone-800 hover:text-iic-saffron py-2 transition-colors border-t border-stone-100 mt-2 pt-3"
+            className="text-base font-sans font-medium text-stone-300 hover:text-white py-2 transition-colors border-t border-white/10 mt-2 pt-3"
           >
             Contact
           </Link>

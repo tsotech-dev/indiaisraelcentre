@@ -1,38 +1,42 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import ConveningCard from '@/components/ConveningCard'
-import ImagePlaceholder from '@/components/ImagePlaceholder'
-import Reveal from '@/components/Reveal'
-import { getConvenings, getGlobal } from '@/lib/payload'
-import { pillarLabel } from '@/lib/utils'
+import type { Metadata } from "next";
+import Link from "next/link";
+import ConveningCard from "@/components/ConveningCard";
+import Image from "next/image";
+import Reveal from "@/components/Reveal";
+import { getConvenings, getGlobal } from "@/lib/payload";
+import { pillarLabel } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: 'The Forum',
+  title: "The Forum",
   description:
     "The India Israel Centre's convening programme. Closed-door roundtables, dialogues and public lectures chaired by Professor Khinvraj Jangid.",
-}
+};
 
 const DEFAULTS = {
   chairParagraph1:
-    'The Forum at the India Israel Centre brings sustained intellectual attention to the questions that the comparative study of India and Israel rewards. Two states emerged from empire within a year of each other, each carrying old civilisational traditions into modern constitutional democracies, and each has spent its first three quarters of a century working out the relationship between inherited tradition and the practical demands of national politics.',
+    "The Forum at the India Israel Centre brings sustained intellectual attention to the questions that the comparative study of India and Israel rewards. Two states emerged from empire within a year of each other, each carrying old civilisational traditions into modern constitutional democracies, and each has spent its first three quarters of a century working out the relationship between inherited tradition and the practical demands of national politics.",
   chairParagraph2:
     "The Forum's programme proceeds from a conviction that this comparison has been under-attempted, that it is sharper when conducted carefully than when conducted by analogy, and that the Indian and Israeli intellectual communities have much to learn from each other.",
   chairParagraph3:
     "The Forum hosts convenings in the formats appropriate to the work. Closed-door roundtables under the Chatham House rule allow scholars and practitioners to speak frankly on questions where public attribution would constrain the conversation. Public lectures and dialogues bring the Forum's intellectual programme into wider circulation.",
-  chairSignature: '— Professor Khinvraj Jangid, Chair of the Forum',
-}
+  chairSignature: "— Professor Khinvraj Jangid, Chair of the Forum",
+};
 
 export default async function ForumPage() {
   const [upcoming, recent, c] = await Promise.all([
     getConvenings({ upcoming: true, limit: 6 }),
     getConvenings({ upcoming: false, limit: 4 }),
-    getGlobal('forum'),
-  ])
+    getGlobal("forum"),
+  ]);
 
-  const p1 = (c?.chairParagraph1 as string | undefined) ?? DEFAULTS.chairParagraph1
-  const p2 = (c?.chairParagraph2 as string | undefined) ?? DEFAULTS.chairParagraph2
-  const p3 = (c?.chairParagraph3 as string | undefined) ?? DEFAULTS.chairParagraph3
-  const sig = (c?.chairSignature as string | undefined) ?? DEFAULTS.chairSignature
+  const p1 =
+    (c?.chairParagraph1 as string | undefined) ?? DEFAULTS.chairParagraph1;
+  const p2 =
+    (c?.chairParagraph2 as string | undefined) ?? DEFAULTS.chairParagraph2;
+  const p3 =
+    (c?.chairParagraph3 as string | undefined) ?? DEFAULTS.chairParagraph3;
+  const sig =
+    (c?.chairSignature as string | undefined) ?? DEFAULTS.chairSignature;
 
   return (
     <>
@@ -41,16 +45,20 @@ export default async function ForumPage() {
         <div
           aria-hidden
           className="absolute -top-40 -left-32 w-[600px] h-[600px] rounded-full opacity-25 pointer-events-none"
-          style={{ background: 'radial-gradient(circle, #003D7A 0%, transparent 65%)' }}
+          style={{
+            background: "radial-gradient(circle, #003D7A 0%, transparent 65%)",
+          }}
         />
         <div
           aria-hidden
           className="absolute -bottom-32 -right-32 w-[520px] h-[520px] rounded-full opacity-20 pointer-events-none"
-          style={{ background: 'radial-gradient(circle, #FF671F 0%, transparent 65%)' }}
+          style={{
+            background: "radial-gradient(circle, #FF671F 0%, transparent 65%)",
+          }}
         />
-        <div className="relative max-w-7xl mx-auto px-6 pt-24 md:pt-32 pb-0 overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-            <div className="lg:col-span-7 pb-20">
+        <div className="relative max-w-7xl mx-auto px-6 pt-24 md:pt-32 pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-7">
               <div className="text-[11px] font-sans font-bold uppercase tracking-[0.22em] text-iic-saffron mb-6 animate-fade-up">
                 / The Forum
               </div>
@@ -61,16 +69,47 @@ export default async function ForumPage() {
                 The Centre&rsquo;s convening programme.
               </p>
               <p className="text-stone-400 leading-relaxed max-w-xl animate-fade-up delay-3">
-                Closed-door roundtables, open public lectures, and analytical dialogues — format chosen
-                to fit the question, not the calendar.
+                Closed-door roundtables, open public lectures, and analytical
+                dialogues — format chosen to fit the question, not the calendar.
               </p>
             </div>
-            <div className="hidden lg:block lg:col-span-5 self-end">
-              <ImagePlaceholder
-                alt="Forum convening in session — wide-angle photograph of a roundtable, warm tungsten lighting, participants in soft focus, 4:5 portrait orientation"
-                aspectRatio="4/5"
-                className="rounded-tl-2xl rounded-tr-2xl border-b-0 bg-iic-ink/50 border-white/20 w-full"
-              />
+
+            {/* Convening formats */}
+            <div className="hidden lg:flex lg:col-span-5 flex-col gap-3 animate-fade-up delay-3">
+              {[
+                {
+                  label: "Roundtables",
+                  note: "CLOSED Sessions",
+                  desc: "Small, closed sessions for frank exchanges.",
+                },
+                {
+                  label: "Public Lectures",
+                  note: "Open attendance",
+                  desc: "Authoritative voices on India-Israel questions for broader audiences.",
+                },
+                {
+                  label: "Dialogues",
+                  note: "Structured format",
+                  desc: "Moderated analytical conversations between two or more expert perspectives.",
+                },
+              ].map((f, i) => (
+                <div
+                  key={i}
+                  className="border border-white/10 rounded-lg px-6 py-5 bg-white/[0.03] backdrop-blur-sm"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-display text-base font-semibold text-white">
+                      {f.label}
+                    </span>
+                    <span className="text-[10px] font-sans uppercase tracking-[0.18em] text-iic-saffron">
+                      {f.note}
+                    </span>
+                  </div>
+                  <p className="text-sm text-stone-400 leading-relaxed">
+                    {f.desc}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -86,33 +125,48 @@ export default async function ForumPage() {
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start mt-4">
-
             {/* Portrait + name */}
             <Reveal className="md:col-span-3">
-              <ImagePlaceholder
-                alt="Professor Khinvraj Jangid — editorial portrait, square crop, neutral background, professional attire"
-                aspectRatio="1/1"
-                className="rounded-lg"
-              />
+              <div className="relative aspect-square rounded-lg overflow-hidden">
+                <Image
+                  src="/images/Khinvraj-Jangid.png"
+                  alt="Professor Khinvraj Jangid, Chair of the Forum"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(min-width: 768px) 20vw, 50vw"
+                />
+              </div>
               <div className="mt-4">
                 <div className="text-sm font-sans font-semibold text-stone-900 leading-snug">
                   Professor Khinvraj Jangid
                 </div>
-                <div className="text-xs font-sans text-stone-500 mt-0.5">Chair of the Forum</div>
+                <div className="text-xs font-sans text-stone-500 mt-0.5">
+                  Chair of the Forum
+                </div>
                 <div className="text-xs font-sans text-stone-400 mt-0.5">
-                  Director, Centre for Israel Studies,<br />O.P. Jindal Global University
+                  Director, Centre for Israel Studies,
+                  <br />
+                  O.P. Jindal Global University
                 </div>
               </div>
             </Reveal>
 
             {/* Text */}
             <div className="md:col-span-9 space-y-5 text-stone-700 leading-relaxed text-lg">
-              <Reveal delay={100}><p>{p1}</p></Reveal>
-              <Reveal delay={160}><p>{p2}</p></Reveal>
-              <Reveal delay={220}><p>{p3}</p></Reveal>
+              <Reveal delay={100}>
+                <p>{p1}</p>
+              </Reveal>
+              <Reveal delay={160}>
+                <p>{p2}</p>
+              </Reveal>
+              <Reveal delay={220}>
+                <p>{p3}</p>
+              </Reveal>
               <Reveal delay={280}>
                 <div className="pt-4 border-t border-stone-200">
-                  <div className="text-sm font-sans text-stone-500 italic mb-3">{sig}</div>
+                  <div className="text-sm font-sans text-stone-500 italic mb-3">
+                    {sig}
+                  </div>
                   <Link
                     href="/about/people/khinvraj-jangid/"
                     className="text-sm font-sans font-semibold text-iic-navy underline-anim"
@@ -122,7 +176,6 @@ export default async function ForumPage() {
                 </div>
               </Reveal>
             </div>
-
           </div>
         </div>
       </section>
@@ -158,7 +211,9 @@ export default async function ForumPage() {
             </div>
           ) : (
             <div className="border border-dashed border-stone-300 rounded-lg p-16 text-center bg-iic-paper">
-              <p className="text-stone-500">Upcoming convenings will be announced here.</p>
+              <p className="text-stone-500">
+                Upcoming convenings will be announced here.
+              </p>
             </div>
           )}
         </div>
@@ -177,7 +232,10 @@ export default async function ForumPage() {
                   Recent convenings
                 </h2>
               </div>
-              <Link href="/forum/archive/" className="text-sm font-sans font-semibold text-iic-navy underline-anim">
+              <Link
+                href="/forum/archive/"
+                className="text-sm font-sans font-semibold text-iic-navy underline-anim"
+              >
                 Full archive →
               </Link>
             </div>
@@ -198,10 +256,12 @@ export default async function ForumPage() {
               ))}
             </div>
           ) : (
-            <p className="text-sm text-stone-400 italic">Past convenings will appear here.</p>
+            <p className="text-sm text-stone-400 italic">
+              Past convenings will appear here.
+            </p>
           )}
         </div>
       </section>
     </>
-  )
+  );
 }

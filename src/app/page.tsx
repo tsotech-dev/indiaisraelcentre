@@ -24,13 +24,11 @@ const ORG_JSONLD = {
 
 const STATS = [
   { value: "6", label: "Research pillars" },
-  { value: "24+", label: "Publications annually" },
-  { value: "12", label: "Convenings per year" },
-  { value: "30+", label: "Affiliated researchers" },
+  { value: "3", label: "Types of publications" },
 ];
 
 const CHAIR_QUOTE =
-  "The India-Israel relationship is one of the most consequential bilateral relationships in contemporary Asia — and one of the most under-examined. The Forum exists to close that gap, rigorously and without agenda.";
+  "India and Israel present fascinating case studies of nationalism and universalism, religion and secularism, and majority and minority identities.";
 
 export default async function HomePage() {
   const [home, latestPubs, upcomingConvenings, recentConvenings, commentary] =
@@ -43,7 +41,8 @@ export default async function HomePage() {
     ]);
 
   const eyebrow =
-    (home?.eyebrow as string | undefined) ?? "An Independent Policy Research Forum";
+    (home?.eyebrow as string | undefined) ??
+    "An Independent Policy Research Forum";
   const title = (home?.title as string | undefined) ?? "India Israel Centre";
   const subtitle =
     (home?.subtitle as string | undefined) ??
@@ -60,90 +59,68 @@ export default async function HomePage() {
       <JsonLd data={ORG_JSONLD} />
       <Header />
       <main className="overflow-hidden">
-
         {/* ── 1. HERO ─────────────────────────────────────────────────────── */}
         <section className="relative bg-mesh border-b border-stone-200 overflow-hidden">
           <div
             aria-hidden
             className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full opacity-20 pointer-events-none"
-            style={{ background: "radial-gradient(circle, #FF671F 0%, transparent 65%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, #FF671F 0%, transparent 65%)",
+            }}
           />
           <div
             aria-hidden
             className="absolute bottom-0 -left-40 w-[600px] h-[600px] rounded-full opacity-15 pointer-events-none"
-            style={{ background: "radial-gradient(circle, #005EB8 0%, transparent 65%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, #005EB8 0%, transparent 65%)",
+            }}
           />
 
-          <div className="relative max-w-7xl mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-stretch min-h-[88vh]">
-              {/* Left: text */}
-              <div className="lg:col-span-7 flex flex-col justify-center py-20 lg:py-24 lg:pr-16">
-                <div className="text-[11px] font-sans font-bold uppercase tracking-[0.24em] text-iic-saffron mb-6 animate-fade-up">
-                  {eyebrow}
-                </div>
-                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.96] tracking-tight text-stone-900 mb-6 animate-fade-up delay-1">
-                  {title}
-                </h1>
-                <p className="font-display italic text-xl md:text-2xl text-stone-500 mb-8 animate-fade-up delay-2">
-                  {subtitle}
-                </p>
-                <p className="text-lg text-stone-600 leading-relaxed mb-10 max-w-xl animate-fade-up delay-3">
-                  {openingFraming}
-                </p>
-                <div className="flex flex-wrap gap-3 animate-fade-up delay-4">
-                  <Link
-                    href="/about/"
-                    className="inline-flex items-center gap-2 text-sm font-sans font-semibold bg-iic-navy text-white pl-5 pr-2 py-2 rounded-full hover:bg-iic-saffron transition-colors duration-300 group"
-                  >
-                    About the Centre
-                    <span className="bg-white text-iic-navy group-hover:text-iic-saffron rounded-full w-7 h-7 flex items-center justify-center text-xs transition-colors">
-                      →
-                    </span>
-                  </Link>
-                  <Link
-                    href="/research/"
-                    className="inline-flex items-center gap-2 text-sm font-sans font-semibold border border-stone-300 text-stone-700 px-5 py-2 rounded-full hover:border-iic-saffron hover:text-iic-saffron transition-colors"
-                  >
-                    Browse the Research →
-                  </Link>
-                </div>
-                <div className="mt-10 pt-8 border-t border-stone-200 animate-fade-up delay-5">
-                  <p className="text-xs font-sans text-stone-400 uppercase tracking-[0.14em]">
-                    In academic partnership with
-                  </p>
-                  <p className="text-sm font-sans text-stone-500 mt-1">
-                    Centre for Israel Studies, O.P. Jindal Global University
-                  </p>
-                </div>
-              </div>
-
-              {/* Right: image */}
-              <div className="hidden lg:flex lg:col-span-5 items-stretch">
-                <div className="relative w-full my-8">
-                  <Image
-                    src="/images/homepage_hero_image.png"
-                    alt="India-Israel Relations book on a research desk at O.P. Jindal Global University library"
-                    fill
-                    className="object-cover rounded-l-2xl"
-                    sizes="(min-width: 1024px) 40vw, 0px"
-                    priority
-                  />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 rounded-l-2xl pointer-events-none"
-                    style={{
-                      background:
-                        "linear-gradient(to right, transparent 70%, rgba(251,250,247,0.6) 100%)",
-                    }}
-                  />
-                </div>
-              </div>
+          <div className="relative max-w-4xl mx-auto px-6 py-28 md:py-40 text-center flex flex-col items-center">
+            <div className="text-[11px] font-sans font-bold uppercase tracking-[0.24em] text-iic-saffron mb-6 animate-fade-up">
+              {eyebrow}
+            </div>
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.96] tracking-tight text-stone-900 mb-6 animate-fade-up delay-1">
+              {title}
+            </h1>
+            <p className="font-display italic text-xl md:text-2xl text-stone-500 mb-8 animate-fade-up delay-2">
+              {subtitle}
+            </p>
+            <p className="text-lg text-stone-600 leading-relaxed mb-10 max-w-2xl animate-fade-up delay-3">
+              {openingFraming}
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 animate-fade-up delay-4">
+              <Link
+                href="/about/"
+                className="inline-flex items-center gap-2 text-sm font-sans font-semibold bg-iic-navy text-white pl-5 pr-2 py-2 rounded-full hover:bg-iic-saffron transition-colors duration-300 group"
+              >
+                About the Centre
+                <span className="bg-white text-iic-navy group-hover:text-iic-saffron rounded-full w-7 h-7 flex items-center justify-center text-xs transition-colors">
+                  →
+                </span>
+              </Link>
+              <Link
+                href="/research/"
+                className="inline-flex items-center gap-2 text-sm font-sans font-semibold border border-stone-300 text-stone-700 px-5 py-2 rounded-full hover:border-iic-saffron hover:text-iic-saffron transition-colors"
+              >
+                Browse the Research →
+              </Link>
+            </div>
+            <div className="mt-10 pt-8 border-t border-stone-200 w-full max-w-xs animate-fade-up delay-5">
+              <p className="text-xs font-sans text-stone-400 uppercase tracking-[0.14em]">
+                In academic partnership with
+              </p>
+              <p className="text-sm font-sans text-stone-500 mt-1">
+                Centre for Israel Studies, O.P. Jindal Global University
+              </p>
             </div>
           </div>
         </section>
 
         {/* ── 2. STATS STRIP ──────────────────────────────────────────────── */}
-        <section className="bg-iic-ink text-white border-b border-white/10">
+        {/* <section className="bg-iic-ink text-white border-b border-white/10">
           <div className="tricolor-bar h-[3px] w-full" />
           <div className="max-w-7xl mx-auto px-6 py-12">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -161,12 +138,11 @@ export default async function HomePage() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* ── 3. FROM THE CENTRE ──────────────────────────────────────────── */}
         <section className="bg-iic-paper border-b border-stone-200">
           <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
-
             {/* Section header */}
             <Reveal>
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-10">
@@ -189,7 +165,6 @@ export default async function HomePage() {
 
             {/* Three cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-
               {/* Recent Publications */}
               <Reveal>
                 <div className="flex flex-col h-full bg-white border border-stone-200 rounded-xl overflow-hidden hover-lift hover:border-iic-navy/30 transition-colors">
@@ -214,7 +189,9 @@ export default async function HomePage() {
                             </h3>
                             {pub.authors && pub.authors.length > 0 && (
                               <p className="text-xs font-sans text-stone-400 mt-1">
-                                {(pub.authors as { name: string }[]).map((a) => a.name).join(", ")}
+                                {(pub.authors as { name: string }[])
+                                  .map((a) => a.name)
+                                  .join(", ")}
                               </p>
                             )}
                           </Link>
@@ -308,7 +285,9 @@ export default async function HomePage() {
                             </h3>
                             {pub.authors && pub.authors.length > 0 && (
                               <p className="text-xs font-sans text-stone-400 mt-1">
-                                {(pub.authors as { name: string }[]).map((a) => a.name).join(", ")}
+                                {(pub.authors as { name: string }[])
+                                  .map((a) => a.name)
+                                  .join(", ")}
                               </p>
                             )}
                           </Link>
@@ -330,7 +309,6 @@ export default async function HomePage() {
                   </div>
                 </div>
               </Reveal>
-
             </div>
           </div>
         </section>
@@ -348,8 +326,9 @@ export default async function HomePage() {
                     Research pillars
                   </h2>
                   <p className="text-stone-500 mt-3 max-w-lg text-sm leading-relaxed">
-                    Six coherent research programmes mapping the India-Israel relationship across
-                    identity, governance, security, technology, development, and culture.
+                    Six coherent research programmes mapping the India-Israel
+                    relationship across identity, governance, security,
+                    technology, development, and culture.
                   </p>
                 </div>
                 <Link
@@ -372,10 +351,12 @@ export default async function HomePage() {
             <div
               aria-hidden
               className="absolute -top-32 -right-32 w-[520px] h-[520px] rounded-full opacity-15 pointer-events-none"
-              style={{ background: "radial-gradient(circle, #FF671F 0%, transparent 65%)" }}
+              style={{
+                background:
+                  "radial-gradient(circle, #FF671F 0%, transparent 65%)",
+              }}
             />
             <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
               {/* Portrait */}
               <Reveal className="lg:col-span-3">
                 <div className="relative aspect-square rounded-sm ring-1 ring-white/20 overflow-hidden">
@@ -415,7 +396,6 @@ export default async function HomePage() {
                   Full profile →
                 </Link>
               </Reveal>
-
             </div>
           </div>
         </section>
@@ -426,7 +406,6 @@ export default async function HomePage() {
             <Reveal>
               <div className="bg-iic-paper border border-stone-200 rounded-xl p-8 md:p-12">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-
                   {/* Logo */}
                   <div className="md:col-span-2 flex items-center justify-center">
                     <Image
@@ -444,13 +423,16 @@ export default async function HomePage() {
                       Academic Partnership
                     </div>
                     <h3 className="font-display text-xl md:text-2xl font-bold text-stone-900 mb-3 leading-snug">
-                      Centre for Israel Studies,&nbsp;O.P. Jindal Global University
+                      Centre for Israel Studies,&nbsp;O.P. Jindal Global
+                      University
                     </h3>
                     <p className="text-stone-600 text-sm leading-relaxed mb-5 max-w-2xl">
-                      The India Israel Centre is established in academic partnership with the Centre
-                      for Israel Studies at O.P. Jindal Global University in Sonipat, Haryana —
-                      one of the few dedicated research and teaching centres on Israel and
-                      India-Israel comparative scholarship at any Indian university.
+                      The India Israel Centre is established in academic
+                      partnership with the Centre for Israel Studies at O.P.
+                      Jindal Global University in Sonipat, Haryana — one of the
+                      few dedicated research and teaching centres on Israel and
+                      India-Israel comparative scholarship at any Indian
+                      university.
                     </p>
                     <Link
                       href="/about/academic-partners/"
@@ -459,7 +441,6 @@ export default async function HomePage() {
                       More on the partnership →
                     </Link>
                   </div>
-
                 </div>
               </div>
             </Reveal>
@@ -467,23 +448,29 @@ export default async function HomePage() {
         </section>
 
         {/* ── 7. NEWSLETTER ───────────────────────────────────────────────── */}
-        <section id="newsletter" className="relative bg-iic-ink text-white scroll-mt-20">
+        <section
+          id="newsletter"
+          className="relative bg-iic-ink text-white scroll-mt-20"
+        >
           <div className="tricolor-bar h-[3px] w-full" />
           <div
             aria-hidden
             className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full opacity-10 pointer-events-none"
-            style={{ background: "radial-gradient(circle, #FFD700 0%, transparent 65%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, #FFD700 0%, transparent 65%)",
+            }}
           />
           <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
               {/* Left copy */}
               <Reveal>
                 <div className="text-[11px] font-sans font-bold uppercase tracking-[0.24em] text-iic-saffron mb-5">
                   Subscribe
                 </div>
                 <h2 className="font-display text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
-                  {(home?.newsletterHeading as string | undefined) ?? "Subscribe"}
+                  {(home?.newsletterHeading as string | undefined) ??
+                    "Subscribe"}
                 </h2>
                 <p className="text-stone-300 text-lg leading-relaxed mb-4">
                   {(home?.newsletterDescription as string | undefined) ??
@@ -505,11 +492,9 @@ export default async function HomePage() {
                   )}
                 </div>
               </Reveal>
-
             </div>
           </div>
         </section>
-
       </main>
       <Footer />
     </>

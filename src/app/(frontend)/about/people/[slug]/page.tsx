@@ -1,72 +1,80 @@
-import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
-import Image from 'next/image'
-import Breadcrumbs from '@/components/Breadcrumbs'
-import RichTextRenderer from '@/components/RichTextRenderer'
-import JsonLd from '@/components/JsonLd'
-import { getPerson } from '@/lib/payload'
-import { PILLARS } from '@/lib/pillars'
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RichTextRenderer from "@/components/RichTextRenderer";
+import JsonLd from "@/components/JsonLd";
+import { getPerson } from "@/lib/payload";
+import { PILLARS } from "@/lib/pillars";
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params
-  const person = await getPerson(slug)
-  if (!person) return {}
+  const { slug } = await params;
+  const person = await getPerson(slug);
+  if (!person) return {};
   return {
     title: person.name,
     description: `${person.role} at the India Israel Centre.`,
     openGraph: { title: person.name },
-  }
+  };
 }
 
 function pillarDisplay(code: string): string {
-  const p = PILLARS.find((x) => x.code === code)
-  if (!p) return code
-  return `${p.numeral}. ${p.label}`
+  const p = PILLARS.find((x) => x.code === code);
+  if (!p) return code;
+  return `${p.numeral}. ${p.label}`;
 }
 
 export default async function PersonProfilePage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params
-  const person = await getPerson(slug)
-  if (!person) notFound()
+  const { slug } = await params;
+  const person = await getPerson(slug);
+  if (!person) notFound();
+
+  const STATIC_PHOTOS: Record<string, string> = {
+    "khinvraj-jangid": "/images/Khinvraj-Jangid.png",
+  };
 
   const photoUrl =
-    person.photo && typeof person.photo === 'object' && 'url' in person.photo
+    person.photo && typeof person.photo === "object" && "url" in person.photo
       ? (person.photo.url as string | null)
-      : null
+      : (STATIC_PHOTOS[person.slug as string] ?? null);
 
   const initials = person.name
-    .split(' ')
+    .split(" ")
     .map((n: string) => n[0])
     .filter(Boolean)
     .slice(0, 2)
-    .join('')
+    .join("");
 
   const areas =
-    (person.areasOfFocus as { item: string }[] | null | undefined)?.map((a) => a.item) ?? []
+    (person.areasOfFocus as { item: string }[] | null | undefined)?.map(
+      (a) => a.item
+    ) ?? [];
   const pillarAffs =
     (person.pillarAffiliations as
-      | { pillarCode: string; role: 'primary' | 'secondary' }[]
+      | { pillarCode: string; role: "primary" | "secondary" }[]
       | null
-      | undefined) ?? []
+      | undefined) ?? [];
   const externals =
-    (person.externalAffiliations as { item: string }[] | null | undefined)?.map((a) => a.item) ?? []
+    (person.externalAffiliations as { item: string }[] | null | undefined)?.map(
+      (a) => a.item
+    ) ?? [];
 
   const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
+    "@context": "https://schema.org",
+    "@type": "Person",
     name: person.name,
     jobTitle: person.role,
     url: `https://indiaisraelcentre.org/about/people/${person.slug}/`,
     ...(person.email && { email: person.email }),
-  }
+  };
 
   return (
     <>
@@ -76,10 +84,17 @@ export default async function PersonProfilePage({
         <div
           aria-hidden
           className="absolute -top-32 -right-32 w-[520px] h-[520px] rounded-full opacity-15"
-          style={{ background: 'radial-gradient(circle, #FF671F 0%, transparent 65%)' }}
+          style={{
+            background: "radial-gradient(circle, #FF671F 0%, transparent 65%)",
+          }}
         />
         <div className="relative max-w-5xl mx-auto px-6 pt-12 pb-16">
-          <Breadcrumbs crumbs={[{ label: 'About', href: '/about/' }, { label: person.name }]} />
+          <Breadcrumbs
+            crumbs={[
+              { label: "About", href: "/about/" },
+              { label: person.name },
+            ]}
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-end mt-2">
             <div className="md:col-span-4">
@@ -128,7 +143,9 @@ export default async function PersonProfilePage({
       {person.bio && (
         <section className="bg-iic-paper border-b border-stone-200">
           <div className="max-w-3xl mx-auto px-6 py-14">
-            <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">Bio</h2>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">
+              Bio
+            </h2>
             <RichTextRenderer data={person.bio} className="prose max-w-none" />
           </div>
         </section>
@@ -137,7 +154,9 @@ export default async function PersonProfilePage({
       {areas.length > 0 && (
         <section className="bg-white border-b border-stone-200">
           <div className="max-w-3xl mx-auto px-6 py-14">
-            <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">Areas of focus</h2>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">
+              Areas of focus
+            </h2>
             <ul className="list-disc pl-6 space-y-2 text-stone-700 leading-relaxed">
               {areas.map((a, i) => (
                 <li key={i}>{a}</li>
@@ -147,7 +166,7 @@ export default async function PersonProfilePage({
         </section>
       )}
 
-      {pillarAffs.length > 0 && (
+      {/* {pillarAffs.length > 0 && (
         <section className="bg-iic-paper border-b border-stone-200">
           <div className="max-w-3xl mx-auto px-6 py-14">
             <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">
@@ -163,7 +182,7 @@ export default async function PersonProfilePage({
             </ul>
           </div>
         </section>
-      )}
+      )} */}
 
       <section className="bg-white border-b border-stone-200">
         <div className="max-w-3xl mx-auto px-6 py-14">
@@ -178,11 +197,12 @@ export default async function PersonProfilePage({
             </ul>
           ) : (
             <p className="text-sm text-stone-500 italic">
-              Auto-populated from the Centre&rsquo;s database. External publications list to be added.
+              Auto-populated from the Centre&rsquo;s database. External
+              publications list to be added.
             </p>
           )}
         </div>
       </section>
     </>
-  )
+  );
 }
