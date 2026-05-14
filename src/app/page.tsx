@@ -78,7 +78,7 @@ export default async function HomePage() {
             }}
           />
 
-          <div className="relative max-w-4xl mx-auto px-6 py-28 md:py-40 text-center flex flex-col items-center">
+          <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-20 md:py-40 text-center flex flex-col items-center">
             <div className="text-[11px] font-sans font-bold uppercase tracking-[0.24em] text-iic-saffron mb-6 animate-fade-up">
               {eyebrow}
             </div>
