@@ -63,19 +63,13 @@ export default async function HomePage() {
         <section className="relative bg-mesh border-b border-stone-200 overflow-hidden">
           <div
             aria-hidden
-            className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full opacity-20 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(circle, #FF671F 0%, transparent 65%)",
-            }}
+            className="absolute -top-20 -right-20 w-[300px] h-[300px] md:w-[700px] md:h-[700px] md:-top-40 md:-right-40 rounded-full opacity-20 pointer-events-none"
+            style={{ background: "radial-gradient(circle, #FF671F 0%, transparent 65%)" }}
           />
           <div
             aria-hidden
-            className="absolute bottom-0 -left-40 w-[600px] h-[600px] rounded-full opacity-15 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(circle, #005EB8 0%, transparent 65%)",
-            }}
+            className="absolute bottom-0 -left-20 w-[280px] h-[280px] md:w-[600px] md:h-[600px] md:-left-40 rounded-full opacity-15 pointer-events-none"
+            style={{ background: "radial-gradient(circle, #005EB8 0%, transparent 65%)" }}
           />
 
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-20 md:py-40 text-center flex flex-col items-center">
