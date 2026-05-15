@@ -1,5 +1,3 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import PillarNavigatorGrid from "@/components/PillarNavigatorGrid";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";
@@ -57,8 +55,7 @@ export default async function HomePage() {
   return (
     <>
       <JsonLd data={ORG_JSONLD} />
-      <Header />
-      <main className="overflow-hidden">
+      <div className="overflow-hidden">
         {/* ── 1. HERO ─────────────────────────────────────────────────────── */}
         <section className="relative bg-mesh border-b border-stone-200 overflow-hidden">
           <div
@@ -489,8 +486,7 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
-      </main>
-      <Footer />
+      </div>
     </>
   );
 }

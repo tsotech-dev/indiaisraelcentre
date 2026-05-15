@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import { getGlobal } from '@/lib/payload'
 
 const LINKS = [
@@ -14,8 +12,7 @@ export default async function NotFound() {
   const c = await getGlobal('not-found')
   return (
     <>
-      <Header />
-      <main className="relative min-h-[80vh] flex items-center justify-center px-6 bg-mesh overflow-hidden">
+      <div className="relative min-h-[80vh] flex items-center justify-center px-6 bg-mesh overflow-hidden">
         <div
           aria-hidden
           className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-15"
@@ -59,8 +56,7 @@ export default async function NotFound() {
             ))}
           </div>
         </div>
-      </main>
-      <Footer />
+      </div>
     </>
   )
 }
