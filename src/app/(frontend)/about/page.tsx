@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import Image from "next/image";
-import { getGlobal } from "@/lib/payload";
+import { getGlobal, getPeople } from "@/lib/payload";
 
 export const metadata: Metadata = {
   title: "About",
@@ -56,11 +56,12 @@ const DEFAULT_PARTNERS =
   "The India Israel Centre is established in academic partnership with the Centre for Israel Studies at O.P. Jindal Global University, Sonipat, Haryana — one of the few dedicated research and teaching centres on Israel and India-Israel comparative scholarship at any Indian university.";
 
 export default async function AboutPage() {
-  const [c, areas, strat, partners] = await Promise.all([
+  const [c, areas, strat, partners, people] = await Promise.all([
     getGlobal("about"),
     getGlobal("about-areas-of-engagement"),
     getGlobal("about-strategic-objective"),
     getGlobal("about-academic-partners"),
+    getPeople(),
   ]);
 
   const eyebrow =
@@ -87,8 +88,7 @@ export default async function AboutPage() {
     ? (c?.aboutBodyParagraphs as { body: string }[]).map((p) => p.body)
     : DEFAULT_ABOUT_BODY;
 
-  const chairSummary =
-    (c?.chairSummary as string | undefined) ?? DEFAULT_CHAIR_SUMMARY;
+  void DEFAULT_CHAIR_SUMMARY;
   const partnersIntro =
     (partners?.paragraph1 as string | undefined) ?? DEFAULT_PARTNERS;
 
@@ -246,6 +246,72 @@ export default async function AboutPage() {
           </div>
         </div>
       </section> */}
+
+      {/* PEOPLE */}
+      {people.length > 0 && (
+        <section className="bg-white border-b border-stone-200">
+          <div className="max-w-5xl mx-auto px-6 py-20">
+            <Reveal>
+              <div className="text-[11px] font-sans font-bold uppercase tracking-[0.22em] text-iic-saffron mb-3">
+                / People
+              </div>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-stone-900 mb-10 leading-tight">
+                People
+              </h2>
+            </Reveal>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {people.map((person, i) => {
+                const photoUrl =
+                  person.photo && typeof person.photo === 'object' && 'url' in person.photo
+                    ? (person.photo.url as string | null)
+                    : person.slug === 'khinvraj-jangid'
+                    ? '/images/Khinvraj-Jangid.png'
+                    : null
+                const initials = (person.name as string)
+                  .split(' ')
+                  .map((n: string) => n[0])
+                  .filter(Boolean)
+                  .slice(0, 2)
+                  .join('')
+                return (
+                  <Reveal key={person.id as string} delay={Math.min(i * 60, 300)}>
+                    <Link
+                      href={`/about/people/${person.slug}/`}
+                      className="group block bg-iic-paper border border-stone-200 rounded-xl overflow-hidden hover-lift hover:border-iic-navy/30 transition-colors"
+                    >
+                      <div className="relative aspect-[4/3] bg-gradient-to-br from-iic-saffron via-iic-saffron-deep to-iic-navy overflow-hidden">
+                        {photoUrl ? (
+                          <Image
+                            src={photoUrl}
+                            alt={person.name as string}
+                            fill
+                            className="object-cover object-top"
+                            sizes="(min-width: 768px) 33vw, 50vw"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <span className="font-display text-5xl font-bold text-white">
+                              {initials || (person.name as string)[0]}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-5">
+                        <h3 className="font-display text-lg font-bold text-stone-900 group-hover:text-iic-navy leading-snug transition-colors">
+                          {person.name as string}
+                        </h3>
+                        <p className="text-sm text-stone-500 mt-1 font-display italic">
+                          {person.role as string}
+                        </p>
+                      </div>
+                    </Link>
+                  </Reveal>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ACADEMIC PARTNERS */}
       <section className="bg-iic-paper border-b border-stone-200">

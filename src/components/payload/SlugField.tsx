@@ -23,7 +23,9 @@ type Props = {
 
 export function SlugField({ path, field }: Props) {
   const { value, setValue, showError, errorMessage } = useField<string>({ path })
-  const title = useFormFields(([fields]) => fields['title'])
+  const titleField = useFormFields(([fields]) => fields['title'])
+  const nameField = useFormFields(([fields]) => fields['name'])
+  const title = titleField ?? nameField
   const userEdited = useRef(false)
   const lastAutoGen = useRef('')
 

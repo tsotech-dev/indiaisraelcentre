@@ -1,5 +1,15 @@
 import type { CollectionConfig } from 'payload'
 
+function slugify(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 4)
+    .map((w) => w.toLowerCase().replace(/[^a-z0-9]/g, ''))
+    .filter(Boolean)
+    .join('-')
+}
+
 export const People: CollectionConfig = {
   slug: 'people',
   admin: {
@@ -9,6 +19,18 @@ export const People: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    beforeChange: [
+      ({ data }) => {
+        if (data.slug) {
+          data.slug = data.slug.toLowerCase().replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '')
+        } else if (data.name) {
+          data.slug = slugify(data.name)
+        }
+        return data
+      },
+    ],
   },
   fields: [
     {
@@ -21,6 +43,19 @@ export const People: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
+      validate: (val: string | null | undefined) => {
+        if (!val) return 'Slug is required.'
+        if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(val))
+          return 'Slug may only contain lowercase letters, numbers, and hyphens.'
+        return true
+      },
+      custom: { watchField: 'name' },
+      admin: {
+        description: 'Auto-generated from name. Only lowercase letters, numbers, and hyphens.',
+        components: {
+          Field: 'src/components/payload/SlugField#SlugField',
+        },
+      },
     },
     {
       name: 'role',
