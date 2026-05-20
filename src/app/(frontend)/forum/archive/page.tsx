@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import type { Metadata } from 'next'
 import ConveningCard from '@/components/ConveningCard'
 import Breadcrumbs from '@/components/Breadcrumbs'

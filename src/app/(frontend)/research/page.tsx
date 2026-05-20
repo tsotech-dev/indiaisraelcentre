@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import type { Metadata } from 'next'
 import PublicationCard from '@/components/PublicationCard'
 import PillarNavigatorGrid from '@/components/PillarNavigatorGrid'

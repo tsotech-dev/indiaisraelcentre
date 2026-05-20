@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import PillarNavigatorGrid from "@/components/PillarNavigatorGrid";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import Image from "next/image";

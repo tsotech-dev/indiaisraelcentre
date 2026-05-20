@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import type { Metadata } from 'next'
 import StaticPageHero from '@/components/StaticPageHero'
 import Reveal from '@/components/Reveal'
