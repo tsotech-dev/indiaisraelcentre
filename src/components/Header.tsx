@@ -41,11 +41,11 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-3 group">
           <div className="w-9 h-9 overflow-hidden flex items-center justify-center">
             <Image
-              src="/logo/iic_logo_light.png"
+              src="/images/iic_logo.png"
               alt="India Israel Centre"
               width={52}
               height={52}
-              className="object-cover scale-[1.22]"
+              className="object-contain"
             />
           </div>
           <span className="hidden sm:block text-[12px] font-bold text-white font-sans tracking-[0.12em] uppercase">

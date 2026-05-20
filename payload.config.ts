@@ -1,5 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { buildConfig } from 'payload'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -76,6 +77,24 @@ export default buildConfig({
     NotFound,
   ],
   editor: lexicalEditor(),
+  plugins: [
+    s3Storage({
+      enabled: !!process.env.SUPABASE_STORAGE_BUCKET,
+      collections: {
+        media: true,
+      },
+      bucket: process.env.SUPABASE_STORAGE_BUCKET || '',
+      config: {
+        endpoint: `https://${process.env.SUPABASE_PROJECT_REF}.supabase.co/storage/v1/s3`,
+        region: 'auto',
+        credentials: {
+          accessKeyId: process.env.SUPABASE_S3_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.SUPABASE_S3_SECRET_ACCESS_KEY || '',
+        },
+        forcePathStyle: true,
+      },
+    }),
+  ],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
