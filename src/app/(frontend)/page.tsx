@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 import PillarNavigatorGrid from "@/components/PillarNavigatorGrid";
 import NewsletterSignup from "@/components/NewsletterSignup";
@@ -63,12 +63,18 @@ export default async function HomePage() {
           <div
             aria-hidden
             className="absolute -top-20 -right-20 w-[300px] h-[300px] md:w-[700px] md:h-[700px] md:-top-40 md:-right-40 rounded-full opacity-20 pointer-events-none"
-            style={{ background: "radial-gradient(circle, #FF671F 0%, transparent 65%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, #FF671F 0%, transparent 65%)",
+            }}
           />
           <div
             aria-hidden
             className="absolute bottom-0 -left-20 w-[280px] h-[280px] md:w-[600px] md:h-[600px] md:-left-40 rounded-full opacity-15 pointer-events-none"
-            style={{ background: "radial-gradient(circle, #005EB8 0%, transparent 65%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, #005EB8 0%, transparent 65%)",
+            }}
           />
 
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 py-20 md:py-40 text-center flex flex-col items-center">
@@ -171,7 +177,7 @@ export default async function HomePage() {
                         latestPubs.map((pub) => (
                           <Link
                             key={pub.id}
-                            href={`/research/${pub.type}s/${pub.slug}/`}
+                            href={`/research/${pub.type}/${pub.slug}/`}
                             className="group block py-4 first:pt-0 last:pb-0"
                           >
                             <div className="text-[10px] font-sans uppercase tracking-wider text-stone-400 mb-1">

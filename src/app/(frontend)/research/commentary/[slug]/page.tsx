@@ -79,6 +79,20 @@ export default async function CommentaryDetailPage({
             </p>
           )}
 
+          {piece.doi && (
+            <a
+              href={piece.doi}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mb-10 px-5 py-3 bg-stone-900 text-white hover:bg-white hover:text-black hover:border hover:border-black transition-colors font-medium text-sm tracking-wide uppercase"
+            >
+              Read the original article
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          )}
+
           <RichTextRenderer data={piece.body} className="prose max-w-none" />
 
           <CitationBlock
