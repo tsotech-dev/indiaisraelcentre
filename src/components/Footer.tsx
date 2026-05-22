@@ -58,10 +58,16 @@ export default function Footer() {
       />
 
       {/* Marquee — desktop only */}
-      <div className="hidden md:block overflow-hidden border-b border-white/10 select-none pointer-events-none" aria-hidden>
+      <div
+        className="hidden md:block overflow-hidden border-b border-white/10 select-none pointer-events-none"
+        aria-hidden
+      >
         <div className="flex whitespace-nowrap animate-marquee">
           {Array.from({ length: 8 }).map((_, i) => (
-            <span key={i} className="inline-flex items-center gap-6 px-6 py-6 font-display text-[5rem] font-bold leading-none tracking-tight text-white/[0.06]">
+            <span
+              key={i}
+              className="inline-flex items-center gap-6 px-6 py-6 font-display text-[5rem] font-bold leading-none tracking-tight text-white/[0.06]"
+            >
               India Israel Centre
               <span className="inline-block w-2 h-2 rounded-full bg-iic-saffron/30 flex-shrink-0" />
             </span>
@@ -146,7 +152,11 @@ export default function Footer() {
               aria-label="X (Twitter)"
               className="w-7 h-7 flex items-center justify-center rounded-full border border-white/10 text-stone-400 hover:text-white hover:border-white/30 transition-colors"
             >
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+              <svg
+                className="w-3.5 h-3.5"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
             </a>
@@ -157,8 +167,12 @@ export default function Footer() {
               aria-label="Facebook"
               className="w-7 h-7 flex items-center justify-center rounded-full border border-white/10 text-stone-400 hover:text-white hover:border-white/30 transition-colors"
             >
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+              <svg
+                className="w-3.5 h-3.5"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
               </svg>
             </a>
             <a
@@ -168,8 +182,12 @@ export default function Footer() {
               aria-label="Instagram"
               className="w-7 h-7 flex items-center justify-center rounded-full border border-white/10 text-stone-400 hover:text-white hover:border-white/30 transition-colors"
             >
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              <svg
+                className="w-3.5 h-3.5"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
               </svg>
             </a>
             <a
@@ -179,8 +197,27 @@ export default function Footer() {
               aria-label="YouTube"
               className="w-7 h-7 flex items-center justify-center rounded-full border border-white/10 text-stone-400 hover:text-white hover:border-white/30 transition-colors"
             >
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              <svg
+                className="w-3.5 h-3.5"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+            </a>
+            <a
+              href="https://chat.whatsapp.com/KeHgifPirrI1Z7POnw5GuA"
+              target="_blank"
+              rel="noopener"
+              aria-label="WhatsApp"
+              className="w-7 h-7 flex items-center justify-center rounded-full border border-white/10 text-stone-400 hover:text-white hover:border-white/30 transition-colors"
+            >
+              <svg
+                className="w-3.5 h-3.5"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12.001 2C6.478 2 2 6.478 2 12c0 1.85.504 3.58 1.385 5.064L2 22l5.084-1.334A9.954 9.954 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.952 7.952 0 0 1-4.274-1.244l-.306-.183-3.018.791.807-2.944-.2-.31A7.96 7.96 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8zm4.406-5.884c-.241-.12-1.427-.703-1.648-.783-.221-.08-.382-.12-.542.12-.16.24-.622.783-.763.944-.14.16-.281.18-.522.06-.241-.12-1.018-.375-1.939-1.197-.717-.64-1.201-1.43-1.342-1.671-.14-.241-.015-.371.106-.491.109-.108.241-.281.362-.422.12-.14.16-.241.241-.401.08-.16.04-.301-.02-.421-.06-.12-.542-1.307-.742-1.789-.196-.469-.395-.405-.542-.413l-.462-.008c-.16 0-.421.06-.642.3-.22.24-.842.824-.842 2.01 0 1.186.862 2.332.982 2.492.12.16 1.696 2.59 4.11 3.632.575.248 1.023.396 1.372.507.577.184 1.102.158 1.517.096.463-.069 1.427-.583 1.628-1.146.2-.562.2-1.044.14-1.145-.06-.1-.221-.16-.462-.28z" />
               </svg>
             </a>
             <Link
