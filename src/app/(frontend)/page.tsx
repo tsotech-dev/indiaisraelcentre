@@ -7,7 +7,7 @@ import Reveal from "@/components/Reveal";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { getPublications, getConvenings, getGlobal } from "@/lib/payload";
-import { pillarLabel, formatDate } from "@/lib/utils";
+import { pillarLabel, formatDate, publicationPath } from "@/lib/utils";
 
 const ORG_JSONLD = {
   "@context": "https://schema.org",
@@ -177,7 +177,7 @@ export default async function HomePage() {
                         latestPubs.map((pub) => (
                           <Link
                             key={pub.id}
-                            href={`/research/${pub.type}/${pub.slug}/`}
+                            href={publicationPath(pub.type, pub.slug)}
                             className="group block py-4 first:pt-0 last:pb-0"
                           >
                             <div className="text-[10px] font-sans uppercase tracking-wider text-stone-400 mb-1">
