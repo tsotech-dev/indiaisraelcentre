@@ -76,6 +76,17 @@ export default function FrontendLayout({
           name="google-site-verification"
           content="aQWNhgRdLx45GPF7CtY3OEL10wHUa6y9Ef1JM3Pwl4Y"
         />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-25RRV76HP1"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-25RRV76HP1');
+            `,
+          }}
+        />
       </head>
       <body className="bg-white text-stone-900 antialiased font-serif selection:bg-iic-saffron/30 selection:text-iic-navy">
         <Header />
