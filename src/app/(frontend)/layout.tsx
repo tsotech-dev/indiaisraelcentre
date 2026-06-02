@@ -72,11 +72,10 @@ export default function FrontendLayout({
       className={`${inter.variable} ${fraunces.variable} scroll-smooth`}
     >
       <head>
-        <meta
-          name="google-site-verification"
-          content="aQWNhgRdLx45GPF7CtY3OEL10wHUa6y9Ef1JM3Pwl4Y"
-        />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-25RRV76HP1"></script>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-25RRV76HP1"
+        ></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -86,6 +85,10 @@ export default function FrontendLayout({
               gtag('config', 'G-25RRV76HP1');
             `,
           }}
+        />
+        <meta
+          name="google-site-verification"
+          content="aQWNhgRdLx45GPF7CtY3OEL10wHUa6y9Ef1JM3Pwl4Y"
         />
       </head>
       <body className="bg-white text-stone-900 antialiased font-serif selection:bg-iic-saffron/30 selection:text-iic-navy">
