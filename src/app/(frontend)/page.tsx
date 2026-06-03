@@ -6,7 +6,7 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
-import { getPublications, getConvenings, getGlobal } from "@/lib/payload";
+import { getPublications, getConvenings, getGlobal, getVideos } from "@/lib/payload";
 import { pillarLabel, formatDate, publicationPath } from "@/lib/utils";
 
 const ORG_JSONLD = {
@@ -27,13 +27,14 @@ const CHAIR_QUOTE =
   "India and Israel present fascinating case studies of nationalism and universalism, religion and secularism, and majority and minority identities.";
 
 export default async function HomePage() {
-  const [home, latestPubs, upcomingConvenings, recentConvenings, commentary] =
+  const [home, latestPubs, upcomingConvenings, recentConvenings, commentary, featuredVideos] =
     await Promise.all([
       getGlobal("home"),
       getPublications({ limit: 3 }),
       getConvenings({ upcoming: true, limit: 3 }),
       getConvenings({ upcoming: false, limit: 3 }),
       getPublications({ type: "commentary", limit: 3 }),
+      getVideos({ limit: 1 }),
     ]);
 
   const eyebrow =
@@ -309,59 +310,78 @@ export default async function HomePage() {
         </section>
 
         {/* ── 4. FEATURED VIDEO ───────────────────────────────────────────── */}
-        <section className="bg-iic-ink border-b border-white/10 overflow-hidden">
-          <div className="relative max-w-7xl mx-auto px-6 py-20">
-            <div
-              aria-hidden
-              className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-10 pointer-events-none"
-              style={{ background: 'radial-gradient(circle, #FF671F 0%, transparent 65%)' }}
-            />
-            <Reveal>
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-10">
-                <div>
-                  <div className="text-[11px] font-sans font-bold uppercase tracking-[0.24em] text-iic-saffron mb-2">
-                    / On Record
+        {featuredVideos.length > 0 && (() => {
+          const v = featuredVideos[0]
+          const rawUrl = v.videoUrl as string
+          const ytId = rawUrl?.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1]
+          const thumbUrl = v.thumbnail && typeof v.thumbnail === 'object' && 'url' in v.thumbnail
+            ? (v.thumbnail.url as string)
+            : ytId ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg` : null
+          return (
+            <section className="bg-iic-ink border-b border-white/10 overflow-hidden">
+              <div className="relative max-w-7xl mx-auto px-6 py-20">
+                <div
+                  aria-hidden
+                  className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-10 pointer-events-none"
+                  style={{ background: 'radial-gradient(circle, #FF671F 0%, transparent 65%)' }}
+                />
+                <Reveal>
+                  <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-10">
+                    <div>
+                      <div className="text-[11px] font-sans font-bold uppercase tracking-[0.24em] text-iic-saffron mb-2">
+                        / On Record
+                      </div>
+                      <h2 className="font-display text-3xl md:text-4xl font-bold text-white leading-tight">
+                        Watch
+                      </h2>
+                    </div>
+                    <Link href="/watch/" className="shrink-0 text-sm font-sans font-semibold text-iic-saffron underline-anim">
+                      All videos →
+                    </Link>
                   </div>
-                  <h2 className="font-display text-3xl md:text-4xl font-bold text-white leading-tight">
-                    Watch
-                  </h2>
-                </div>
+                </Reveal>
+                <Reveal delay={100}>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <Link href={`/watch/${v.slug}/`} className="lg:col-span-8 group block">
+                      <div className="relative w-full aspect-video rounded-sm overflow-hidden ring-1 ring-white/10 bg-black">
+                        {thumbUrl && (
+                          <Image src={thumbUrl} alt={v.title as string} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(min-width: 1024px) 66vw, 100vw" />
+                        )}
+                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                          <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl">
+                            <svg className="w-6 h-6 text-iic-navy ml-1" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                    <div className="lg:col-span-4 flex flex-col justify-center pt-2">
+                      <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron mb-3">
+                        {formatDate(v.date as string)}
+                        {v.pillar && <span className="text-stone-500 font-normal ml-2 normal-case tracking-normal">· {pillarLabel(v.pillar as string)}</span>}
+                      </div>
+                      <h3 className="font-display text-xl md:text-2xl font-bold text-white leading-snug mb-4">
+                        {v.title as string}
+                      </h3>
+                      {v.description && (
+                        <p className="text-sm text-stone-400 leading-relaxed mb-6 line-clamp-3">
+                          {v.description as string}
+                        </p>
+                      )}
+                      <Link
+                        href={`/watch/${v.slug}/`}
+                        className="inline-flex items-center gap-2 text-sm font-sans font-semibold text-iic-saffron underline-anim"
+                      >
+                        Watch now →
+                      </Link>
+                    </div>
+                  </div>
+                </Reveal>
               </div>
-            </Reveal>
-            <Reveal delay={100}>
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                <div className="lg:col-span-8">
-                  <div className="relative w-full aspect-video rounded-sm overflow-hidden ring-1 ring-white/10">
-                    <iframe
-                      src="https://www.youtube.com/embed/fFZGFUuhoWQ?autoplay=1&mute=1&loop=1&playlist=fFZGFUuhoWQ&rel=0"
-                      title="India–Israel Strategic Partnership: Navigating a Turbulent Bilateral in Changing Times"
-                      allow="autoplay; encrypted-media; picture-in-picture"
-                      allowFullScreen
-                      className="absolute inset-0 w-full h-full"
-                    />
-                  </div>
-                </div>
-                <div className="lg:col-span-4 flex flex-col justify-center pt-2">
-                  <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron mb-3">
-                    Roundtable · 21 May 2026
-                  </div>
-                  <h3 className="font-display text-xl md:text-2xl font-bold text-white leading-snug mb-4">
-                    India–Israel Strategic Partnership: Navigating a Turbulent Bilateral in Changing Times
-                  </h3>
-                  <p className="text-sm text-stone-400 leading-relaxed mb-6">
-                    Security, Stability &amp; Counter-Terror Cooperation
-                  </p>
-                  <Link
-                    href="/forum/"
-                    className="inline-flex items-center gap-2 text-sm font-sans font-semibold text-iic-saffron underline-anim"
-                  >
-                    View all convenings →
-                  </Link>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
+            </section>
+          )
+        })()}
 
         {/* ── 5. PILLAR NAVIGATOR ─────────────────────────────────────────── */}
         <section className="bg-iic-paper border-b border-stone-200">

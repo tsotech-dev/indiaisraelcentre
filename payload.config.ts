@@ -13,6 +13,7 @@ import { People } from './src/collections/People'
 import { Convenings } from './src/collections/Convenings'
 import { NewsletterSubscribers } from './src/collections/NewsletterSubscribers'
 import { Pillars } from './src/collections/Pillars'
+import { Videos } from './src/collections/Videos'
 
 import { Home } from './src/globals/Home'
 import { About } from './src/globals/About'
@@ -53,6 +54,7 @@ export default buildConfig({
     Convenings,
     Pillars,
     NewsletterSubscribers,
+    Videos,
   ],
   globals: [
     Home,

@@ -118,6 +118,37 @@ export async function getGlobal(slug: string): Promise<Record<string, any> | nul
   }
 }
 
+export async function getVideos(opts: { limit?: number; pillar?: string } = {}) {
+  try {
+    const payload = await getPayloadClient()
+    const where: Where = {}
+    if (opts.pillar) where.pillar = { equals: opts.pillar }
+    const res = await payload.find({
+      collection: 'videos',
+      where,
+      limit: opts.limit ?? 50,
+      sort: '-date',
+    })
+    return res.docs
+  } catch {
+    return []
+  }
+}
+
+export async function getVideo(slug: string) {
+  try {
+    const payload = await getPayloadClient()
+    const res = await payload.find({
+      collection: 'videos',
+      where: { slug: { equals: slug } },
+      limit: 1,
+    })
+    return res.docs[0] ?? null
+  } catch {
+    return null
+  }
+}
+
 export async function getPillarContent(code: string) {
   try {
     const payload = await getPayloadClient()
