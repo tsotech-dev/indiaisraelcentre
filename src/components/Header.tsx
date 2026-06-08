@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const NAV_ITEMS = [
@@ -40,16 +39,7 @@ export default function Header() {
 
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 overflow-hidden flex items-center justify-center">
-            <Image
-              src="/images/iic_logo.png"
-              alt="India Israel Centre"
-              width={52}
-              height={52}
-              className="object-contain"
-            />
-          </div>
-          <span className="hidden sm:block text-[12px] font-bold text-white font-sans tracking-[0.12em] uppercase">
+          <span className="text-[12px] font-bold text-white font-sans tracking-[0.12em] uppercase">
             India Israel Centre
           </span>
         </Link>
