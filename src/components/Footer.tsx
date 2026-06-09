@@ -140,10 +140,10 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <a
-              href="mailto:research@indiaisraelcentre.org"
+              href="mailto:contact@indiaisraelcentre.org"
               className="text-xs font-sans text-stone-400 hover:text-iic-saffron transition-colors"
             >
-              research@indiaisraelcentre.org
+              contact@indiaisraelcentre.org
             </a>
             <a
               href="https://x.com/IndIsraelCentre"

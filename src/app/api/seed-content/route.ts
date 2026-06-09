@@ -300,7 +300,7 @@ export async function GET() {
         },
         {
           heading: 'Rights',
-          body: 'Persons whose personal data is processed by the Centre have the rights established by the Indian Digital Personal Data Protection Act 2023, including access, correction, erasure where applicable, and nomination. Requests to research@indiaisraelcentre.org.',
+          body: 'Persons whose personal data is processed by the Centre have the rights established by the Indian Digital Personal Data Protection Act 2023, including access, correction, erasure where applicable, and nomination. Requests to contact@indiaisraelcentre.org.',
         },
         {
           heading: 'Changes',
@@ -308,7 +308,7 @@ export async function GET() {
         },
         {
           heading: 'Contact',
-          body: 'research@indiaisraelcentre.org',
+          body: 'contact@indiaisraelcentre.org',
         },
       ],
     } as any,
@@ -347,7 +347,7 @@ export async function GET() {
         },
         {
           heading: 'Contact',
-          body: 'research@indiaisraelcentre.org',
+          body: 'contact@indiaisraelcentre.org',
         },
       ],
     } as any,
@@ -360,7 +360,7 @@ export async function GET() {
     data: {
       heading: 'Page not found',
       description:
-        'The page you were looking for is not available at this address. If you arrived here by following a link, the link may be out of date. If you continue to encounter this error, please write to research@indiaisraelcentre.org.',
+        'The page you were looking for is not available at this address. If you arrived here by following a link, the link may be out of date. If you continue to encounter this error, please write to contact@indiaisraelcentre.org.',
     } as any,
   })
   results.push('Seeded: not-found')

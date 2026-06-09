@@ -54,8 +54,8 @@ const SECTIONS = [
     h: 'Contact',
     body: (
       <p>
-        <a href="mailto:research@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim">
-          research@indiaisraelcentre.org
+        <a href="mailto:contact@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim">
+          contact@indiaisraelcentre.org
         </a>
       </p>
     ),

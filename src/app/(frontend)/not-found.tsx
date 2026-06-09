@@ -37,8 +37,8 @@ export default async function NotFound() {
             {(c?.description as string | undefined) ?? (
               <>
                 The page you were looking for is not available at this address. If you arrived here by following a link, the link may be out of date. If you continue to encounter this error, please write to{' '}
-                <a href="mailto:research@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim">
-                  research@indiaisraelcentre.org
+                <a href="mailto:contact@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim">
+                  contact@indiaisraelcentre.org
                 </a>
                 .
               </>
