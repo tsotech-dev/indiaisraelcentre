@@ -109,7 +109,7 @@ export default async function ContactPage() {
               href="/about/work-with-us/"
               className="text-iic-navy font-semibold underline-anim"
             >
-              research@indiaisraelcentre.org
+              contact@indiaisraelcentre.org
             </Link>
             .
           </p>
