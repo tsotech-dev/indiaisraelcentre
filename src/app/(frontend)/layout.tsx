@@ -22,6 +22,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://indiaisraelcentre.org"
   ),
+  icons: {
+    icon: [
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon/favicon.ico", sizes: "any" },
+    ],
+    apple: "/favicon/apple-touch-icon.png",
+    other: [
+      { rel: "android-chrome", url: "/favicon/android-chrome-192x192.png", sizes: "192x192" },
+      { rel: "android-chrome", url: "/favicon/android-chrome-512x512.png", sizes: "512x512" },
+    ],
+  },
   title: {
     default: "India Israel Centre",
     template: "%s | India Israel Centre",
@@ -53,26 +65,14 @@ export default function FrontendLayout({
       className={`${inter.variable} ${fraunces.variable} scroll-smooth`}
     >
       <head>
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-25RRV76HP1"
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-25RRV76HP1');
-            `,
-          }}
-        />
         <meta
           name="google-site-verification"
           content="aQWNhgRdLx45GPF7CtY3OEL10wHUa6y9Ef1JM3Pwl4Y"
         />
       </head>
       <body className="bg-white text-stone-900 antialiased font-serif selection:bg-iic-saffron/30 selection:text-iic-navy">
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-25RRV76HP1" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-25RRV76HP1');`}</Script>
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

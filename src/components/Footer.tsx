@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import NewsletterSignup from "./NewsletterSignup";
 
 const COLUMNS = [
@@ -79,23 +80,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-16">
           {/* Identity + description + subscribe */}
           <div className="md:col-span-4">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-3 group mb-5"
-            >
-              <div className="w-10 h-10 bg-white rounded-sm flex items-center justify-center">
-                <span className="text-iic-navy text-xs font-bold font-sans tracking-tight">
-                  IIC
-                </span>
-              </div>
-              <div className="leading-tight">
-                <div className="text-white font-semibold text-sm font-sans tracking-tight">
-                  India Israel Centre
-                </div>
-                <div className="text-[10px] font-sans text-stone-500 uppercase tracking-[0.18em]">
-                  An Independent Policy Research Forum
-                </div>
-              </div>
+            <Link href="/" className="inline-flex mb-5 group">
+              <Image
+                src="/images/IIC logo.png"
+                alt="India Israel Centre"
+                width={140}
+                height={69}
+                className="object-contain h-9 w-auto"
+              />
             </Link>
             <p className="text-sm leading-relaxed text-stone-400 max-w-md mb-6">
               An independent forum dedicated to academic dialogue, policy
