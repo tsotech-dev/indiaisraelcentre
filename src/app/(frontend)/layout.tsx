@@ -23,16 +23,8 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "https://indiaisraelcentre.org"
   ),
   icons: {
-    icon: [
-      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon/favicon.ico", sizes: "any" },
-    ],
-    apple: "/favicon/apple-touch-icon.png",
-    other: [
-      { rel: "android-chrome", url: "/favicon/android-chrome-192x192.png", sizes: "192x192" },
-      { rel: "android-chrome", url: "/favicon/android-chrome-512x512.png", sizes: "512x512" },
-    ],
+    icon: [{ url: "/logo/iic_logo_navy.png", type: "image/png" }],
+    apple: "/logo/iic_logo_navy.png",
   },
   title: {
     default: "India Israel Centre",
