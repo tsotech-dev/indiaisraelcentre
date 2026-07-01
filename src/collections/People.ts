@@ -64,6 +64,31 @@ export const People: CollectionConfig = {
       admin: { description: 'e.g. Director, Senior Fellow, Research Associate.' },
     },
     {
+      name: 'section',
+      type: 'select',
+      required: true,
+      defaultValue: 'academic',
+      options: [
+        { label: 'Academic', value: 'academic' },
+        { label: 'Media', value: 'media' },
+      ],
+      admin: {
+        position: 'sidebar',
+        description: 'Which group this person appears under on the People page.',
+      },
+    },
+    {
+      name: 'displayOrder',
+      type: 'number',
+      label: 'Order',
+      defaultValue: 0,
+      admin: {
+        position: 'sidebar',
+        step: 1,
+        description: 'Order within the section (lower shows first).',
+      },
+    },
+    {
       name: 'bio',
       type: 'richText',
     },

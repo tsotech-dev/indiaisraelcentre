@@ -259,56 +259,81 @@ export default async function AboutPage() {
                 People
               </h2>
             </Reveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {people.map((person, i) => {
-                const photoUrl =
-                  person.photo && typeof person.photo === 'object' && 'url' in person.photo
-                    ? (person.photo.url as string | null)
-                    : person.slug === 'khinvraj-jangid'
-                    ? '/images/Khinvraj-Jangid.png'
-                    : null
-                const initials = (person.name as string)
-                  .split(' ')
-                  .map((n: string) => n[0])
-                  .filter(Boolean)
-                  .slice(0, 2)
-                  .join('')
-                return (
-                  <Reveal key={person.id as string} delay={Math.min(i * 60, 300)}>
-                    <Link
-                      href={`/about/people/${person.slug}/`}
-                      className="group block bg-iic-paper border border-stone-200 rounded-xl overflow-hidden hover-lift hover:border-iic-navy/30 transition-colors"
-                    >
-                      <div className="relative aspect-[4/3] bg-gradient-to-br from-iic-saffron via-iic-saffron-deep to-iic-navy overflow-hidden">
-                        {photoUrl ? (
-                          <Image
-                            src={photoUrl}
-                            alt={person.name as string}
-                            fill
-                            className="object-cover object-top"
-                            sizes="(min-width: 768px) 33vw, 50vw"
-                          />
-                        ) : (
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="font-display text-5xl font-bold text-white">
-                              {initials || (person.name as string)[0]}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                      <div className="p-5">
-                        <h3 className="font-display text-lg font-bold text-stone-900 group-hover:text-iic-navy leading-snug transition-colors">
-                          {person.name as string}
-                        </h3>
-                        <p className="text-sm text-stone-500 mt-1 font-display italic">
-                          {person.role as string}
-                        </p>
-                      </div>
-                    </Link>
-                  </Reveal>
+
+            {([
+              { value: "academic", label: "Academic" },
+              { value: "media", label: "Media" },
+            ] as const).map(({ value, label }) => {
+              const group = people
+                .filter(
+                  (p) => ((p.section as string | undefined) ?? "academic") === value
                 )
-              })}
-            </div>
+                .sort(
+                  (a, b) =>
+                    ((a.displayOrder as number | undefined) ?? 0) -
+                    ((b.displayOrder as number | undefined) ?? 0)
+                );
+              if (group.length === 0) return null;
+              return (
+                <div key={value} className="mb-14 last:mb-0">
+                  <Reveal>
+                    <h3 className="font-display text-xl md:text-2xl font-bold text-stone-800 mb-6 leading-tight">
+                      {label}
+                    </h3>
+                  </Reveal>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {group.map((person, i) => {
+                      const photoUrl =
+                        person.photo && typeof person.photo === 'object' && 'url' in person.photo
+                          ? (person.photo.url as string | null)
+                          : person.slug === 'khinvraj-jangid'
+                          ? '/images/Khinvraj-Jangid.png'
+                          : null
+                      const initials = (person.name as string)
+                        .split(' ')
+                        .map((n: string) => n[0])
+                        .filter(Boolean)
+                        .slice(0, 2)
+                        .join('')
+                      return (
+                        <Reveal key={person.id as string} delay={Math.min(i * 60, 300)}>
+                          <Link
+                            href={`/about/people/${person.slug}/`}
+                            className="group block bg-iic-paper border border-stone-200 rounded-xl overflow-hidden hover-lift hover:border-iic-navy/30 transition-colors"
+                          >
+                            <div className="relative aspect-[4/3] bg-gradient-to-br from-iic-saffron via-iic-saffron-deep to-iic-navy overflow-hidden">
+                              {photoUrl ? (
+                                <Image
+                                  src={photoUrl}
+                                  alt={person.name as string}
+                                  fill
+                                  className="object-cover object-top"
+                                  sizes="(min-width: 768px) 33vw, 50vw"
+                                />
+                              ) : (
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                  <span className="font-display text-5xl font-bold text-white">
+                                    {initials || (person.name as string)[0]}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                            <div className="p-5">
+                              <h3 className="font-display text-lg font-bold text-stone-900 group-hover:text-iic-navy leading-snug transition-colors">
+                                {person.name as string}
+                              </h3>
+                              <p className="text-sm text-stone-500 mt-1 font-display italic">
+                                {person.role as string}
+                              </p>
+                            </div>
+                          </Link>
+                        </Reveal>
+                      )
+                    })}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
       )}
