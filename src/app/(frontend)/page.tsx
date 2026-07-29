@@ -144,7 +144,7 @@ export default async function HomePage() {
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-10">
                 <div>
                   <div className="text-[11px] font-sans font-bold uppercase tracking-[0.24em] text-iic-saffron mb-2">
-                    / From the Centre
+                    / From the News
                   </div>
                   <h2 className="font-display text-3xl md:text-4xl font-bold text-stone-900 leading-tight">
                     Latest work
