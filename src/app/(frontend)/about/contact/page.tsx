@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -109,7 +109,7 @@ export default async function ContactPage() {
               href="/about/work-with-us/"
               className="text-iic-navy font-semibold underline-anim"
             >
-              contact@indiaisraelcentre.org
+              research@indiaisraelcentre.org
             </Link>
             .
           </p>
