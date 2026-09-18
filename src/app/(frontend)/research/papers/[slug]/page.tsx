@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation'
 import PublicationDetailHero from '@/components/PublicationDetailHero'
 import CitationBlock from '@/components/CitationBlock'
 import PublicationCard from '@/components/PublicationCard'
-import RichTextRenderer from '@/components/RichTextRenderer'
 import Reveal from '@/components/Reveal'
 import JsonLd from '@/components/JsonLd'
 import { getPublication, getPublications } from '@/lib/payload'
@@ -86,58 +85,87 @@ export default async function PaperDetailPage({
         ]}
       />
 
-      <section className="bg-iic-paper border-b border-stone-200">
-        <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 lg:grid-cols-12 gap-10">
-          <aside className="lg:col-span-4">
-            <div className="lg:sticky lg:top-24 space-y-6">
-              {paper.abstract && (
-                <div className="border-l-2 border-iic-navy pl-5">
-                  <h2 className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-navy mb-3">
-                    Abstract
-                  </h2>
-                  <p className="text-stone-700 leading-relaxed text-sm">{paper.abstract}</p>
-                </div>
-              )}
-              {pdfUrl && (
-                <a
-                  href={pdfUrl}
-                  download
-                  className="group inline-flex items-center gap-2 text-sm font-sans font-semibold bg-iic-navy text-white px-5 py-3 rounded-sm hover:bg-iic-saffron transition-colors w-full justify-center"
-                >
-                  <span className="group-hover:translate-y-0.5 transition-transform">↓</span>
-                  Download PDF
-                </a>
-              )}
-              {paper.doi && (
-                <a
-                  href={paper.doi}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-sans font-semibold bg-stone-900 text-white px-5 py-3 hover:bg-white hover:text-black hover:border hover:border-black transition-colors w-full justify-center"
-                >
-                  Read full
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-              )}
+      {/* Abstract — full width */}
+      {paper.abstract && (
+        <section className="bg-iic-paper border-b border-stone-200">
+          <div className="max-w-4xl mx-auto px-6 py-12">
+            <h2 className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-navy mb-4">
+              Abstract
+            </h2>
+            <div className="border-l-2 border-iic-navy pl-5 space-y-4">
+              {paper.abstract.split('\n\n').map((para, i) => (
+                <p key={i} className="text-stone-700 leading-relaxed text-base">
+                  {para}
+                </p>
+              ))}
             </div>
-          </aside>
+          </div>
+        </section>
+      )}
 
-          <article className="lg:col-span-8 min-w-0">
-            <RichTextRenderer data={paper.body} className="prose max-w-none" />
-            <CitationBlock
-              title={paper.title}
-              authors={paper.authors.map((a: { name: string }) => a.name)}
-              year={new Date(paper.publishedDate).getFullYear().toString()}
-              publisher="India Israel Centre"
-              url={`https://indiaisraelcentre.org/research/papers/${paper.slug}/`}
-              doi={paper.doi ?? undefined}
-            />
-          </article>
+      {/* PDF embed + download */}
+      {pdfUrl && (
+        <section className="bg-white border-b border-stone-200">
+          <div className="max-w-4xl mx-auto px-6 pt-10 pb-0">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-stone-500">
+                Full Paper
+              </h2>
+              <a
+                href={pdfUrl}
+                download
+                className="group inline-flex items-center gap-2 text-sm font-sans font-semibold bg-iic-navy text-white px-5 py-2.5 rounded-sm hover:bg-iic-saffron transition-colors"
+              >
+                <span className="group-hover:translate-y-0.5 transition-transform">↓</span>
+                Download PDF
+              </a>
+            </div>
+            <div className="w-full border border-stone-200 rounded-sm overflow-hidden shadow-sm">
+              <iframe
+                src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`}
+                className="w-full"
+                style={{ height: '80vh', minHeight: '600px' }}
+                title={paper.title}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* DOI / external link — shown only when there's no PDF */}
+      {!pdfUrl && paper.doi && (
+        <section className="bg-white border-b border-stone-200">
+          <div className="max-w-4xl mx-auto px-6 py-10">
+            <a
+              href={paper.doi}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-sans font-semibold bg-stone-900 text-white px-5 py-3 hover:bg-white hover:text-black hover:border hover:border-black transition-colors"
+            >
+              Read full paper
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </div>
+        </section>
+      )}
+
+      {/* Citation block — full width, at the end */}
+      <section className="bg-iic-paper border-b border-stone-200">
+        <div className="max-w-4xl mx-auto px-6 pt-8 pb-12">
+          <CitationBlock
+            title={paper.title}
+            authors={paper.authors.map((a: { name: string }) => a.name)}
+            year={new Date(paper.publishedDate).getFullYear().toString()}
+            publisher="India Israel Centre"
+            url={`https://indiaisraelcentre.org/research/papers/${paper.slug}/`}
+            doi={paper.doi ?? undefined}
+          />
         </div>
       </section>
 
+      {/* Related publications */}
       {related.length > 0 && (
         <section className="bg-white border-b border-stone-200">
           <div className="max-w-7xl mx-auto px-6 py-16">

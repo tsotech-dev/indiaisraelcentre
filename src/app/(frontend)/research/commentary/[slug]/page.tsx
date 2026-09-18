@@ -42,6 +42,8 @@ export default async function CommentaryDetailPage({
   })
 
   const pillar = pillarLabel(piece.pillar)
+  const pdfUrl =
+    piece.pdf && typeof piece.pdf === 'object' && 'url' in piece.pdf ? piece.pdf.url : null
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -71,30 +73,81 @@ export default async function CommentaryDetailPage({
         ]}
       />
 
-      <section className="bg-iic-paper border-b border-stone-200">
-        <div className="max-w-3xl mx-auto px-6 py-14">
-          {piece.abstract && (
-            <p className="font-display text-xl md:text-2xl italic font-light text-stone-600 leading-snug mb-10 border-l-2 border-iic-gold pl-5">
-              {piece.abstract}
-            </p>
-          )}
+      {/* Abstract — italic pull-quote style */}
+      {piece.abstract && (
+        <section className="bg-iic-paper border-b border-stone-200">
+          <div className="max-w-4xl mx-auto px-6 py-12">
+            <div className="space-y-3 border-l-2 border-iic-gold pl-5">
+              {piece.abstract.split('\n').filter((p: string) => p.trim()).map((para: string, i: number) => (
+                <p key={i} className="font-display text-xl md:text-2xl italic font-light text-stone-600 leading-snug">
+                  {para}
+                </p>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-          {piece.doi && (
+      {/* PDF embed + download */}
+      {pdfUrl && (
+        <section className="bg-white border-b border-stone-200">
+          <div className="max-w-4xl mx-auto px-6 pt-10 pb-0">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-stone-500">
+                Full Article
+              </h2>
+              <a
+                href={pdfUrl}
+                download
+                className="group inline-flex items-center gap-2 text-sm font-sans font-semibold bg-iic-navy text-white px-5 py-2.5 rounded-sm hover:bg-iic-saffron transition-colors"
+              >
+                <span className="group-hover:translate-y-0.5 transition-transform">↓</span>
+                Download PDF
+              </a>
+            </div>
+            <div className="w-full border border-stone-200 rounded-sm overflow-hidden shadow-sm">
+              <iframe
+                src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`}
+                className="w-full"
+                style={{ height: '80vh', minHeight: '600px' }}
+                title={piece.title}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* DOI / external link — only when no PDF */}
+      {!pdfUrl && piece.doi && (
+        <section className="bg-white border-b border-stone-200">
+          <div className="max-w-4xl mx-auto px-6 py-10">
             <a
               href={piece.doi}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mb-10 px-5 py-3 bg-stone-900 text-white hover:bg-white hover:text-black hover:border hover:border-black transition-colors font-medium text-sm tracking-wide uppercase"
+              className="inline-flex items-center gap-2 px-5 py-3 bg-stone-900 text-white hover:bg-white hover:text-black hover:border hover:border-black transition-colors font-medium text-sm tracking-wide uppercase"
             >
               Read the original article
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
-          )}
+          </div>
+        </section>
+      )}
 
-          <RichTextRenderer data={piece.body} className="prose max-w-none" />
+      {/* Rich text body */}
+      {piece.body && (
+        <section className="bg-white border-b border-stone-200">
+          <div className="max-w-3xl mx-auto px-6 py-12">
+            <RichTextRenderer data={piece.body} className="prose max-w-none" />
+          </div>
+        </section>
+      )}
 
+      {/* Citation block */}
+      <section className="bg-iic-paper border-b border-stone-200">
+        <div className="max-w-4xl mx-auto px-6 pt-8 pb-12">
           <CitationBlock
             title={piece.title}
             authors={piece.authors.map((a: { name: string }) => a.name)}

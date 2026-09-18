@@ -74,45 +74,85 @@ export default async function BriefDetailPage({
         ]}
       />
 
-      <section className="bg-iic-paper border-b border-stone-200">
-        <div className="max-w-3xl mx-auto px-6 py-14">
-          {brief.abstract && (
-            <div className="relative border border-iic-saffron/30 bg-white rounded-sm p-6 mb-10 overflow-hidden">
+      {/* Abstract — full width */}
+      {brief.abstract && (
+        <section className="bg-iic-paper border-b border-stone-200">
+          <div className="max-w-4xl mx-auto px-6 py-12">
+            <div className="relative border border-iic-saffron/30 bg-white rounded-sm p-6 overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-iic-saffron" />
               <h2 className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron-deep mb-3">
                 Summary
               </h2>
-              <p className="text-stone-700 leading-relaxed">{brief.abstract}</p>
+              <div className="space-y-3">
+                {brief.abstract.split('\n').filter((p: string) => p.trim()).map((para: string, i: number) => (
+                  <p key={i} className="text-stone-700 leading-relaxed">{para}</p>
+                ))}
+              </div>
             </div>
-          )}
+          </div>
+        </section>
+      )}
 
-          {pdfUrl && (
-            <a
-              href={pdfUrl}
-              download
-              className="group inline-flex items-center gap-2 mb-4 text-sm font-sans font-semibold bg-iic-navy text-white px-5 py-3 rounded-sm hover:bg-iic-saffron transition-colors"
-            >
-              <span className="group-hover:translate-y-0.5 transition-transform">↓</span>
-              Download PDF
-            </a>
-          )}
+      {/* PDF embed + download */}
+      {pdfUrl && (
+        <section className="bg-white border-b border-stone-200">
+          <div className="max-w-4xl mx-auto px-6 pt-10 pb-0">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-stone-500">
+                Full Brief
+              </h2>
+              <a
+                href={pdfUrl}
+                download
+                className="group inline-flex items-center gap-2 text-sm font-sans font-semibold bg-iic-navy text-white px-5 py-2.5 rounded-sm hover:bg-iic-saffron transition-colors"
+              >
+                <span className="group-hover:translate-y-0.5 transition-transform">↓</span>
+                Download PDF
+              </a>
+            </div>
+            <div className="w-full border border-stone-200 rounded-sm overflow-hidden shadow-sm">
+              <iframe
+                src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1`}
+                className="w-full"
+                style={{ height: '80vh', minHeight: '600px' }}
+                title={brief.title}
+              />
+            </div>
+          </div>
+        </section>
+      )}
 
-          {brief.doi && (
+      {/* DOI / external link — only when no PDF */}
+      {!pdfUrl && brief.doi && (
+        <section className="bg-white border-b border-stone-200">
+          <div className="max-w-4xl mx-auto px-6 py-10">
             <a
               href={brief.doi}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mb-10 px-5 py-3 bg-stone-900 text-white hover:bg-white hover:text-black hover:border hover:border-black transition-colors font-medium text-sm"
+              className="inline-flex items-center gap-2 px-5 py-3 bg-stone-900 text-white hover:bg-white hover:text-black hover:border hover:border-black transition-colors font-medium text-sm"
             >
               Read full
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
-          )}
+          </div>
+        </section>
+      )}
 
-          <RichTextRenderer data={brief.body} className="prose max-w-none" />
+      {/* Rich text body */}
+      {brief.body && (
+        <section className="bg-white border-b border-stone-200">
+          <div className="max-w-3xl mx-auto px-6 py-12">
+            <RichTextRenderer data={brief.body} className="prose max-w-none" />
+          </div>
+        </section>
+      )}
 
+      {/* Citation block */}
+      <section className="bg-iic-paper border-b border-stone-200">
+        <div className="max-w-4xl mx-auto px-6 pt-8 pb-12">
           <CitationBlock
             title={brief.title}
             authors={brief.authors.map((a: { name: string }) => a.name)}
