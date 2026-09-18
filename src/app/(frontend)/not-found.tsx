@@ -1,27 +1,31 @@
-import Link from 'next/link'
-import { getGlobal } from '@/lib/payload'
+import Link from "next/link";
+import { getGlobal } from "@/lib/payload";
 
 const LINKS = [
-  { label: "Return to the Centre's home", href: '/' },
-  { label: "Browse the Centre's research", href: '/research/' },
-  { label: 'The Forum', href: '/forum/' },
-  { label: 'About the Centre', href: '/about/' },
-]
+  { label: "Return to the Centre's home", href: "/" },
+  { label: "Browse the Centre's research", href: "/research/" },
+  { label: "The Forum", href: "/forum/" },
+  { label: "About the Centre", href: "/about/" },
+];
 
 export default async function NotFound() {
-  const c = await getGlobal('not-found')
+  const c = await getGlobal("not-found");
   return (
     <>
       <div className="relative min-h-[80vh] flex items-center justify-center px-6 bg-mesh overflow-hidden">
         <div
           aria-hidden
           className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-15"
-          style={{ background: 'radial-gradient(circle, #FF671F 0%, transparent 65%)' }}
+          style={{
+            background: "radial-gradient(circle, #FF671F 0%, transparent 65%)",
+          }}
         />
         <div
           aria-hidden
           className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full opacity-10"
-          style={{ background: 'radial-gradient(circle, #003D7A 0%, transparent 65%)' }}
+          style={{
+            background: "radial-gradient(circle, #003D7A 0%, transparent 65%)",
+          }}
         />
         <div className="relative text-center max-w-xl">
           <div className="font-display font-bold text-[10rem] md:text-[14rem] leading-none tracking-tight text-stone-900 mb-4 animate-fade-up">
@@ -31,14 +35,19 @@ export default async function NotFound() {
             / Page not found
           </div>
           <h1 className="font-display text-2xl md:text-3xl font-bold text-stone-900 mb-5 animate-fade-up delay-2">
-            {(c?.heading as string | undefined) ?? 'Page not found'}
+            {(c?.heading as string | undefined) ?? "Page not found"}
           </h1>
           <p className="text-stone-600 mb-10 leading-relaxed animate-fade-up delay-3">
             {(c?.description as string | undefined) ?? (
               <>
-                The page you were looking for is not available at this address. If you arrived here by following a link, the link may be out of date. If you continue to encounter this error, please write to{' '}
-                <a href="mailto:contact@indiaisraelcentre.org" className="text-iic-navy font-semibold underline-anim">
-                  contact@indiaisraelcentre.org
+                The page you were looking for is not available at this address.
+                If you arrived here by following a link, the link may be out of
+                date. If you continue to encounter this error, please write to{" "}
+                <a
+                  href="mailto:research@indiaisraelcentre.org"
+                  className="text-iic-navy font-semibold underline-anim"
+                >
+                  research@indiaisraelcentre.org
                 </a>
                 .
               </>
@@ -58,5 +67,5 @@ export default async function NotFound() {
         </div>
       </div>
     </>
-  )
+  );
 }
