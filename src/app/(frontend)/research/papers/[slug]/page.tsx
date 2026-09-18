@@ -93,7 +93,7 @@ export default async function PaperDetailPage({
               Abstract
             </h2>
             <div className="border-l-2 border-iic-navy pl-5 space-y-4">
-              {paper.abstract.split('\n\n').map((para, i) => (
+              {paper.abstract.split('\n').filter((p: string) => p.trim()).map((para: string, i: number) => (
                 <p key={i} className="text-stone-700 leading-relaxed text-base">
                   {para}
                 </p>
