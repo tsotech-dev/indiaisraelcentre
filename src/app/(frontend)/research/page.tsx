@@ -1,55 +1,60 @@
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
-import type { Metadata } from 'next'
-import PublicationCard from '@/components/PublicationCard'
-import PillarNavigatorGrid from '@/components/PillarNavigatorGrid'
-import Reveal from '@/components/Reveal'
-import { Suspense } from 'react'
-import FilterBar from '@/components/FilterBar'
-import Link from 'next/link'
-import { getPublications, getGlobal } from '@/lib/payload'
-import { pillarLabel } from '@/lib/utils'
+import type { Metadata } from "next";
+import PublicationCard from "@/components/PublicationCard";
+import PillarNavigatorGrid from "@/components/PillarNavigatorGrid";
+import Reveal from "@/components/Reveal";
+import { Suspense } from "react";
+import FilterBar from "@/components/FilterBar";
+import Link from "next/link";
+import { getPublications, getGlobal } from "@/lib/payload";
+import { pillarLabel } from "@/lib/utils";
 
-const FORMAT_ACCENTS = ['bg-iic-navy', 'bg-iic-saffron', 'bg-iic-gold-deep'] as const
+const FORMAT_ACCENTS = [
+  "bg-iic-navy",
+  "bg-iic-saffron",
+  "bg-iic-gold-deep",
+] as const;
 
 export const metadata: Metadata = {
-  title: 'Research',
+  title: "Research",
   description:
     "Browse the India Israel Centre's publications across six thematic pillars — Papers, Briefs, and Commentary on the India-Israel bilateral relationship.",
-}
+};
 
 const FORMATS = [
   {
-    code: 'paper',
-    label: 'Papers',
-    href: '/research/papers/',
-    body: 'Extended analytical scholarship. Peer-reviewable arguments built from primary sources.',
-    accent: 'navy',
+    code: "paper",
+    label: "Papers",
+    href: "/research/papers/",
+    body: "Extended analytical scholarship. Peer-reviewable arguments built from primary sources.",
+    accent: "navy",
   },
   {
-    code: 'brief',
-    label: 'Briefs',
-    href: '/research/briefs/',
-    body: 'Policy-oriented synthesis for working professionals. Short, sourced, decisive.',
-    accent: 'saffron',
+    code: "brief",
+    label: "Briefs",
+    href: "/research/briefs/",
+    body: "Policy-oriented synthesis for working professionals. Short, sourced, decisive.",
+    accent: "saffron",
   },
   {
-    code: 'commentary',
-    label: 'Commentary',
-    href: '/research/commentary/',
-    body: 'Timely essays and analytical reactions to current questions on the relationship.',
-    accent: 'gold',
+    code: "commentary",
+    label: "Commentary",
+    href: "/research/commentary/",
+    body: "Timely essays and analytical reactions to current questions on the relationship.",
+    accent: "gold",
   },
-]
+];
 
 export default async function ResearchPage() {
   const [pubs, c] = await Promise.all([
     getPublications({ limit: 60 }),
-    getGlobal('research'),
-  ])
-  const cmsCards = (c?.formatCards as { label: string; body: string }[] | null)?.length
+    getGlobal("research"),
+  ]);
+  const cmsCards = (c?.formatCards as { label: string; body: string }[] | null)
+    ?.length
     ? (c?.formatCards as { label: string; body: string }[])
-    : null
+    : null;
 
   return (
     <>
@@ -58,19 +63,19 @@ export default async function ResearchPage() {
         <div
           aria-hidden
           className="absolute -top-20 right-0 w-[420px] h-[420px] rounded-full opacity-20"
-          style={{ background: 'radial-gradient(circle, #FF671F 0%, transparent 70%)' }}
+          style={{
+            background: "radial-gradient(circle, #FF671F 0%, transparent 70%)",
+          }}
         />
         <div className="relative max-w-5xl mx-auto px-6 pt-24 md:pt-32 pb-16">
-          <div className="text-[11px] font-sans font-bold uppercase tracking-[0.22em] text-iic-saffron mb-6 animate-fade-up">
-            / Research
-          </div>
           <h1 className="font-display text-5xl md:text-7xl font-bold leading-[0.98] tracking-tight text-stone-900 mb-6 animate-fade-up delay-1">
             Research
           </h1>
           <p className="text-lg md:text-xl text-stone-600 leading-relaxed max-w-3xl animate-fade-up delay-2">
-            The Centre&rsquo;s research is organised around six thematic pillars and three
-            publication formats. Pillars are tagged across pieces rather than treated as silos;
-            work that materially engages more than one pillar surfaces in each relevant archive.
+            The Centre&rsquo;s research is organised around six thematic pillars
+            and three publication formats. Pillars are tagged across pieces
+            rather than treated as silos; work that materially engages more than
+            one pillar surfaces in each relevant archive.
           </p>
         </div>
       </section>
@@ -94,11 +99,15 @@ export default async function ResearchPage() {
                   <h2 className="font-display text-2xl font-semibold text-stone-900 mb-3 group-hover:text-iic-navy transition-colors">
                     {f.label}
                   </h2>
-                  <p className="text-sm text-stone-600 leading-relaxed flex-1">{cmsCards?.[i]?.body ?? f.body}</p>
+                  <p className="text-sm text-stone-600 leading-relaxed flex-1">
+                    {cmsCards?.[i]?.body ?? f.body}
+                  </p>
                   <div className="mt-6 pt-5 border-t border-stone-100">
                     <span className="inline-flex items-center gap-1.5 text-[11px] font-sans font-semibold uppercase tracking-widest text-stone-400 group-hover:text-iic-saffron transition-colors">
                       Browse {f.label.toLowerCase()}
-                      <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                      <span className="transition-transform duration-300 group-hover:translate-x-1">
+                        →
+                      </span>
                     </span>
                   </div>
                 </Link>
@@ -117,7 +126,7 @@ export default async function ResearchPage() {
                 All publications
               </h2>
               <p className="text-sm font-sans text-stone-500">
-                {pubs.length} {pubs.length === 1 ? 'piece' : 'pieces'} of work
+                {pubs.length} {pubs.length === 1 ? "piece" : "pieces"} of work
               </p>
             </div>
           </Reveal>
@@ -171,5 +180,5 @@ export default async function ResearchPage() {
         </div>
       </section>
     </>
-  )
+  );
 }
