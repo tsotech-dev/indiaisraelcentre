@@ -1,21 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { EB_Garamond } from "next/font/google";
 import Script from "next/script";
 import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Suspense } from "react";
+import { SeorceScriptRouteHandler } from "./SeorceScriptRouteHandler";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-sans",
-});
-
-const fraunces = Fraunces({
+const ebGaramond = EB_Garamond({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-serif",
-  axes: ["opsz", "SOFT"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -54,7 +50,7 @@ export default function FrontendLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${fraunces.variable} scroll-smooth`}
+      className={`${ebGaramond.variable} scroll-smooth`}
     >
       <head>
         <meta
@@ -67,6 +63,9 @@ export default function FrontendLayout({
         <Script id="gtag-init" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-25RRV76HP1');`}</Script>
         <Header />
         <main className="min-h-screen">{children}</main>
+        <Suspense fallback={null}>
+          <SeorceScriptRouteHandler />
+        </Suspense>
         <Footer />
       </body>
     </html>

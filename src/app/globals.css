@@ -17,8 +17,8 @@
   --color-iic-paper: #FBFAF7;
 
   /* Fonts */
-  --font-serif: var(--font-serif), Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-serif), "EB Garamond", Garamond, "Times New Roman", serif;
+  --font-sans: Cambria, "Palatino Linotype", Palatino, Georgia, serif;
 
   /* Radii */
   --radius-card: 0.25rem;
