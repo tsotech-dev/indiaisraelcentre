@@ -107,6 +107,27 @@ export default async function ConveningDetailPage({
       <section className="bg-iic-paper border-b border-stone-200">
         <div className="max-w-3xl mx-auto px-6 py-14">
           {c.description && <RichTextRenderer data={c.description} className="prose max-w-none" />}
+          {c.pdfFile && typeof c.pdfFile === 'object' && (c.pdfFile as { url?: string }).url && (
+            <div className={c.description ? 'mt-10' : ''}>
+              <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron-deep mb-3">
+                Document
+              </div>
+              <iframe
+                src={(c.pdfFile as { url: string }).url}
+                title={`${c.title} — PDF`}
+                className="w-full rounded border border-stone-200"
+                style={{ height: '80vh', minHeight: 480 }}
+              />
+              <a
+                href={(c.pdfFile as { url: string }).url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-3 text-xs font-sans text-iic-saffron-deep hover:underline"
+              >
+                Open PDF in new tab
+              </a>
+            </div>
+          )}
           {c.videoUrl && (
             <div className="mt-12">
               <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron-deep mb-3">

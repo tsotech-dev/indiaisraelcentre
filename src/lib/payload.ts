@@ -72,6 +72,7 @@ export async function getConvening(slug: string) {
       collection: 'convenings',
       where: { slug: { equals: slug } },
       limit: 1,
+      depth: 1,
     })
     return res.docs[0] ?? null
   } catch {

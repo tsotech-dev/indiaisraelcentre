@@ -89,6 +89,17 @@ export const Convenings: CollectionConfig = {
     {
       name: 'description',
       type: 'richText',
+      admin: {
+        description: 'Optional body text shown on the convening page. Leave blank if uploading a PDF instead.',
+      },
+    },
+    {
+      name: 'pdfFile',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Optional PDF to embed on the convening page. If provided, this is shown instead of (or alongside) the body text.',
+      },
     },
     {
       name: 'videoUrl',
