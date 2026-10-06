@@ -50,9 +50,6 @@ export const Convenings: CollectionConfig = {
       },
       admin: {
         description: 'Auto-generated from title. Only lowercase letters, numbers, and hyphens.',
-        components: {
-          Field: 'src/components/payload/SlugField#SlugField',
-        },
       },
     },
     {

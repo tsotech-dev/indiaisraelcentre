@@ -52,9 +52,6 @@ export const People: CollectionConfig = {
       custom: { watchField: 'name' },
       admin: {
         description: 'Auto-generated from name. Only lowercase letters, numbers, and hyphens.',
-        components: {
-          Field: 'src/components/payload/SlugField#SlugField',
-        },
       },
     },
     {
