@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
       "img-src 'self' data: https: blob:",
       "connect-src 'self' https: https://scripts.seorce.com https://www.google-analytics.com",
       "media-src 'self'",
-      "frame-src https://www.youtube-nocookie.com https://www.youtube.com",
+      "frame-src https://www.youtube-nocookie.com https://www.youtube.com https://*.supabase.co",
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
