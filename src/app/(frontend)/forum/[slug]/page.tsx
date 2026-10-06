@@ -112,12 +112,24 @@ export default async function ConveningDetailPage({
               <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-iic-saffron-deep mb-3">
                 Document
               </div>
-              <iframe
-                src={(c.pdfFile as { url: string }).url}
-                title={`${c.title} — PDF`}
+              <object
+                data={(c.pdfFile as { url: string }).url}
+                type="application/pdf"
                 className="w-full rounded border border-stone-200"
                 style={{ height: '80vh', minHeight: 480 }}
-              />
+              >
+                <p className="text-sm font-sans text-stone-500 p-4">
+                  Your browser cannot display this PDF.{' '}
+                  <a
+                    href={(c.pdfFile as { url: string }).url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-iic-saffron-deep hover:underline"
+                  >
+                    Open it here.
+                  </a>
+                </p>
+              </object>
               <a
                 href={(c.pdfFile as { url: string }).url}
                 target="_blank"

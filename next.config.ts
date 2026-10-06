@@ -1,17 +1,17 @@
-import { withPayload } from '@payloadcms/next/withPayload'
-import type { NextConfig } from 'next'
+import { withPayload } from "@payloadcms/next/withPayload";
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ['sharp'],
+  serverExternalPackages: ["sharp"],
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'tbhhphyqqqcdftpptdmz.supabase.co',
+        protocol: "https",
+        hostname: "tbhhphyqqqcdftpptdmz.supabase.co",
       },
       {
-        protocol: 'https',
-        hostname: 'img.youtube.com',
+        protocol: "https",
+        hostname: "img.youtube.com",
       },
     ],
   },
@@ -25,11 +25,11 @@ const nextConfig: NextConfig = {
       "img-src 'self' data: https: blob:",
       "connect-src 'self' https: https://scripts.seorce.com https://www.google-analytics.com",
       "media-src 'self'",
-      "frame-src https://www.youtube-nocookie.com https://www.youtube.com https://*.supabase.co",
-      "object-src 'none'",
+      "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://*.supabase.co",
+      "object-src 'self'",
       "base-uri 'self'",
       "form-action 'self'",
-      "frame-ancestors 'none'",
+      "frame-ancestors 'self'",
       "upgrade-insecure-requests",
     ].join("; ");
 
@@ -40,6 +40,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-}
+};
 
-export default withPayload(nextConfig)
+export default withPayload(nextConfig);
