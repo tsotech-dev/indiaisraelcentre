@@ -12,6 +12,7 @@ import {
   getGlobal,
   getVideos,
 } from "@/lib/payload";
+import MediaMarquee from "@/components/MediaMarquee";
 import { pillarLabel, formatDate, publicationPath } from "@/lib/utils";
 
 const ORG_JSONLD = {
@@ -225,6 +226,9 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* ── MEDIA MARQUEE ───────────────────────────────────────────────── */}
+        <MediaMarquee />
 
         {/* ── 3. STATS STRIP ──────────────────────────────────────────────── */}
         {/* <section className="bg-iic-ink text-white border-b border-white/10">
