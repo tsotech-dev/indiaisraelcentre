@@ -103,5 +103,62 @@ export const Convenings: CollectionConfig = {
       type: 'text',
       admin: { description: 'Optional YouTube or Vimeo URL of the recording.' },
     },
+    // ── Event Photos ───────────────────────────────────────────────────────
+    {
+      name: 'eventImages',
+      type: 'array',
+      label: 'Event Photos',
+      admin: {
+        description: 'Photos from the event. These appear as a gallery on the convening page.',
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'caption',
+          type: 'text',
+          admin: { description: 'Optional caption for this photo.' },
+        },
+      ],
+    },
+    // ── Press Coverage ─────────────────────────────────────────────────────
+    {
+      name: 'pressReleases',
+      type: 'array',
+      label: 'Press Coverage',
+      admin: {
+        description: 'Media coverage or press releases about this convening. Each entry appears as a clickable card.',
+      },
+      fields: [
+        {
+          name: 'outlet',
+          type: 'text',
+          required: true,
+          admin: { description: 'Name of the publication, e.g. PTI, Economic Times, News18.' },
+        },
+        {
+          name: 'headline',
+          type: 'text',
+          required: true,
+          admin: { description: 'Article headline or press release title.' },
+        },
+        {
+          name: 'url',
+          type: 'text',
+          required: true,
+          admin: { description: 'Full URL to the article or press release.' },
+        },
+        {
+          name: 'thumbnail',
+          type: 'upload',
+          relationTo: 'media',
+          admin: { description: 'Optional thumbnail image for the press card.' },
+        },
+      ],
+    },
   ],
 }
