@@ -1,0 +1,54 @@
+[33m40aee41[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m convenings added
+[33m8bcefc1[m marquee added
+[33mf5120d1[m Merge branch 'main' of https://github.com/tsotech-dev/indiaisraelcentre
+[33m4761c5a[m Embedded pdfs in convenings
+[33m924cb41[m fix: allow Supabase storage in CSP frame-src for PDF embeds
+[33m940a1c1[m fix: remove custom SlugField component to fix admin crash
+[33m9bf4b17[m fix: restore shamefully-hoist for pnpm module resolution
+[33m732176b[m fix: pin Payload packages to exact 3.84.1 to fix admin hydration error
+[33m8ad41aa[m feat: add optional PDF upload field to Convenings
+[33m2ebccd2[m Update README.md
+[33m570202b[m Added Seorce scripts
+[33me175064[m changed layout
+[33m6e3c786[m changes
+[33mc16dd36[m aestheticization of research pages
+[33m4426308[m Merge branch 'Chicken47:main' into main
+[33m928b725[m changed contact email id
+[33m5301476[m Update page.tsx
+[33m80fd5a5[m changes
+[33m517dfc0[m email change
+[33m8e9e09f[m Merge branch 'Chicken47:main' into main
+[33m412832b[m favicon
+[33md984edc[m Merge branch 'Chicken47:main' into main
+[33m834de39[m new logo
+[33mc1409ff[m Merge branch 'Chicken47:main' into main
+[33m0481c5a[m email change
+[33mc68db7b[m Merge branch 'Chicken47:main' into main
+[33mf331b45[m logo removed
+[33m1ee6ba4[m sitemap.xml file upload
+[33m79295a0[m video section
+[33m6f1e99a[m ga4
+[33m681ef26[m yt video embed
+[33m37fd256[m ga4 script
+[33mdefb6db[m gtag
+[33m79175f7[m slug error fixed
+[33m1f53f9f[m linkedin in footer
+[33m92cf3c7[m whatsapp social footer
+[33mb5994a8[m external links
+[33mb7d9f12[m media to supabase storage
+[33m3525669[m people section
+[33m23156b8[m publication buttons
+[33md70c209[m slug field fix
+[33m3dcd025[m dynamic for instant gen
+[33ma1741b2[m footer social iconds
+[33me1e092f[m para in publication
+[33m5f94b14[m favicon
+[33m8c55ade[m social icons footer
+[33md51c0a8[m clipping fix
+[33m0fd4e47[m phone ui enhancement
+[33mea34f94[m new changes
+[33m2d96a6a[m new content
+[33m10afe89[m everything changeable
+[33m68cb90c[m another one
+[33mcab8a28[m all changes
+[33m0d0414e[m Initial commit from Create Next App

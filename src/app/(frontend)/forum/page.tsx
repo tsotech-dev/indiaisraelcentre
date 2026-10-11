@@ -242,10 +242,20 @@ export default async function ForumPage() {
               </Link>
             </div>
           </Reveal>
-          {recent.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Hard-coded: October 7 Remembrance Gathering */}
+              <Reveal delay={0}>
+                <ConveningCard
+                  title="October 7 Remembrance Gathering"
+                  slug="oct7-remembrance"
+                  eventDate="2026-10-08"
+                  format="Remembrance Gathering"
+                  pillarLabel="Security and Strategy"
+                  compact
+                />
+              </Reveal>
               {recent.map((c, i) => (
-                <Reveal key={c.id} delay={Math.min(i * 60, 360)}>
+                <Reveal key={c.id} delay={Math.min((i + 1) * 60, 360)}>
                   <ConveningCard
                     title={c.title}
                     slug={c.slug}
@@ -257,11 +267,6 @@ export default async function ForumPage() {
                 </Reveal>
               ))}
             </div>
-          ) : (
-            <p className="text-sm text-stone-400 italic">
-              Past convenings will appear here.
-            </p>
-          )}
         </div>
       </section>
     </>

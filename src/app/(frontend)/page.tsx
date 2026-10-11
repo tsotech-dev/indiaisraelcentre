@@ -64,6 +64,29 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* ── RECENT CONVENING BANNER ─────────────────────────────────────── */}
+      <div className="bg-iic-ink border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+          <span className="shrink-0 inline-flex items-center gap-1.5 text-[9px] font-sans font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-full bg-iic-saffron/20 text-iic-saffron">
+            <span className="w-1.5 h-1.5 rounded-full bg-iic-saffron animate-pulse" />
+            Recent Event
+          </span>
+          <p className="text-sm font-sans text-stone-300 leading-snug flex-1">
+            <span className="font-semibold text-white">October 7 Remembrance Gathering</span>
+            {' India Israel Centre hosted a solemn remembrance with Ambassador Reuven Azar, Meenakshi Lekhi and members of the diplomatic community.'}
+          </p>
+          <a
+            href="/forum/oct7-remembrance/"
+            className="shrink-0 inline-flex items-center gap-1.5 text-[10px] font-sans font-bold uppercase tracking-[0.18em] text-iic-saffron hover:text-white transition-colors duration-200 whitespace-nowrap"
+          >
+            View Event
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
+              <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
       {/* ── 1. FEATURED VIDEO ───────────────────────────────────────────── */}
       {featuredVideos.length > 0 &&
         (() => {
@@ -334,12 +357,27 @@ export default async function HomePage() {
                       Convenings
                     </div>
                     <div className="flex-1 divide-y divide-stone-100">
+                      {/* Hard-coded: October 7 Remembrance Gathering */}
+                      <Link
+                        href="/forum/oct7-remembrance/"
+                        className="group block py-4 first:pt-0"
+                      >
+                        <div className="text-[10px] font-sans uppercase tracking-wider text-iic-saffron mb-1">
+                          8 Oct 2026
+                          <span className="text-stone-400 ml-2 normal-case capitalize">
+                            · Remembrance Gathering
+                          </span>
+                        </div>
+                        <h3 className="font-display text-[15px] font-semibold text-stone-900 group-hover:text-iic-saffron-deep leading-snug transition-colors">
+                          October 7 Remembrance Gathering
+                        </h3>
+                      </Link>
                       {convenings.length > 0 ? (
                         convenings.map((c) => (
                           <Link
                             key={c.id}
                             href={`/forum/${c.slug}/`}
-                            className="group block py-4 first:pt-0 last:pb-0"
+                            className="group block py-4 last:pb-0"
                           >
                             <div className="text-[10px] font-sans uppercase tracking-wider text-iic-saffron mb-1">
                               {formatDate(c.eventDate)}
@@ -354,11 +392,7 @@ export default async function HomePage() {
                             </h3>
                           </Link>
                         ))
-                      ) : (
-                        <p className="text-sm text-stone-400 italic py-4">
-                          Upcoming convenings will be announced here.
-                        </p>
-                      )}
+                      ) : null}
                     </div>
                     <div className="pt-5 mt-5 border-t border-stone-100">
                       <Link
