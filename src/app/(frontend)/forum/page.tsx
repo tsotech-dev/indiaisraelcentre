@@ -243,17 +243,6 @@ export default async function ForumPage() {
             </div>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Hard-coded: October 7 Remembrance Gathering */}
-              <Reveal delay={0}>
-                <ConveningCard
-                  title="October 7 Remembrance Gathering"
-                  slug="oct7-remembrance"
-                  eventDate="2026-10-08"
-                  format="Remembrance Gathering"
-                  pillarLabel="Security and Strategy"
-                  compact
-                />
-              </Reveal>
               {recent.map((c, i) => (
                 <Reveal key={c.id} delay={Math.min((i + 1) * 60, 360)}>
                   <ConveningCard

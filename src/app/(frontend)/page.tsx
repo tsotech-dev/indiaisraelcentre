@@ -357,21 +357,6 @@ export default async function HomePage() {
                       Convenings
                     </div>
                     <div className="flex-1 divide-y divide-stone-100">
-                      {/* Hard-coded: October 7 Remembrance Gathering */}
-                      <Link
-                        href="/forum/oct7-remembrance/"
-                        className="group block py-4 first:pt-0"
-                      >
-                        <div className="text-[10px] font-sans uppercase tracking-wider text-iic-saffron mb-1">
-                          8 Oct 2026
-                          <span className="text-stone-400 ml-2 normal-case capitalize">
-                            · Remembrance Gathering
-                          </span>
-                        </div>
-                        <h3 className="font-display text-[15px] font-semibold text-stone-900 group-hover:text-iic-saffron-deep leading-snug transition-colors">
-                          October 7 Remembrance Gathering
-                        </h3>
-                      </Link>
                       {convenings.length > 0 ? (
                         convenings.map((c) => (
                           <Link
