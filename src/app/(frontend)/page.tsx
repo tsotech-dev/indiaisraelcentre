@@ -64,30 +64,56 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* ── RECENT CONVENING BANNER ─────────────────────────────────────── */}
-      <div className="bg-iic-ink border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
-          <span className="shrink-0 inline-flex items-center gap-1.5 text-[9px] font-sans font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-full bg-iic-saffron/20 text-iic-saffron">
+         {/* ── IN THE NEWS ─────────────────────────────────────────────────── */}
+      <section className="bg-iic-paper border-b border-stone-200">
+        <div className="max-w-7xl mx-auto px-6 py-10">
+          <div className="flex items-center gap-3 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-iic-saffron animate-pulse" />
-            Recent Event
-          </span>
-          <p className="text-sm font-sans text-stone-300 leading-snug flex-1">
-            <span className="font-semibold text-white">October 7 Remembrance Gathering</span>
-            {' India Israel Centre hosted a solemn remembrance with Ambassador Reuven Azar, Meenakshi Lekhi and members of the diplomatic community.'}
-          </p>
+            <span className="text-[10px] font-sans font-bold uppercase tracking-[0.24em] text-iic-saffron">
+              In the News
+            </span>
+          </div>
           <a
-            href="/forum/oct7-remembrance/"
-            className="shrink-0 inline-flex items-center gap-1.5 text-[10px] font-sans font-bold uppercase tracking-[0.18em] text-iic-saffron hover:text-white transition-colors duration-200 whitespace-nowrap"
+            href="https://indianexpress.com/article/opinion/columns/why-does-benjamin-netanyahu-still-dominate-israeli-politics-10937262/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col sm:flex-row bg-white rounded-xl border border-stone-200 overflow-hidden hover:border-iic-navy/30 hover:shadow-lg transition-all duration-300"
           >
-            View Event
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
-              <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <div className="sm:w-72 shrink-0 overflow-hidden bg-stone-100">
+              <img
+                src="https://images.indianexpress.com/2026/10/benjamin-netanyahu.jpg"
+                alt="Benjamin Netanyahu"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                style={{ aspectRatio: '16/9' }}
+              />
+            </div>
+            <div className="flex flex-col justify-center px-7 py-6">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-[9px] font-sans font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-full bg-iic-saffron/10 text-iic-saffron border border-iic-saffron/20">
+                  Israel Votes Today
+                </span>
+                <span className="text-[10px] font-sans text-stone-400">The Indian Express</span>
+                <span className="text-[10px] font-sans text-stone-400">·</span>
+                <span className="text-[10px] font-sans text-stone-500 italic">Prof. Khinvraj Jangid</span>
+              </div>
+              <h3 className="font-display text-xl md:text-2xl font-bold text-stone-900 leading-snug mb-3 group-hover:text-iic-navy transition-colors duration-200">
+                As Israel votes today, its political direction matters for partners like India
+              </h3>
+              <p className="text-sm font-sans text-stone-500 leading-relaxed mb-5">
+                As Israel heads to the polls, its political direction has direct implications for partners like India. A look at the factors behind Netanyahu's enduring hold on power.
+              </p>
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-sans font-bold uppercase tracking-[0.18em] text-iic-saffron-deep">
+                Read Article
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                  <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+            </div>
           </a>
         </div>
-      </div>
+      </section>
 
-      {/* ── 1. FEATURED VIDEO ───────────────────────────────────────────── */}
+            {/* ── 1. FEATURED VIDEO ───────────────────────────────────────────── */}
       {featuredVideos.length > 0 &&
         (() => {
           const v = featuredVideos[0];

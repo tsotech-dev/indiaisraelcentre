@@ -60,6 +60,26 @@ const MENTIONS = [
     ),
   },
   {
+    name: 'Indian Express',
+    href: 'https://indianexpress.com/article/opinion/columns/why-does-benjamin-netanyahu-still-dominate-israeli-politics-10937262/',
+    logo: (
+      <span className="flex items-center gap-0">
+        <span
+          style={{
+            fontFamily: '"Times New Roman", Georgia, serif',
+            fontSize: '17px',
+            fontWeight: 700,
+            color: '#1a1a1a',
+            letterSpacing: '0.01em',
+            lineHeight: 1,
+          }}
+        >
+          The Indian Express
+        </span>
+      </span>
+    ),
+  },
+  {
     name: 'News18',
     href: 'https://www.news18.com/agency-feeds/israel-to-continue-working-with-india-to-defeat-terrorism-envoy-10373591.html',
     logo: (
