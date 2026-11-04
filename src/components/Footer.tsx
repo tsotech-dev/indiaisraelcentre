@@ -33,6 +33,7 @@ const COLUMNS = [
       { label: "Contact", href: "/about/contact/" },
       { label: "Partner with us", href: "/about/partner-with-us/" },
       { label: "Work with us", href: "/about/work-with-us/" },
+      { label: "Write For Us", href: "/about/write-for-us/" },
     ],
   },
 ];
