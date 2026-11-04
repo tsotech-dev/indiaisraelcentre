@@ -117,6 +117,30 @@ export default async function ResearchPage() {
         </div>
       </section>
 
+      {/* WRITE FOR US BANNER */}
+      <section className="bg-iic-navy border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <div className="text-[11px] font-sans font-bold uppercase tracking-[0.24em] text-iic-saffron mb-2">
+              / Contribute
+            </div>
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">
+              Write for the India Israel Centre
+            </h2>
+            <p className="text-sm md:text-base text-stone-300 max-w-2xl leading-relaxed">
+              We welcome original Op-Eds and Commentary on India&ndash;Israel relations and the wider West Asia region.
+            </p>
+          </div>
+          <Link
+            href="/about/write-for-us/"
+            className="group inline-flex items-center gap-2 self-start md:self-auto whitespace-nowrap text-[11px] font-sans font-bold uppercase tracking-[0.15em] bg-iic-saffron text-white px-6 py-3 rounded-full hover:bg-iic-saffron-deep transition-colors"
+          >
+            Submission guidelines
+            <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+          </Link>
+        </div>
+      </section>
+
       {/* ALL PUBLICATIONS */}
       <section className="bg-iic-paper border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-6 py-16">

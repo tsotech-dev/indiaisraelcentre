@@ -12,10 +12,6 @@ const NAV_ITEMS = [
   { label: 'About', href: '/about/' },
 ]
 
-const ABOUT_LINKS = [
-  { label: 'Write For Us', href: '/about/write-for-us/' },
-]
-
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -57,35 +53,6 @@ export default function Header() {
         <nav className="hidden md:flex items-center gap-1">
           {NAV_ITEMS.map((item) => {
             const active = pathname.startsWith(item.href)
-            if (item.label === 'About') {
-              return (
-                <div key={item.href} className="relative group/about">
-                  <Link
-                    href={item.href}
-                    className="relative px-4 py-2 text-[11px] font-sans font-bold uppercase tracking-[0.15em] transition-colors rounded-full group/nav text-white inline-flex items-center gap-1.5"
-                  >
-                    {item.label}
-                    <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
-                    </svg>
-                    <span className={`absolute left-4 right-4 bottom-1 h-[2px] bg-iic-saffron rounded-full transition-transform duration-200 origin-left ${active ? 'scale-x-100' : 'scale-x-0 group-hover/about:scale-x-100'}`} />
-                  </Link>
-                  <div className="invisible opacity-0 group-hover/about:visible group-hover/about:opacity-100 group-focus-within/about:visible group-focus-within/about:opacity-100 transition-all duration-150 absolute left-0 top-full pt-2 z-50">
-                    <div className="min-w-[220px] bg-[#001a3d] border border-white/10 shadow-[0_8px_32px_0_rgba(0,10,40,0.6)] rounded-sm py-2">
-                      {ABOUT_LINKS.map((l) => (
-                        <Link
-                          key={l.href}
-                          href={l.href}
-                          className="block px-5 py-2 text-[11px] font-sans font-bold uppercase tracking-[0.15em] text-stone-300 hover:text-iic-saffron hover:bg-white/5 transition-colors"
-                        >
-                          {l.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )
-            }
             return (
               <Link
                 key={item.href}
@@ -137,24 +104,13 @@ export default function Header() {
       {menuOpen && (
         <div className="md:hidden border-t border-white/10 bg-[#001a3d] px-6 py-4 flex flex-col gap-1 animate-fade-in">
           {NAV_ITEMS.map((item) => (
-            <div key={item.href} className="flex flex-col">
-              <Link
-                href={item.href}
-                className="text-base font-sans font-medium text-stone-300 hover:text-white py-2 transition-colors"
-              >
-                {item.label}
-              </Link>
-              {item.label === 'About' &&
-                ABOUT_LINKS.map((l) => (
-                  <Link
-                    key={l.href}
-                    href={l.href}
-                    className="text-sm font-sans text-stone-400 hover:text-white py-1.5 pl-4 transition-colors"
-                  >
-                    {l.label}
-                  </Link>
-                ))}
-            </div>
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-base font-sans font-medium text-stone-300 hover:text-white py-2 transition-colors"
+            >
+              {item.label}
+            </Link>
           ))}
           <Link
             href="/about/contact/"
