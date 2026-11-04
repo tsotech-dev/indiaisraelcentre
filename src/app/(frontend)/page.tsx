@@ -64,56 +64,7 @@ export default async function HomePage() {
 
   return (
     <>
-         {/* ── IN THE NEWS ─────────────────────────────────────────────────── */}
-      <section className="bg-iic-paper border-b border-stone-200">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-iic-saffron animate-pulse" />
-            <span className="text-[10px] font-sans font-bold uppercase tracking-[0.24em] text-iic-saffron">
-              In the News
-            </span>
-          </div>
-          <a
-            href="https://indianexpress.com/article/opinion/columns/why-does-benjamin-netanyahu-still-dominate-israeli-politics-10937262/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex flex-col sm:flex-row bg-white rounded-xl border border-stone-200 overflow-hidden hover:border-iic-navy/30 hover:shadow-lg transition-all duration-300"
-          >
-            <div className="sm:w-72 shrink-0 overflow-hidden bg-stone-100">
-              <img
-                src="https://images.indianexpress.com/2026/10/benjamin-netanyahu.jpg"
-                alt="Benjamin Netanyahu"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                style={{ aspectRatio: '16/9' }}
-              />
-            </div>
-            <div className="flex flex-col justify-center px-7 py-6">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-[9px] font-sans font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-full bg-iic-saffron/10 text-iic-saffron border border-iic-saffron/20">
-                  Israel Votes Today
-                </span>
-                <span className="text-[10px] font-sans text-stone-400">The Indian Express</span>
-                <span className="text-[10px] font-sans text-stone-400">·</span>
-                <span className="text-[10px] font-sans text-stone-500 italic">Prof. Khinvraj Jangid</span>
-              </div>
-              <h3 className="font-display text-xl md:text-2xl font-bold text-stone-900 leading-snug mb-3 group-hover:text-iic-navy transition-colors duration-200">
-                As Israel votes today, its political direction matters for partners like India
-              </h3>
-              <p className="text-sm font-sans text-stone-500 leading-relaxed mb-5">
-                As Israel heads to the polls, its political direction has direct implications for partners like India. A look at the factors behind Netanyahu's enduring hold on power.
-              </p>
-              <span className="inline-flex items-center gap-1.5 text-[10px] font-sans font-bold uppercase tracking-[0.18em] text-iic-saffron-deep">
-                Read Article
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                  <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </span>
-            </div>
-          </a>
-        </div>
-      </section>
-
-            {/* ── 1. FEATURED VIDEO ───────────────────────────────────────────── */}
+      {/* ── 1. FEATURED VIDEO ───────────────────────────────────────────── */}
       {featuredVideos.length > 0 &&
         (() => {
           const v = featuredVideos[0];
@@ -383,27 +334,27 @@ export default async function HomePage() {
                       Convenings
                     </div>
                     <div className="flex-1 divide-y divide-stone-100">
-                      {convenings.length > 0 ? (
-                        convenings.map((c) => (
-                          <Link
-                            key={c.id}
-                            href={`/forum/${c.slug}/`}
-                            className="group block py-4 last:pb-0"
-                          >
-                            <div className="text-[10px] font-sans uppercase tracking-wider text-iic-saffron mb-1">
-                              {formatDate(c.eventDate)}
-                              {c.format && (
-                                <span className="text-stone-400 ml-2 normal-case capitalize">
-                                  · {c.format}
-                                </span>
-                              )}
-                            </div>
-                            <h3 className="font-display text-[15px] font-semibold text-stone-900 group-hover:text-iic-saffron-deep leading-snug transition-colors">
-                              {c.title}
-                            </h3>
-                          </Link>
-                        ))
-                      ) : null}
+                      {convenings.length > 0
+                        ? convenings.map((c) => (
+                            <Link
+                              key={c.id}
+                              href={`/forum/${c.slug}/`}
+                              className="group block py-4 last:pb-0"
+                            >
+                              <div className="text-[10px] font-sans uppercase tracking-wider text-iic-saffron mb-1">
+                                {formatDate(c.eventDate)}
+                                {c.format && (
+                                  <span className="text-stone-400 ml-2 normal-case capitalize">
+                                    · {c.format}
+                                  </span>
+                                )}
+                              </div>
+                              <h3 className="font-display text-[15px] font-semibold text-stone-900 group-hover:text-iic-saffron-deep leading-snug transition-colors">
+                                {c.title}
+                              </h3>
+                            </Link>
+                          ))
+                        : null}
                     </div>
                     <div className="pt-5 mt-5 border-t border-stone-100">
                       <Link
