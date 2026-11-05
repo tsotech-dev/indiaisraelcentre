@@ -6,7 +6,9 @@ import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RichTextRenderer from "@/components/RichTextRenderer";
 import JsonLd from "@/components/JsonLd";
-import { getPerson } from "@/lib/payload";
+import Link from "next/link";
+import { getPerson, getPublications } from "@/lib/payload";
+import { formatDate, formatLabel, publicationPath } from "@/lib/utils";
 import { PILLARS } from "@/lib/pillars";
 
 export async function generateMetadata({
@@ -22,6 +24,15 @@ export async function generateMetadata({
     description: `${person.role} at the India Israel Centre.`,
     openGraph: { title: person.name },
   };
+}
+
+function normaliseName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\b(dr|prof|professor|mr|mrs|ms|amb|ambassador|shri|smt)\b\.?/g, "")
+    .replace(/[^a-z0-9\s]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function pillarDisplay(code: string): string {
@@ -68,6 +79,14 @@ export default async function PersonProfilePage({
     (person.externalAffiliations as { item: string }[] | null | undefined)?.map(
       (a) => a.item
     ) ?? [];
+
+  const personKey = normaliseName(person.name);
+  const allPubs = await getPublications({ limit: 500 });
+  const ownPubs = allPubs.filter((pub) =>
+    (pub.authors as { name: string }[] | null | undefined)?.some(
+      (a) => normaliseName(a.name) === personKey
+    )
+  );
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -191,6 +210,30 @@ export default async function PersonProfilePage({
           <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">
             Publications and external work
           </h2>
+          {ownPubs.length > 0 && (
+            <ul className="space-y-4 mb-8">
+              {ownPubs.map((pub) => (
+                <li key={pub.id}>
+                  <Link
+                    href={publicationPath(pub.type, pub.slug)}
+                    className="group block"
+                  >
+                    <span className="text-[10px] font-sans font-bold uppercase tracking-[0.14em] text-iic-saffron-deep mr-2">
+                      {formatLabel(pub.type)}
+                    </span>
+                    {pub.publishedDate && (
+                      <span className="text-xs text-stone-400">
+                        {formatDate(pub.publishedDate)}
+                      </span>
+                    )}
+                    <span className="block font-display text-lg font-semibold text-stone-900 group-hover:text-iic-navy transition-colors">
+                      {pub.title}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
           {externals.length > 0 ? (
             <ul className="list-disc pl-6 space-y-2 text-stone-700 leading-relaxed">
               {externals.map((e, i) => (
@@ -198,10 +241,12 @@ export default async function PersonProfilePage({
               ))}
             </ul>
           ) : (
-            <p className="text-sm text-stone-500 italic">
-              Auto-populated from the Centre&rsquo;s database. External
-              publications list to be added.
-            </p>
+            ownPubs.length === 0 && (
+              <p className="text-sm text-stone-500 italic">
+                Auto-populated from the Centre&rsquo;s database. External
+                publications list to be added.
+              </p>
+            )
           )}
         </div>
       </section>
