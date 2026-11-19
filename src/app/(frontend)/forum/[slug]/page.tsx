@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import VideoEmbed from '@/components/VideoEmbed'
+import EventGallery from '@/components/EventGallery'
 import RichTextRenderer from '@/components/RichTextRenderer'
 import JsonLd from '@/components/JsonLd'
 import Link from 'next/link'
@@ -169,30 +170,19 @@ export default async function ConveningDetailPage({
             <h2 className="font-display text-2xl md:text-3xl font-bold text-stone-900 mb-8">
               Photo Gallery
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {eventImages.map((item: { image?: unknown; caption?: string }, i: number) => {
-                const img = item.image as MediaObj | undefined
-                if (!img?.url) return null
-                return (
-                  <div key={i} className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-stone-100">
-                    <Image
-                      src={img.url}
-                      alt={item.caption ?? `Event photo ${i + 1}`}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 33vw"
-                    />
-                    {item.caption && (
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                        <p className="text-white text-xs font-sans leading-snug">
-                          {item.caption}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
+            <EventGallery
+              images={eventImages
+                .map((item: { image?: unknown; caption?: string }, i: number) => {
+                  const img = item.image as MediaObj | undefined
+                  if (!img?.url) return null
+                  return {
+                    src: img.url,
+                    alt: item.caption ?? img.alt ?? `Event photo ${i + 1}`,
+                    caption: item.caption,
+                  }
+                })
+                .filter((x): x is { src: string; alt: string; caption: string | undefined } => x !== null)}
+            />
           </div>
         </section>
       )}
