@@ -211,3 +211,14 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
   outline: 2px solid var(--color-iic-saffron);
   outline-offset: 2px;
 }
+
+/* ── News banner slider: 5s auto-advance timer ─────────────────────────── */
+@keyframes banner-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .banner-progress { animation: banner-progress 5s linear forwards; }
+}
+.banner-slider:hover .banner-progress,
+.banner-slider:focus-within .banner-progress { animation-play-state: paused; }

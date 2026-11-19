@@ -13,7 +13,14 @@ import {
   getVideos,
 } from "@/lib/payload";
 import MediaMarquee from "@/components/MediaMarquee";
-import { pillarLabel, formatDate, publicationPath } from "@/lib/utils";
+import NewsBannerSlider, { type BannerSlide } from "@/components/NewsBannerSlider";
+import {
+  pillarLabel,
+  formatDate,
+  publicationPath,
+  formatLabel,
+  conveningFormatLabel,
+} from "@/lib/utils";
 
 const ORG_JSONLD = {
   "@context": "https://schema.org",
@@ -62,43 +69,72 @@ export default async function HomePage() {
   const convenings =
     upcomingConvenings.length > 0 ? upcomingConvenings : recentConvenings;
 
+  // ── Banner slides: In the News → Recent convening #1 → #2 → Recent publication
+  const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+  const bannerSlides: BannerSlide[] = [
+    {
+      id: "news",
+      label: "In the News",
+      title: "Even after the elections, Israel waits for change",
+      meta: "Hindustan Times · Prof. Khinvraj Jangid",
+      href: "https://www.hindustantimes.com/opinion/even-after-the-elections-israel-waits-for-change-101794428275117.html",
+      external: true,
+      image: { src: "/images/in_the_news_thumbnail.avif", alt: "" },
+      cta: "Read Article",
+    },
+    ...recentConvenings.slice(0, 2).map((c): BannerSlide => {
+      const d = new Date(c.eventDate as string);
+      const firstImg = (
+        Array.isArray(c.eventImages) ? c.eventImages : []
+      ).find((e: { image?: unknown }) => (e.image as { url?: string } | undefined)?.url) as
+        | { image: { url: string } }
+        | undefined;
+      return {
+        id: `convening-${c.id}`,
+        label: "Recent Convening",
+        title: c.title as string,
+        meta: [formatDate(c.eventDate as string), c.format ? conveningFormatLabel(c.format as string) : null]
+          .filter(Boolean)
+          .join(" · "),
+        href: `/forum/${c.slug}/`,
+        image: firstImg ? { src: firstImg.image.url, alt: "" } : undefined,
+        fallback: {
+          top: MONTHS[d.getMonth()],
+          main: d.getDate().toString().padStart(2, "0"),
+          bottom: String(d.getFullYear()),
+        },
+        cta: "View Event",
+      };
+    }),
+    ...latestPubs.slice(0, 1).map((p): BannerSlide => {
+      const authors = Array.isArray(p.authors)
+        ? (p.authors as Array<{ name?: string }>).map((a) => a.name).filter(Boolean).join(", ")
+        : "";
+      return {
+        id: `publication-${p.id}`,
+        label: "Recent Publication",
+        title: p.title as string,
+        meta: [
+          authors,
+          p.type ? formatLabel(p.type as string) : null,
+          p.publishedDate ? formatDate(p.publishedDate as string) : null,
+        ]
+          .filter(Boolean)
+          .join(" · "),
+        href: publicationPath(p.type as string, p.slug as string),
+        // Publications have no image field, so this thumbnail is set by hand.
+        // Update/remove it when a newer publication becomes the latest one.
+        image: { src: "/images/recent_publication_thumbnail.png", alt: "" },
+        fallback: { main: p.type ? formatLabel(p.type as string).toUpperCase() : "PUBLICATION" },
+        cta: "Read",
+      };
+    }),
+  ];
+
   return (
     <>
-      {/* ── NEWS BANNER (attached under header) ─────────────────────────── */}
-      <a
-        href="https://www.hindustantimes.com/opinion/even-after-the-elections-israel-waits-for-change-101794428275117.html"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group block bg-[#001a3d] border-t border-white/10 border-b border-white/5 text-white hover:bg-[#00224f] transition-colors duration-200"
-      >
-        <div className="max-w-7xl mx-auto px-6 py-5 sm:py-6 flex items-center gap-4 sm:gap-6">
-          <img
-            src="/images/in_the_news_thumbnail.avif"
-            alt=""
-            className="h-20 w-32 sm:h-28 sm:w-48 rounded-md object-cover shrink-0 border border-white/10"
-          />
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
-              <span className="w-2 h-2 rounded-full bg-iic-saffron animate-pulse" />
-              <span className="text-[11px] sm:text-xs font-sans font-bold uppercase tracking-[0.22em] text-iic-saffron">
-                In the News
-              </span>
-            </div>
-            <h3 className="font-display text-lg sm:text-2xl lg:text-3xl font-bold leading-snug text-white">
-              Even after the elections, Israel waits for change
-            </h3>
-            <div className="mt-1.5 text-xs sm:text-sm font-sans text-white/60">
-              Hindustan Times · <span className="italic">Prof. Khinvraj Jangid</span>
-            </div>
-          </div>
-          <span className="hidden md:inline-flex shrink-0 items-center gap-2 text-xs font-sans font-bold uppercase tracking-[0.18em] text-iic-saffron border border-iic-saffron/40 rounded-full px-5 py-2.5 group-hover:bg-iic-saffron group-hover:text-[#001a3d] transition-colors duration-200">
-            Read Article
-            <svg width="12" height="12" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-              <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </span>
-        </div>
-      </a>
+      {/* ── NEWS BANNER SLIDER (attached under header) ──────────────────── */}
+      <NewsBannerSlider slides={bannerSlides} />
 
       {/* ── 1. FEATURED VIDEO ───────────────────────────────────────────── */}
       {featuredVideos.length > 0 &&
