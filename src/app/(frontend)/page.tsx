@@ -64,6 +64,42 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* ── NEWS BANNER (attached under header) ─────────────────────────── */}
+      <a
+        href="https://www.hindustantimes.com/opinion/even-after-the-elections-israel-waits-for-change-101794428275117.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block bg-[#001a3d] border-t border-white/10 border-b border-white/5 text-white hover:bg-[#00224f] transition-colors duration-200"
+      >
+        <div className="max-w-7xl mx-auto px-6 py-5 sm:py-6 flex items-center gap-4 sm:gap-6">
+          <img
+            src="/images/in_the_news_thumbnail.avif"
+            alt=""
+            className="h-20 w-32 sm:h-28 sm:w-48 rounded-md object-cover shrink-0 border border-white/10"
+          />
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
+              <span className="w-2 h-2 rounded-full bg-iic-saffron animate-pulse" />
+              <span className="text-[11px] sm:text-xs font-sans font-bold uppercase tracking-[0.22em] text-iic-saffron">
+                In the News
+              </span>
+            </div>
+            <h3 className="font-display text-lg sm:text-2xl lg:text-3xl font-bold leading-snug text-white">
+              Even after the elections, Israel waits for change
+            </h3>
+            <div className="mt-1.5 text-xs sm:text-sm font-sans text-white/60">
+              Hindustan Times · <span className="italic">Prof. Khinvraj Jangid</span>
+            </div>
+          </div>
+          <span className="hidden md:inline-flex shrink-0 items-center gap-2 text-xs font-sans font-bold uppercase tracking-[0.18em] text-iic-saffron border border-iic-saffron/40 rounded-full px-5 py-2.5 group-hover:bg-iic-saffron group-hover:text-[#001a3d] transition-colors duration-200">
+            Read Article
+            <svg width="12" height="12" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
       {/* ── 1. FEATURED VIDEO ───────────────────────────────────────────── */}
       {featuredVideos.length > 0 &&
         (() => {
