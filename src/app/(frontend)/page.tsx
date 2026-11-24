@@ -73,6 +73,16 @@ export default async function HomePage() {
   const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
   const bannerSlides: BannerSlide[] = [
     {
+      id: "news-millennium-post",
+      label: "In the News",
+      title: "Beyond the Modi-Netanyahu Equation",
+      meta: "Millennium Post · Prof. Khinvraj Jangid",
+      href: "https://www.millenniumpost.in/opinion/beyond-the-modi-netanyahu-equation-684264",
+      external: true,
+      image: { src: "https://www.millenniumpost.in/h-upload/2026/11/22/1068610-hc.jpg", alt: "" },
+      cta: "Read Article",
+    },
+    {
       id: "news",
       label: "In the News",
       title: "Even after the elections, Israel waits for change",
