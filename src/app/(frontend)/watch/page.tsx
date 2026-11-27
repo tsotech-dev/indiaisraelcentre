@@ -5,13 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { getVideos } from "@/lib/payload";
+import { getAllVideos } from "@/lib/payload";
 import { pillarLabel, formatDate } from "@/lib/utils";
 
-function youtubeThumb(url: string): string | null {
-  const m = url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/);
-  return m ? `https://img.youtube.com/vi/${m[1]}/maxresdefault.jpg` : null;
-}
+const PAGE_SIZE = 12;
 
 export const metadata: Metadata = {
   title: "Watch",
@@ -19,8 +16,16 @@ export const metadata: Metadata = {
     "Videos from the India Israel Centre — recorded convenings, talks, and roundtables.",
 };
 
-export default async function WatchPage() {
-  const videos = await getVideos();
+export default async function WatchPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const allVideos = await getAllVideos();
+  const totalPages = Math.max(1, Math.ceil(allVideos.length / PAGE_SIZE));
+  const page = Math.min(Math.max(parseInt(pageParam ?? "1", 10) || 1, 1), totalPages);
+  const videos = allVideos.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <>
@@ -53,15 +58,10 @@ export default async function WatchPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {videos.map((v, i) => {
-                const thumbUrl =
-                  v.thumbnail &&
-                  typeof v.thumbnail === "object" &&
-                  "url" in v.thumbnail
-                    ? (v.thumbnail.url as string)
-                    : youtubeThumb(v.videoUrl as string);
+                const thumbUrl = v.thumbnailUrl;
 
                 return (
-                  <Reveal key={v.id as string} delay={Math.min(i * 80, 320)}>
+                  <Reveal key={v.id} delay={Math.min(i * 80, 320)}>
                     <Link
                       href={`/watch/${v.slug}/`}
                       className="group block bg-white border border-stone-200 rounded-xl overflow-hidden hover-lift hover:border-iic-navy/30 transition-colors"
@@ -70,7 +70,7 @@ export default async function WatchPage() {
                         {thumbUrl ? (
                           <Image
                             src={thumbUrl}
-                            alt={v.title as string}
+                            alt={v.title}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                             sizes="(min-width: 768px) 50vw, 100vw"
@@ -101,20 +101,20 @@ export default async function WatchPage() {
                       <div className="p-5">
                         <div className="flex items-center gap-3 mb-2">
                           <span className="text-[10px] font-sans font-bold uppercase tracking-[0.18em] text-iic-saffron">
-                            {formatDate(v.date as string)}
+                            {formatDate(v.date)}
                           </span>
                           {v.pillar && (
                             <span className="text-[10px] font-sans uppercase tracking-wider text-stone-400">
-                              {pillarLabel(v.pillar as string)}
+                              {pillarLabel(v.pillar)}
                             </span>
                           )}
                         </div>
                         <h2 className="font-display text-lg font-bold text-stone-900 group-hover:text-iic-navy leading-snug transition-colors">
-                          {v.title as string}
+                          {v.title}
                         </h2>
                         {v.description && (
                           <p className="text-sm text-stone-500 mt-2 leading-relaxed line-clamp-2">
-                            {v.description as string}
+                            {v.description}
                           </p>
                         )}
                       </div>
@@ -123,6 +123,33 @@ export default async function WatchPage() {
                 );
               })}
             </div>
+          )}
+
+          {totalPages > 1 && (
+            <nav
+              aria-label="Video pages"
+              className="mt-12 flex items-center justify-center gap-2 font-sans text-sm"
+            >
+              {page > 1 ? (
+                <Link
+                  href={page - 1 === 1 ? "/watch/" : `/watch/?page=${page - 1}`}
+                  className="px-4 py-2 border border-stone-300 rounded hover:border-iic-navy hover:text-iic-navy transition-colors"
+                >
+                  ← Newer
+                </Link>
+              ) : null}
+              <span className="px-3 text-stone-500">
+                Page {page} of {totalPages}
+              </span>
+              {page < totalPages ? (
+                <Link
+                  href={`/watch/?page=${page + 1}`}
+                  className="px-4 py-2 border border-stone-300 rounded hover:border-iic-navy hover:text-iic-navy transition-colors"
+                >
+                  Older →
+                </Link>
+              ) : null}
+            </nav>
           )}
         </div>
       </section>

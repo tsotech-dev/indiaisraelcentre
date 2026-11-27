@@ -163,3 +163,77 @@ export async function getPillarContent(code: string) {
     return null
   }
 }
+
+// ── Videos: CMS entries merged with the whole YouTube channel feed ──────────
+
+export interface SiteVideo {
+  id: string
+  title: string
+  slug: string
+  date: string
+  pillar?: string | null
+  description?: string | null
+  videoUrl: string
+  thumbnailUrl: string | null
+  source: 'cms' | 'youtube'
+}
+
+const YT_ID_RE = /(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/
+
+/**
+ * Every video to show on the Watch pages, newest first.
+ * - Videos added in the admin keep their slug, pillar and description.
+ * - Channel uploads not in the admin are added automatically (slug "yt-<id>").
+ * - A video present in both is shown once, using the admin entry.
+ */
+export async function getAllVideos(opts: { pillar?: string } = {}): Promise<SiteVideo[]> {
+  const { getChannelVideos } = await import('./youtube')
+  const [cms, channel] = await Promise.all([getVideos({ limit: 1000 }), getChannelVideos()])
+
+  const cmsVideos: SiteVideo[] = cms.map((v) => {
+    const videoUrl = v.videoUrl as string
+    const ytId = videoUrl?.match(YT_ID_RE)?.[1]
+    const thumb =
+      v.thumbnail && typeof v.thumbnail === 'object' && 'url' in v.thumbnail
+        ? ((v.thumbnail as { url?: string }).url ?? null)
+        : null
+    return {
+      id: String(v.id),
+      title: v.title as string,
+      slug: v.slug as string,
+      date: v.date as string,
+      pillar: (v.pillar as string | null | undefined) ?? null,
+      description: (v.description as string | null | undefined) ?? null,
+      videoUrl,
+      thumbnailUrl: thumb ?? (ytId ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg` : null),
+      source: 'cms',
+    }
+  })
+
+  const cmsYtIds = new Set(
+    cmsVideos.map((v) => v.videoUrl?.match(YT_ID_RE)?.[1]).filter((x): x is string => !!x),
+  )
+
+  const channelVideos: SiteVideo[] = channel
+    .filter((v) => !cmsYtIds.has(v.id))
+    .map((v) => ({
+      id: `yt-${v.id}`,
+      title: v.title,
+      slug: `yt-${v.id}`,
+      date: v.publishedAt,
+      pillar: null,
+      description: v.description || null,
+      videoUrl: v.url,
+      thumbnailUrl: v.thumbnailUrl,
+      source: 'youtube' as const,
+    }))
+
+  const all = [...cmsVideos, ...channelVideos].sort((a, b) => +new Date(b.date) - +new Date(a.date))
+  return opts.pillar ? all.filter((v) => v.pillar === opts.pillar) : all
+}
+
+/** One video by slug: an admin entry, or a channel upload ("yt-<id>"). */
+export async function getAnyVideo(slug: string): Promise<SiteVideo | null> {
+  const all = await getAllVideos()
+  return all.find((v) => v.slug === slug) ?? null
+}

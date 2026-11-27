@@ -7,7 +7,7 @@ import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
-import { getVideo, getVideos } from "@/lib/payload";
+import { getAnyVideo, getAllVideos } from "@/lib/payload";
 import { pillarLabel, formatDate } from "@/lib/utils";
 
 function youtubeId(url: string): string | null {
@@ -24,23 +24,18 @@ function embedUrl(url: string): string {
   return url;
 }
 
-function autoThumb(url: string): string | null {
-  const id = youtubeId(url);
-  return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : null;
-}
-
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const video = await getVideo(slug);
+  const video = await getAnyVideo(slug);
   if (!video) return {};
   return {
-    title: video.title as string,
-    description: (video.description as string | undefined)?.slice(0, 200),
-    openGraph: { title: video.title as string, type: "video.other" },
+    title: video.title,
+    description: video.description?.slice(0, 200),
+    openGraph: { title: video.title, type: "video.other" },
   };
 }
 
@@ -50,22 +45,16 @@ export default async function WatchDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const video = await getVideo(slug);
+  const video = await getAnyVideo(slug);
   if (!video) notFound();
 
-  const related = await getVideos({
-    limit: 4,
-    pillar: video.pillar as string | undefined,
+  const related = await getAllVideos({
+    pillar: video.pillar ?? undefined,
   });
   const others = related.filter((v) => v.slug !== video.slug).slice(0, 2);
 
-  const videoUrl = video.videoUrl as string;
-  const thumbUrl =
-    video.thumbnail &&
-    typeof video.thumbnail === "object" &&
-    "url" in video.thumbnail
-      ? (video.thumbnail.url as string)
-      : autoThumb(videoUrl);
+  const videoUrl = video.videoUrl;
+  const thumbUrl = video.thumbnailUrl;
 
   const pageUrl = `https://indiaisraelcentre.org/watch/${video.slug}/`;
 
@@ -96,17 +85,17 @@ export default async function WatchDetailPage({
           <Breadcrumbs
             crumbs={[
               { label: "Watch", href: "/watch/" },
-              { label: video.title as string },
+              { label: video.title },
             ]}
           />
           <div className="text-stone-400 font-normal normal-case tracking-normal">
-            {video.pillar && pillarLabel(video.pillar as string)}
+            {video.pillar && pillarLabel(video.pillar)}
           </div>
           <h1 className="font-display text-4xl md:text-5xl font-bold leading-[1.02] tracking-tight text-stone-900 max-w-3xl">
-            {video.title as string}
+            {video.title}
           </h1>
           <p className="mt-3 text-stone-500 font-display italic">
-            {formatDate(video.date as string)}
+            {formatDate(video.date)}
           </p>
         </div>
       </section>
@@ -117,7 +106,7 @@ export default async function WatchDetailPage({
             <div className="relative w-full aspect-video rounded-sm overflow-hidden ring-1 ring-stone-200 bg-black">
               <iframe
                 src={embedUrl(videoUrl)}
-                title={video.title as string}
+                title={video.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 w-full h-full"
@@ -128,8 +117,8 @@ export default async function WatchDetailPage({
           <div className="mt-10 flex flex-col md:flex-row md:items-start gap-8">
             {video.description && (
               <Reveal className="flex-1">
-                <p className="text-stone-700 leading-relaxed text-lg">
-                  {video.description as string}
+                <p className="text-stone-700 leading-relaxed text-lg whitespace-pre-line break-words">
+                  {video.description}
                 </p>
               </Reveal>
             )}
@@ -140,7 +129,7 @@ export default async function WatchDetailPage({
                     Share
                   </div>
                   <a
-                    href={`mailto:?subject=${encodeURIComponent(video.title as string)}&body=${encodeURIComponent(pageUrl)}`}
+                    href={`mailto:?subject=${encodeURIComponent(video.title)}&body=${encodeURIComponent(pageUrl)}`}
                     className="inline-flex items-center gap-2 text-xs font-sans font-semibold bg-stone-900 text-white px-4 py-2.5 hover:bg-iic-navy transition-colors w-full justify-center"
                   >
                     Share via email
@@ -168,7 +157,7 @@ export default async function WatchDetailPage({
                       href={`/research/themes/${video.pillar}/`}
                       className="text-sm text-iic-navy underline-anim"
                     >
-                      {pillarLabel(video.pillar as string)}
+                      {pillarLabel(video.pillar)}
                     </Link>
                   </div>
                 )}
@@ -188,15 +177,9 @@ export default async function WatchDetailPage({
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {others.map((v, i) => {
-                const vUrl = v.videoUrl as string;
-                const t =
-                  v.thumbnail &&
-                  typeof v.thumbnail === "object" &&
-                  "url" in v.thumbnail
-                    ? (v.thumbnail.url as string)
-                    : autoThumb(vUrl);
+                const t = v.thumbnailUrl;
                 return (
-                  <Reveal key={v.id as string} delay={i * 80}>
+                  <Reveal key={v.id} delay={i * 80}>
                     <Link
                       href={`/watch/${v.slug}/`}
                       className="group flex gap-4 bg-iic-paper border border-stone-200 rounded-xl overflow-hidden hover-lift hover:border-iic-navy/30 transition-colors p-4"
@@ -205,7 +188,7 @@ export default async function WatchDetailPage({
                         {t && (
                           <Image
                             src={t}
-                            alt={v.title as string}
+                            alt={v.title}
                             fill
                             className="object-cover"
                             sizes="128px"
@@ -223,10 +206,10 @@ export default async function WatchDetailPage({
                       </div>
                       <div className="flex flex-col justify-center min-w-0">
                         <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-iic-saffron mb-1">
-                          {formatDate(v.date as string)}
+                          {formatDate(v.date)}
                         </span>
                         <h3 className="font-display text-sm font-bold text-stone-900 group-hover:text-iic-navy leading-snug transition-colors line-clamp-2">
-                          {v.title as string}
+                          {v.title}
                         </h3>
                       </div>
                     </Link>
